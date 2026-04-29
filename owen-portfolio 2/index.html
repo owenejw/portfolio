@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owen Williams — Media & Communications</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--cream:#f0ece3;--hot:#ff2d6b;--electric:#00f5c4;--violet:#7b2fff;--amber:#ffb800;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:10px;height:10px;background:var(--hot);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:transform 0.12s;}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(255,255,255,0.32);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.18s,height 0.18s;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:9997;}
+.bg-canvas{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.bg-shape{position:absolute;pointer-events:none;opacity:0.05;}
+.bg-shape svg{animation:rotateSlow 25s linear infinite;}
+.bg-shape.rev svg{animation-direction:reverse;}
+@keyframes rotateSlow{to{transform:rotate(360deg);}}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.78);backdrop-filter:blur(16px);border-bottom:1px solid rgba(240,236,227,0.07);}
+.nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:14px;letter-spacing:-0.02em;color:var(--cream);text-decoration:none;}
+.nav-logo span{color:var(--hot);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.45);text-decoration:none;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1px;background:var(--hot);transition:right 0.3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--cream);}
+.nav-links a:hover::after,.nav-links a.active::after{right:0;}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--electric);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.65);}}
+section{position:relative;}
+.section-inner{max-width:1200px;margin:0 auto;padding:120px 48px;}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--hot);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.section-label::before{content:'';width:24px;height:1px;background:var(--hot);}
+.section-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(30px,4vw,50px);line-height:1.1;letter-spacing:-0.02em;margin-bottom:24px;}
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;overflow:hidden;position:relative;}
+.hero-gradient{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 30%,rgba(123,47,255,0.45) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 20% 80%,rgba(255,45,107,0.35) 0%,transparent 55%),radial-gradient(ellipse 60% 40% at 50% 10%,rgba(0,245,196,0.18) 0%,transparent 50%),#0a0a0a;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(240,236,227,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(240,236,227,0.03) 1px,transparent 1px);background-size:80px 80px;}
+.hero-float-photo{position:absolute;right:60px;bottom:0;width:320px;z-index:10;pointer-events:none;transform:rotate(-6deg);transform-origin:bottom center;}
+.hero-float-photo img{width:100%;display:block;object-fit:contain;object-position:bottom;filter:drop-shadow(0 0 80px rgba(123,47,255,0.45));mask-image:linear-gradient(to top,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.9) 50%,rgba(0,0,0,0.3) 85%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.9) 50%,rgba(0,0,0,0.3) 85%,transparent 100%);}
+.hero-stamp{position:absolute;top:120px;right:420px;width:130px;height:150px;border:2px dashed rgba(240,236,227,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(240,236,227,0.22);transform:rotate(8deg);}
+.hero-stamp::before{content:'';width:44px;height:44px;border-radius:50%;border:1px solid rgba(240,236,227,0.16);display:block;}
+.hero-bg-shape{position:absolute;top:36%;right:22%;width:200px;height:200px;opacity:0.07;pointer-events:none;animation:rotateSlow 22s linear infinite;}
+.hero-year{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--electric);text-transform:uppercase;margin-bottom:24px;position:relative;}
+.hero-name{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(52px,9vw,118px);line-height:0.9;letter-spacing:-0.03em;margin-bottom:32px;position:relative;}
+.hero-name .outline{color:transparent;-webkit-text-stroke:1.5px var(--cream);display:block;}
+.hero-tagline{font-size:17px;font-weight:300;color:rgba(240,236,227,0.6);max-width:520px;line-height:1.65;margin-bottom:48px;position:relative;}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;position:relative;}
+.badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:8px 15px;border:1px solid;border-radius:2px;}
+.b-hot{border-color:var(--hot);color:var(--hot);}
+.b-violet{border-color:var(--violet);color:var(--violet);}
+.b-electric{border-color:var(--electric);color:var(--electric);}
+.b-amber{border-color:var(--amber);color:var(--amber);}
+.hero-scroll{position:absolute;bottom:40px;right:48px;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(240,236,227,0.25);}
+.scroll-line{width:1px;height:56px;background:linear-gradient(to bottom,rgba(240,236,227,0.3),transparent);animation:scrollAnim 2s ease-in-out infinite;}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+#story{background:var(--ink);}
+.story-intro{font-size:19px;font-weight:300;line-height:1.75;color:rgba(240,236,227,0.7);max-width:660px;margin-bottom:80px;}
+.timeline{position:relative;padding-left:40px;}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--hot),var(--violet),var(--electric),var(--amber));}
+.tl-item{position:relative;margin-bottom:68px;opacity:0;transform:translateX(-18px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.tl-item.visible{opacity:1;transform:translateX(0);}
+.tl-dot{position:absolute;left:-46px;top:7px;width:12px;height:12px;border-radius:50%;border:2px solid;background:var(--ink);}
+.tl-year{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;margin-bottom:7px;}
+.tl-role{font-family:'Unbounded',sans-serif;font-weight:700;font-size:19px;margin-bottom:5px;line-height:1.2;}
+.tl-org{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.08em;margin-bottom:13px;opacity:0.45;}
+.tl-desc{font-size:14.5px;line-height:1.75;color:rgba(240,236,227,0.62);max-width:580px;margin-bottom:16px;}
+.tl-highlight{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:6px 14px;border-radius:2px;margin-bottom:16px;background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.1);color:rgba(240,236,227,0.5);}
+.tl-highlight strong{font-weight:700;font-size:12px;}
+.tl-callouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;margin:16px 0 8px;}
+.tl-callout{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);border-left:2px solid var(--amber);padding:16px 18px;}
+.tl-callout-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:7px;}
+.tl-callout-text{font-size:12.5px;line-height:1.7;color:rgba(240,236,227,0.55);}
+.tl-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.tl-btn{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:9px 18px;border:1px solid;border-radius:2px;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-block;}
+.tl-btn-outline{background:transparent;color:rgba(240,236,227,0.45);border-color:rgba(240,236,227,0.15);}
+.tl-btn-outline:hover{color:var(--cream);border-color:rgba(240,236,227,0.4);}
+.tl-btn-accent{background:transparent;}
+.tl-btn-accent:hover{background:currentColor;color:var(--ink);}
+.tl-arrow{font-family:'Space Mono',monospace;font-size:10px;color:var(--electric);letter-spacing:0.08em;margin-top:16px;display:block;}
+.t-hot{border-color:var(--hot);color:var(--hot);}
+.t-violet{border-color:var(--violet);color:var(--violet);}
+.t-electric{border-color:var(--electric);color:var(--electric);}
+.t-amber{border-color:var(--amber);color:var(--amber);}
+.t-orange{border-color:#ff8c00;color:#ff8c00;}
+.edu-block{margin-top:60px;padding:28px 32px;border:1px solid rgba(240,236,227,0.07);background:rgba(240,236,227,0.02);}
+.edu-section{margin-bottom:20px;}
+.edu-section:last-child{margin-bottom:0;}
+.edu-divider{height:1px;background:rgba(240,236,227,0.07);margin:20px 0;}
+.edu-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:15px;margin-bottom:6px;}
+.edu-item{font-family:'Space Mono',monospace;font-size:11px;color:rgba(240,236,227,0.4);letter-spacing:0.06em;margin-bottom:4px;}
+.photo-strip{margin-top:56px;}
+.photo-strip-item{overflow:hidden;position:relative;}
+.photo-strip-item img{width:100%;height:380px;object-fit:cover;object-position:center;display:block;transition:transform 0.5s;filter:brightness(0.85);}
+.photo-strip-item:hover img{transform:scale(1.03);filter:brightness(1);}
+.photo-strip-caption{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;background:linear-gradient(to top,rgba(10,10,10,0.8),transparent);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,236,227,0.5);}
+.stats-wrap{background:#0a0a0a;border-top:1px solid rgba(240,236,227,0.05);}
+.stats-band{padding:80px 48px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2px;}
+.stat-item{padding:36px 28px;border:1px solid rgba(240,236,227,0.06);background:rgba(240,236,227,0.02);}
+.stat-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:46px;letter-spacing:-0.04em;line-height:1;margin-bottom:8px;}
+.stat-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,236,227,0.38);line-height:1.6;}
+#expertise{background:#0d0d0d;position:relative;overflow:hidden;}
+#expertise::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 80% 50%,rgba(255,45,107,0.1) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 10% 50%,rgba(0,245,196,0.07) 0%,transparent 60%);}
+.expertise-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:2px;margin-top:60px;}
+.exp-card{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:36px 28px;position:relative;overflow:hidden;transition:background 0.3s,border-color 0.3s;}
+.exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:opacity 0.3s;opacity:0;}
+.exp-card:hover{background:rgba(240,236,227,0.055);border-color:rgba(240,236,227,0.11);}
+.exp-card:hover::before{opacity:1;}
+.ec-hot::before{background:var(--hot);}
+.ec-violet::before{background:var(--violet);}
+.ec-electric::before{background:var(--electric);}
+.ec-amber::before{background:var(--amber);}
+.exp-icon{font-size:24px;margin-bottom:18px;display:block;}
+.exp-name{font-family:'Unbounded',sans-serif;font-weight:700;font-size:15px;margin-bottom:11px;line-height:1.25;}
+.exp-desc{font-size:13px;line-height:1.72;color:rgba(240,236,227,0.48);margin-bottom:18px;}
+.exp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.etag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.07em;text-transform:uppercase;padding:4px 9px;background:rgba(240,236,227,0.055);border-radius:2px;color:rgba(240,236,227,0.4);}
+#work{background:var(--ink);}
+.work-filter{display:flex;gap:4px;margin-bottom:44px;flex-wrap:wrap;}
+.filter-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:9px 18px;background:transparent;border:1px solid rgba(240,236,227,0.11);color:rgba(240,236,227,0.42);cursor:pointer;transition:all 0.2s;border-radius:2px;}
+.filter-btn:hover,.filter-btn.active{background:var(--hot);border-color:var(--hot);color:var(--cream);}
+.work-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;}
+.work-item{background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.07);overflow:hidden;position:relative;transition:all 0.3s;cursor:pointer;}
+.work-item:hover{border-color:rgba(240,236,227,0.18);}
+.work-item.col-8{grid-column:span 8;}
+.work-item.col-4{grid-column:span 4;}
+.work-item.col-6{grid-column:span 6;}
+.work-item.col-12{grid-column:span 12;}
+.work-ph{width:100%;aspect-ratio:4/3;display:flex;align-items:flex-end;padding:22px;position:relative;overflow:hidden;}
+.work-item.col-8 .work-ph{aspect-ratio:16/9;}
+.work-item.col-12 .work-ph{aspect-ratio:21/9;}
+.work-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:68px;opacity:0.055;transition:opacity 0.3s,transform 0.4s;}
+.work-item:hover .work-bg{opacity:0.09;transform:scale(1.05);}
+.work-content{position:relative;z-index:2;}
+.work-cat{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--hot);margin-bottom:5px;}
+.work-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;line-height:1.25;}
+.work-sub{font-size:11px;color:rgba(240,236,227,0.4);margin-top:4px;}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.88) 0%,transparent 55%);}
+.work-yt-badge{position:absolute;top:16px;right:16px;background:rgba(200,0,0,0.85);color:white;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;z-index:3;}
+#clients{background:#0d0d0d;border-top:1px solid rgba(240,236,227,0.05);border-bottom:1px solid rgba(240,236,227,0.05);}
+.marquee-wrap{overflow:hidden;margin-top:44px;}
+.marquee-track{display:flex;gap:44px;animation:marquee 28s linear infinite;width:max-content;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.m-item{font-family:'Unbounded',sans-serif;font-weight:300;font-size:17px;letter-spacing:-0.02em;color:rgba(240,236,227,0.18);white-space:nowrap;padding:8px 0;}
+.m-dot{color:var(--hot);margin-right:44px;}
+#schools{background:var(--ink);}
+.schools-intro{font-size:14.5px;color:rgba(240,236,227,0.42);max-width:580px;line-height:1.72;margin-bottom:44px;margin-top:-14px;}
+.subsection-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,236,227,0.28);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.subsection-label::before{content:'';width:14px;height:1px;background:rgba(240,236,227,0.18);}
+.schools-marquee-container{overflow:hidden;display:flex;flex-direction:column;gap:6px;}
+.schools-row{display:flex;gap:6px;width:max-content;}
+.schools-row.row-1{animation:schoolsLeft 35s linear infinite;}
+.schools-row.row-2{animation:schoolsRight 42s linear infinite;}
+.schools-row.row-3{animation:schoolsLeft 30s linear infinite;}
+@keyframes schoolsLeft{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+@keyframes schoolsRight{0%{transform:translateX(-50%);}100%{transform:translateX(0);}}
+.school-tile{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.07em;color:rgba(240,236,227,0.42);padding:13px 20px;border:1px solid rgba(240,236,227,0.06);background:rgba(240,236,227,0.02);white-space:nowrap;transition:all 0.2s;}
+.school-tile:hover{color:var(--cream);background:rgba(240,236,227,0.05);border-color:rgba(240,236,227,0.12);}
+.sports-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;}
+.sport-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.07em;text-transform:uppercase;padding:10px 18px;border:1px solid rgba(240,236,227,0.12);color:rgba(240,236,227,0.5);border-radius:2px;transition:all 0.2s;}
+.sport-tag:hover{border-color:var(--electric);color:var(--electric);}
+#gear{background:#0d0d0d;}
+.gear-primary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-top:48px;}
+.gear-card{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);overflow:hidden;transition:border-color 0.3s;}
+.gear-card.expanded{border-color:rgba(240,236,227,0.15);}
+.gear-card-header{padding:28px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;transition:background 0.2s;}
+.gear-card-header:hover{background:rgba(240,236,227,0.04);}
+.gear-brand{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px;margin-bottom:5px;}
+.gear-use{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;color:rgba(240,236,227,0.38);line-height:1.5;}
+.gear-expand-icon{font-size:20px;color:rgba(240,236,227,0.25);transition:transform 0.3s,color 0.3s;line-height:1;}
+.gear-card.expanded .gear-expand-icon{transform:rotate(45deg);color:var(--hot);}
+.gear-details{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+.gear-details.open{max-height:200px;}
+.gear-details-inner{padding:0 24px 24px;}
+.gear-models{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.gear-model-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.07em;text-transform:uppercase;padding:5px 10px;border:1px solid rgba(240,236,227,0.1);color:rgba(240,236,227,0.45);border-radius:2px;}
+.gear-link{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--electric);text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.gear-link:hover{opacity:0.7;}
+.gear-accessories{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:2px;margin-top:2px;}
+.gear-acc-item{background:rgba(240,236,227,0.02);border:1px solid rgba(240,236,227,0.05);padding:20px 18px;}
+.gear-acc-name{font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;margin-bottom:4px;}
+.gear-acc-type{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.09em;color:rgba(240,236,227,0.25);}
+#testimonials{background:var(--ink);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;margin-top:60px;}
+.testi-card{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:36px 32px;transition:background 0.3s;}
+.testi-card:hover{background:rgba(240,236,227,0.05);}
+.testi-quote::before{content:'"';font-family:'Unbounded',sans-serif;font-size:40px;color:var(--hot);opacity:0.4;display:block;line-height:1;margin-bottom:8px;}
+.testi-quote{font-size:15px;line-height:1.75;color:rgba(240,236,227,0.55);margin-bottom:28px;font-style:italic;}
+.testi-placeholder{border-style:dashed;opacity:0.5;}
+.testi-logo{width:32px;height:32px;border-radius:50%;background:rgba(240,236,227,0.08);border:1px solid rgba(240,236,227,0.1);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,236,227,0.35);margin-bottom:10px;}
+.testi-name{font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;margin-bottom:3px;}
+.testi-role{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.07em;color:rgba(240,236,227,0.35);}
+#contact{background:#0d0d0d;position:relative;overflow:hidden;}
+#contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(123,47,255,0.22) 0%,transparent 60%);}
+.contact-photo-wrap{margin-bottom:56px;display:inline-block;position:relative;}
+.contact-photo-wrap img{width:260px;height:320px;object-fit:cover;object-position:center top;display:block;filter:brightness(0.88);border:1px solid rgba(240,236,227,0.08);}
+.contact-photo-caption{position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(to top,rgba(10,10,10,0.85),transparent);display:flex;flex-direction:column;gap:3px;}
+.contact-photo-caption span:first-child{font-family:'Unbounded',sans-serif;font-weight:700;font-size:12px;}
+.contact-photo-caption span:last-child{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.45);}
+.contact-big{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(38px,6vw,76px);letter-spacing:-0.03em;line-height:1;margin-bottom:44px;position:relative;}
+.contact-big span{color:var(--hot);}
+.contact-links{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:72px;position:relative;}
+.c-link{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.48);text-decoration:none;padding:13px 26px;border:1px solid rgba(240,236,227,0.11);transition:all 0.25s;}
+.c-link:hover{color:var(--ink);background:var(--cream);border-color:var(--cream);}
+.c-link-hot{border-color:var(--hot)!important;color:var(--hot)!important;}
+.c-link-hot:hover{background:var(--hot)!important;color:var(--cream)!important;}
+.lego-egg{color:var(--amber);border-bottom:1px dashed var(--amber);cursor:pointer;transition:color 0.2s;}
+.lego-egg:hover{color:var(--hot);}
+.lego-tooltip{display:none;margin-top:-60px;margin-bottom:32px;padding:20px 24px;border:1px solid var(--amber);background:rgba(255,184,0,0.06);border-radius:2px;max-width:360px;}
+.lego-tooltip.show{display:block;animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.lego-tt-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+.lego-tt-text{font-size:13px;color:rgba(240,236,227,0.6);margin-bottom:10px;line-height:1.6;}
+.lego-tt-link{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--amber);text-decoration:none;}
+.lego-tt-link:hover{opacity:0.7;}
+footer{padding:28px 48px;border-top:1px solid rgba(240,236,227,0.05);display:flex;justify-content:space-between;align-items:center;}
+footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){
+  nav{padding:14px 20px;}.nav-links{display:none;}
+  .section-inner{padding:72px 20px;}
+  #hero{padding:0 20px 60px;}
+  .hero-float-photo{display:none;}
+  .hero-stamp{display:none;}
+  .work-item.col-8,.work-item.col-4,.work-item.col-6{grid-column:span 12;}
+  .stats-band{padding:52px 20px;}
+  footer{flex-direction:column;gap:10px;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#hero" class="nav-logo">OW<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#clients">Partners</a></li>
+    <li><a href="#gear">Gear</a></li>
+    <li><a href="#testimonials">Kind Words</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-dot"></div>
+</nav>
+
+<section id="hero">
+  <div class="hero-gradient"></div>
+  <div class="hero-grid"></div>
+  <svg class="hero-bg-shape" viewBox="0 0 200 200" fill="none">
+    <circle cx="100" cy="100" r="80" stroke="white" stroke-width="0.8" stroke-dasharray="6 6"/>
+    <circle cx="100" cy="100" r="52" stroke="white" stroke-width="0.4"/>
+    <line x1="100" y1="18" x2="100" y2="182" stroke="white" stroke-width="0.4"/>
+    <line x1="18" y1="100" x2="182" y2="100" stroke="white" stroke-width="0.4"/>
+    <polygon points="100,38 138,118 62,118" stroke="white" stroke-width="0.4" fill="none"/>
+  </svg>
+  <div class="hero-float-photo" id="heroFloat">
+    <img id="heroFloatImg" alt="Owen Williams on campus"/>
+  </div>
+  <div class="hero-stamp"><span>PORTFOLIO</span><span>MMXXVI</span><span>SYD NSW AU</span></div>
+  <div class="hero-year">Sydney, Australia</div>
+  <h1 class="hero-name">Owen<br><span class="outline">Williams</span></h1>
+  <p class="hero-tagline">Media and Communications specialist. I tell stories through photography and cinematography — across live events, executive communications, and internal channels, with whatever gear the moment calls for.</p>
+  <div class="hero-badges">
+    <span class="badge b-hot">Photography</span>
+    <span class="badge b-violet">Cinematography</span>
+    <span class="badge b-electric">AV & Events</span>
+    <span class="badge b-amber">Corporate Comms</span>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<section id="story">
+  <div class="bg-canvas">
+    <div class="bg-shape rev" style="top:8%;right:4%;width:140px;height:140px;opacity:0.035;">
+      <svg viewBox="0 0 140 140" fill="none" width="140" height="140"><circle cx="70" cy="70" r="60" stroke="white" stroke-width="0.7" stroke-dasharray="5 5"/><circle cx="70" cy="70" r="35" stroke="white" stroke-width="0.35"/><polygon points="70,15 120,105 20,105" stroke="white" stroke-width="0.35" fill="none"/></svg>
+    </div>
+  </div>
+  <div class="section-inner">
+    <p class="section-label">The Story</p>
+    <h2 class="section-title">How I got here.</h2>
+    <p class="story-intro">I've been making things with cameras since I was 8 years old. What started as a kid obsessing over making a <span class="lego-egg" id="legoEgg" title="click me">lego</span> film turned into over a decade of professional work across events, sports, brands, and corporate communications.</p>
+<div class="lego-tooltip" id="legoTooltip">
+  <p class="lego-tt-label">The origin story</p>
+  <p class="lego-tt-text">My first ever film was a stop-motion Lego video. Link coming soon.</p>
+  <a href="#" class="lego-tt-link" id="legoLink" target="_blank">Watch it when it's up ↗</a>
+</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot t-hot"></div>
+        <p class="tl-year t-hot">Over a decade of professional experience</p>
+        <h3 class="tl-role">Freelance Photographer</h3>
+        <p class="tl-org">Self-employed · Sydney</p>
+        <p class="tl-desc">Started shooting at 8, started getting paid not long after. Over the years I've photographed just about everything — events, balls, weddings, graduations, formals, dinners, sports, buildings for real estate agents and companies, commercial work, and music videos. If it needed a camera, I was there. That breadth across so many different environments is honestly what shaped how I shoot today.</p>
+        <div class="tl-buttons">
+          <a href="#work" class="tl-btn tl-btn-outline">Find out more</a>
+          <a href="#work" class="tl-btn tl-btn-accent t-hot">See photos</a>
+        </div>
+        <span class="tl-arrow">Which led to my first proper employed role in photography</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot t-violet"></div>
+        <p class="tl-year t-violet">2021 — 2025</p>
+        <h3 class="tl-role">Sports & Events Photographer</h3>
+        <p class="tl-org">AK Photography (Anthony Khoury) · Sydney · Employed</p>
+        <p class="tl-desc">My first proper employed photography role, working under Anthony Khoury at AK Photography. The bulk of it was shooting sports and events across IPSHA, IGSA, and HICES competitions for some of Sydney's most prestigious independent schools. But it wasn't just sport — graduations, formals, dinners, and anything else the schools needed. Shooting at that volume, at that level, teaches you to work quickly, consistently, and under real pressure.</p>
+        <div class="tl-buttons">
+          <a href="#work" class="tl-btn tl-btn-outline">Find out more</a>
+          <a href="#schools" class="tl-btn tl-btn-accent t-violet">See schools</a>
+        </div>
+        <span class="tl-arrow">Which built the discipline for high-output creative work</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot t-electric"></div>
+        <p class="tl-year t-electric">2022 — 2025</p>
+        <h3 class="tl-role">Content Creator</h3>
+        <p class="tl-org">Macquarie University Media · Sydney</p>
+        <p class="tl-desc">Over 3 years of hands-on experience in marketing, event coverage, and promotional content with Macquarie University Media. Part of a team that genuinely worked well together — we produced everything from cinematic videos and academic storytelling to large-scale event coverage and content alongside the Pro Vice-Chancellor.</p>
+        <p class="tl-desc">The standout piece was a video I researched, produced, filmed, and edited with Bita Ghanbari — a profile of Daniel Kish, known as "the real-life Batman." The first reel pulled +3.1M views, 83K likes, and 5.5K shares. The follow-up drove +9.9M views and +180K interactions. I also contributed to Open Day 2025, reaching +2.4M impressions and +240K reach.</p>
+        <div class="tl-highlight"><strong>13M+ combined views</strong> on Instagram</div>
+        <div class="tl-buttons">
+          <a href="#work" class="tl-btn tl-btn-outline">Find out more</a>
+          <a href="#work" class="tl-btn tl-btn-accent t-electric">See content</a>
+        </div>
+        <span class="tl-arrow">Which proved I could produce content that genuinely performed at scale</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot t-orange"></div>
+        <p class="tl-year t-orange">Jun 2025 — Present</p>
+        <h3 class="tl-role">Marketing & Communications Co-Manager</h3>
+        <p class="tl-org">HerVillage Foundation · Sydney · Hybrid</p>
+        <p class="tl-desc">HerVillage was the shift from executing to leading. I run the marketing and communications function for a growing not-for-profit — overseeing a small team of creators while still being the person on the ground at every event. The team covers everything: social content, reels, newsletters, partner communications, event invitations, and promotional material across community programs, fundraisers, and corporate partnerships.</p>
+        <p class="tl-desc">At events I'm shooting and directing — briefing other photographers and videographers, making sure we walk away with what the organisation actually needs, not just what looks good in the moment. I also manage the photo archive and edit across formats.</p>
+        <div class="tl-buttons">
+          <a href="#work" class="tl-btn tl-btn-outline">Find out more</a>
+          <a href="#work" class="tl-btn tl-btn-accent t-orange">See content</a>
+        </div>
+        <span class="tl-arrow">Which showed I could own strategy end to end</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot t-amber"></div>
+        <p class="tl-year t-amber">Nov 2025 — Present</p>
+        <h3 class="tl-role">Communications Specialist</h3>
+        <p class="tl-org">Woolworths Group · Bella Vista · On-site · Content & Events</p>
+        <p class="tl-desc">Everything converged here. I create and produce executive-level content for the CEO and senior leadership of one of Australia's largest companies — and I do it at a scale most communicators never get near. Photography, video, graphics, events, AV, scripting, editing — it's all part of the role, and most of the visual and creative output is mine.</p>
+        <div class="tl-callouts">
+          <div class="tl-callout">
+            <p class="tl-callout-label">Scale</p>
+            <p class="tl-callout-text">Content reaches every Woolworths, BIG W, Metro and CFC store across Australia and New Zealand — delivered to 200,000+ team members through internal channels.</p>
+          </div>
+          <div class="tl-callout">
+            <p class="tl-callout-label">CEO & Executive Communications</p>
+            <p class="tl-callout-text">I produce content for the CEO and senior leaders — photos, videos, graphics — for major announcements, campaigns, and moments of crisis. I've shot headshots for the CMO, CRO, CLO and dozens of other executives, plus content for their LinkedIn profiles and BIG W's LinkedIn page.</p>
+          </div>
+          <div class="tl-callout">
+            <p class="tl-callout-label">Video & Studio Production</p>
+            <p class="tl-callout-text">I script, film, and edit — from fortnightly updates with the Managing Director of BIG W shot in-store and on location, to high-production content inside a purpose-built studio with LED walls and broadcast-grade remote cameras. I also produce collaborative content with external partners, managing the whole process from brief to delivery.</p>
+          </div>
+          <div class="tl-callout">
+            <p class="tl-callout-label">Live Events</p>
+            <p class="tl-callout-text">I plan and run the photography and AV for large-scale internal events — some with 3,000+ people in the room and thousands more watching live across Australia and New Zealand. That means being across the technical setup, the run sheet, and the creative output all at once.</p>
+          </div>
+        </div>
+        <div class="tl-buttons" style="margin-top:20px;">
+          <a href="#work" class="tl-btn tl-btn-outline">Find out more</a>
+          <a href="#work" class="tl-btn tl-btn-accent t-amber">See work</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="photo-strip">
+      <div class="photo-strip-item">
+        <img id="fieldImg" alt="Owen Williams in the field"/>
+        <p class="photo-strip-caption">In the field</p>
+      </div>
+    </div>
+
+    <div class="edu-block">
+      <p class="section-label" style="margin-bottom:14px;">Education</p>
+      <div class="edu-section">
+        <p class="edu-title">Bachelor of Media & Communications</p>
+        <p class="edu-item">Majoring in Screen Practice & Production · Graduate</p>
+        <p class="edu-item">Macquarie University</p>
+      </div>
+      <div class="edu-divider"></div>
+      <div class="edu-section">
+        <p class="edu-title">Band 6 · HSC Multimedia · Short Film</p>
+        <p class="edu-item">Maitland Grossmann High School</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-wrap">
+  <div class="stats-band">
+    <div class="stat-item fade-up"><div class="stat-num" style="color:var(--hot);">14+</div><p class="stat-label">Years with a camera</p></div>
+    <div class="stat-item fade-up" style="transition-delay:0.08s"><div class="stat-num" style="color:var(--violet);">13M+</div><p class="stat-label">Combined native views on Instagram</p></div>
+    <div class="stat-item fade-up" style="transition-delay:0.13s"><div class="stat-num" style="color:var(--electric);">4</div><p class="stat-label">Retail brands, 2 countries — every store, every team member</p></div>
+    <div class="stat-item fade-up" style="transition-delay:0.18s"><div class="stat-num" style="color:var(--amber);">3000+</div><p class="stat-label">In-person event audiences, live broadcast nationwide</p></div>
+    <div class="stat-item fade-up" style="transition-delay:0.23s"><div class="stat-num" style="color:var(--hot);">33+</div><p class="stat-label">Prestigious independent schools photographed across Sydney</p></div>
+  </div>
+</div>
+
+<section id="expertise">
+  <div class="section-inner">
+    <p class="section-label">What I Do</p>
+    <h2 class="section-title">What I bring<br>to the table.</h2>
+    <div class="expertise-grid">
+      <div class="exp-card ec-hot fade-up">
+        <span class="exp-icon">◉</span>
+        <h3 class="exp-name">Photography & Visual Storytelling</h3>
+        <p class="exp-desc">14 years behind the lens across events, sports, corporate, weddings, and real estate gives you someone who doesn't need hand-holding on a brief. I read environments quickly, work without disrupting the room, and deliver images that are usable — not just technically correct. Whatever the occasion, I find the frame that matters.</p>
+        <div class="exp-tags"><span class="etag">Events</span><span class="etag">Portraits</span><span class="etag">Corporate</span><span class="etag">Headshots</span><span class="etag">Sports</span><span class="etag">Weddings</span></div>
+      </div>
+      <div class="exp-card ec-violet fade-up" style="transition-delay:0.08s">
+        <span class="exp-icon">▣</span>
+        <h3 class="exp-name">Internal & Corporate Communications</h3>
+        <p class="exp-desc">At Woolworths Group I produce content that reaches 200,000+ team members across Australia and New Zealand — from CEO announcements to crisis communications. I understand how to craft messages that land inside a large organisation, and how to work with senior leaders to make them look and sound their best on camera and in print.</p>
+        <div class="exp-tags"><span class="etag">Executive Comms</span><span class="etag">CEO Content</span><span class="etag">Video</span><span class="etag">Internal Channels</span><span class="etag">Broadcast</span></div>
+      </div>
+      <div class="exp-card ec-electric fade-up" style="transition-delay:0.16s">
+        <span class="exp-icon">✦</span>
+        <h3 class="exp-name">Cinematography & Video Production</h3>
+        <p class="exp-desc">From short films on the Arri Amira to fortnightly broadcast videos with a Managing Director, I bring a filmmaker's eye to every production — not just a camera operator's. Sony is my primary kit. I can build a shot list, run a live multi-camera broadcast, and deliver an edit, all in the same week.</p>
+        <div class="exp-tags"><span class="etag">Sony</span><span class="etag">Multi-Camera</span><span class="etag">Live AV</span><span class="etag">Editing</span><span class="etag">Drone</span><span class="etag">Storytelling</span></div>
+      </div>
+      <div class="exp-card ec-amber fade-up" style="transition-delay:0.24s">
+        <span class="exp-icon">◈</span>
+        <h3 class="exp-name">Social Media & Content Strategy</h3>
+        <p class="exp-desc">At Macquarie University I helped produce content that drove 13M+ combined native views on Instagram. At HerVillage I lead a small team of creators — directing shoots, overseeing strategy, and managing everything from reels to newsletters to partner communications. I use sentiment analysis and performance data to inform what we make next, not just report on what we already made.</p>
+        <div class="exp-tags"><span class="etag">Instagram</span><span class="etag">TikTok</span><span class="etag">LinkedIn</span><span class="etag">Strategy</span><span class="etag">Sentiment Analysis</span><span class="etag">Data-Informed</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-inner">
+    <p class="section-label">Selected Work</p>
+    <h2 class="section-title">The portfolio.</h2>
+    <p style="color:rgba(240,236,227,0.4);font-size:13.5px;margin-bottom:38px;margin-top:-14px;">Images coming soon — layout below shows the final structure.</p>
+    <div class="work-filter">
+      <button class="filter-btn active" onclick="filterWork('all',this)">All</button>
+      <button class="filter-btn" onclick="filterWork('photography',this)">Photography</button>
+      <button class="filter-btn" onclick="filterWork('video',this)">Video</button>
+      <button class="filter-btn" onclick="filterWork('events',this)">Events</button>
+      <button class="filter-btn" onclick="filterWork('comms',this)">Comms</button>
+    </div>
+    <div class="work-grid" id="workGrid">
+      <div class="work-item col-8" data-cat="events"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">◉</div><div class="work-content"><p class="work-cat">Events · Photography</p><h3 class="work-title">Woolworths Group Live Events</h3><p class="work-sub">Multi-camera broadcast · 2025–26</p></div></div></div>
+      <div class="work-item col-4" data-cat="photography"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">▣</div><div class="work-content"><p class="work-cat">Portraiture</p><h3 class="work-title">C-Suite Headshots</h3><p class="work-sub">CMO · CRO · CLO</p></div></div></div>
+      <div class="work-item col-4" data-cat="comms"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">✦</div><div class="work-content"><p class="work-cat">Video · Internal Comms</p><h3 class="work-title">BIG W Nightly Updates</h3><p class="work-sub">Managing Director · 2025</p></div></div></div>
+      <div class="work-item col-4" data-cat="photography"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">◈</div><div class="work-content"><p class="work-cat">Speeches · Photography</p><h3 class="work-title">Julia Gillard & Tony Abbott</h3><p class="work-sub">Presentation photography · Corporate</p></div></div></div>
+      <div class="work-item col-4" data-cat="comms"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">◯</div><div class="work-content"><p class="work-cat">Photography</p><h3 class="work-title">Amanda Bardwell, CEO</h3><p class="work-sub">Woolworths Group · 2025</p></div></div></div>
+      <div class="work-item col-6" data-cat="photography"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">◑</div><div class="work-content"><p class="work-cat">Brand · Events</p><h3 class="work-title">Google / Visa / Red Bull</h3><p class="work-sub">Brand event photography</p></div></div></div>
+      <div class="work-item col-6" data-cat="comms"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">▽</div><div class="work-content"><p class="work-cat">Social Media · 13M+ Views</p><h3 class="work-title">Macquarie University Instagram</h3><p class="work-sub">Including the Daniel Kish series · 2022–25</p></div></div></div>
+      <div class="work-item col-8" data-cat="events"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">✺</div><div class="work-content"><p class="work-cat">Nonprofit · Events · Brand</p><h3 class="work-title">HerVillage Foundation</h3><p class="work-sub">Photography, video, strategy, brand comms · 2025–Present</p></div></div></div>
+      <div class="work-item col-4" data-cat="video"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">▶</div><div class="work-yt-badge">YouTube</div><div class="work-content"><p class="work-cat">Music Video · Freelance</p><h3 class="work-title">Music Video Production</h3><p class="work-sub">Link coming soon</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="section-inner" style="padding-bottom:44px;">
+    <p class="section-label">In Partnership With</p>
+    <h2 class="section-title">Trusted by organisations<br>that move culture.</h2>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="m-item">Woolworths Group</span><span class="m-dot">✦</span><span class="m-item">Macquarie University</span><span class="m-dot">✦</span><span class="m-item">Google</span><span class="m-dot">✦</span><span class="m-item">Visa</span><span class="m-dot">✦</span><span class="m-item">Sydney FC</span><span class="m-dot">✦</span><span class="m-item">TikTok Australia</span><span class="m-dot">✦</span><span class="m-item">Red Bull</span><span class="m-dot">✦</span><span class="m-item">Quantium</span><span class="m-dot">✦</span><span class="m-item">BuzzFeed</span><span class="m-dot">✦</span><span class="m-item">HerVillage Foundation</span><span class="m-dot">✦</span><span class="m-item">Gammay Rangers</span><span class="m-dot">✦</span><span class="m-item">AK Photography</span><span class="m-dot">✦</span><span class="m-item">Woolworths Group</span><span class="m-dot">✦</span><span class="m-item">Macquarie University</span><span class="m-dot">✦</span><span class="m-item">Google</span><span class="m-dot">✦</span><span class="m-item">Visa</span><span class="m-dot">✦</span><span class="m-item">Sydney FC</span><span class="m-dot">✦</span><span class="m-item">TikTok Australia</span><span class="m-dot">✦</span><span class="m-item">Red Bull</span><span class="m-dot">✦</span><span class="m-item">Quantium</span><span class="m-dot">✦</span><span class="m-item">BuzzFeed</span><span class="m-dot">✦</span><span class="m-item">HerVillage Foundation</span><span class="m-dot">✦</span><span class="m-item">Gammay Rangers</span><span class="m-dot">✦</span><span class="m-item">AK Photography</span><span class="m-dot">✦</span>
+    </div>
+  </div>
+  <div style="height:72px;"></div>
+</section>
+
+<section id="schools">
+  <div class="section-inner">
+    <p class="section-label">Schools & Sports</p>
+    <h2 class="section-title">On the ground,<br>in every arena.</h2>
+    <p class="schools-intro">For four years I was employed as a sports and events photographer across some of Sydney's most prestigious independent schools — shooting everything from swimming carnivals and athletics days to formals, graduations, and everything the school calendar throws at you. Working at high volume across IPSHA, IGSA, and HICES competitions taught me to shoot fast, deliver consistently, and always come back with something the client is proud to use.</p>
+    <p class="subsection-label" style="margin-top:0;">Schools Photographed</p>
+  </div>
+  <div class="schools-marquee-container" style="padding:0 0 8px;">
+    <div class="schools-row row-1"><div class="school-tile">Pymble Ladies' College</div><div class="school-tile">Loreto Kirribilli</div><div class="school-tile">Loreto Normanhurst</div><div class="school-tile">Wenona School</div><div class="school-tile">Monte Sant' Angelo Mercy College</div><div class="school-tile">Meriden School</div><div class="school-tile">The King's School</div><div class="school-tile">Our Lady of Mercy College Parramatta</div><div class="school-tile">Redlands School</div><div class="school-tile">Ravenswood School for Girls</div><div class="school-tile">Kambala</div><div class="school-tile">Pymble Ladies' College</div><div class="school-tile">Loreto Kirribilli</div><div class="school-tile">Loreto Normanhurst</div><div class="school-tile">Wenona School</div><div class="school-tile">Monte Sant' Angelo Mercy College</div><div class="school-tile">Meriden School</div><div class="school-tile">The King's School</div><div class="school-tile">Our Lady of Mercy College Parramatta</div><div class="school-tile">Redlands School</div><div class="school-tile">Ravenswood School for Girls</div><div class="school-tile">Kambala</div></div>
+    <div class="schools-row row-2"><div class="school-tile">Abbotsleigh</div><div class="school-tile">Cranbrook School</div><div class="school-tile">PLC Sydney</div><div class="school-tile">SCEGGS Darlinghurst</div><div class="school-tile">Frensham School</div><div class="school-tile">Barker College</div><div class="school-tile">St Scholastica's College</div><div class="school-tile">Ascham School</div><div class="school-tile">Queenwood School</div><div class="school-tile">Roseville College</div><div class="school-tile">Santa Sabina College</div><div class="school-tile">Abbotsleigh</div><div class="school-tile">Cranbrook School</div><div class="school-tile">PLC Sydney</div><div class="school-tile">SCEGGS Darlinghurst</div><div class="school-tile">Frensham School</div><div class="school-tile">Barker College</div><div class="school-tile">St Scholastica's College</div><div class="school-tile">Ascham School</div><div class="school-tile">Queenwood School</div><div class="school-tile">Roseville College</div><div class="school-tile">Santa Sabina College</div></div>
+    <div class="schools-row row-3"><div class="school-tile">Oakhill College</div><div class="school-tile">St Patrick's College Strathfield</div><div class="school-tile">Kincoppal-Rose Bay</div><div class="school-tile">Danebank Anglican School</div><div class="school-tile">Brigidine College St Ives</div><div class="school-tile">Stella Maris College</div><div class="school-tile">St Vincent's College</div><div class="school-tile">St Catherine's School</div><div class="school-tile">Sydney Grammar School</div><div class="school-tile">The Scots College</div><div class="school-tile">Arden Anglican School</div><div class="school-tile">Oakhill College</div><div class="school-tile">St Patrick's College Strathfield</div><div class="school-tile">Kincoppal-Rose Bay</div><div class="school-tile">Danebank Anglican School</div><div class="school-tile">Brigidine College St Ives</div><div class="school-tile">Stella Maris College</div><div class="school-tile">St Vincent's College</div><div class="school-tile">St Catherine's School</div><div class="school-tile">Sydney Grammar School</div><div class="school-tile">The Scots College</div><div class="school-tile">Arden Anglican School</div></div>
+  </div>
+  <div class="section-inner" style="padding-top:48px;">
+    <p class="subsection-label" style="margin-top:0;">Sports Photographed Professionally</p>
+    <div class="sports-grid">
+      <span class="sport-tag">Football (Soccer)</span><span class="sport-tag">Rugby Union</span><span class="sport-tag">Rugby League</span><span class="sport-tag">Cricket</span><span class="sport-tag">Rowing</span><span class="sport-tag">Tennis</span><span class="sport-tag">Basketball</span><span class="sport-tag">Netball</span><span class="sport-tag">Volleyball</span><span class="sport-tag">Swimming</span><span class="sport-tag">Athletics</span><span class="sport-tag">Water Polo</span><span class="sport-tag">Baseball</span><span class="sport-tag">Softball</span><span class="sport-tag">AFL</span><span class="sport-tag">Hockey</span><span class="sport-tag">Touch Football</span><span class="sport-tag">Badminton</span><span class="sport-tag">Gymnastics</span>
+    </div>
+  </div>
+</section>
+
+<section id="gear">
+  <div class="section-inner">
+    <p class="section-label">Kit</p>
+    <h2 class="section-title">The gear.</h2>
+    <p style="color:rgba(240,236,227,0.38);font-size:13.5px;margin-top:-14px;margin-bottom:0;">Click any brand to see the models I've used.</p>
+    <div class="gear-primary-grid">
+      <div class="gear-card" id="gc-sony">
+        <div class="gear-card-header" onclick="toggleGear('sony')"><div><p class="gear-brand">Sony</p><p class="gear-use">Primary · Cinema line, video & photography</p></div><span class="gear-expand-icon">+</span></div>
+        <div class="gear-details" id="gd-sony"><div class="gear-details-inner"><div class="gear-models"><span class="gear-model-tag">FX6</span><span class="gear-model-tag">Burano</span><span class="gear-model-tag">A7 series</span></div><a href="#work" class="gear-link">See examples</a></div></div>
+      </div>
+      <div class="gear-card" id="gc-nikon">
+        <div class="gear-card-header" onclick="toggleGear('nikon')"><div><p class="gear-brand">Nikon</p><p class="gear-use">Photography · DSLR & mirrorless</p></div><span class="gear-expand-icon">+</span></div>
+        <div class="gear-details" id="gd-nikon"><div class="gear-details-inner"><div class="gear-models"><span class="gear-model-tag">Add models</span></div><a href="#work" class="gear-link">See examples</a></div></div>
+      </div>
+      <div class="gear-card" id="gc-canon">
+        <div class="gear-card-header" onclick="toggleGear('canon')"><div><p class="gear-brand">Canon</p><p class="gear-use">Photography, cinema & broadcast event cameras</p></div><span class="gear-expand-icon">+</span></div>
+        <div class="gear-details" id="gd-canon"><div class="gear-details-inner"><div class="gear-models"><span class="gear-model-tag">Cinema line</span><span class="gear-model-tag">PTZ broadcast</span></div><a href="#schools" class="gear-link">See school photos</a></div></div>
+      </div>
+      <div class="gear-card" id="gc-arri">
+        <div class="gear-card-header" onclick="toggleGear('arri')"><div><p class="gear-brand">Arri Amira</p><p class="gear-use">Cinema · Short film production</p></div><span class="gear-expand-icon">+</span></div>
+        <div class="gear-details" id="gd-arri"><div class="gear-details-inner"><div class="gear-models"><span class="gear-model-tag">Amira</span></div><p style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,236,227,0.35);margin-bottom:10px;">Used on 2 short films for my final degree project</p><a href="#work" class="gear-link">See examples</a></div></div>
+      </div>
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(240,236,227,0.25);margin-top:48px;margin-bottom:16px;">Also in the kit</p>
+    <div class="gear-accessories">
+      <div class="gear-acc-item"><p class="gear-acc-name">DJI</p><p class="gear-acc-type">Drone & Gimbal</p></div>
+      <div class="gear-acc-item"><p class="gear-acc-name">GoPro</p><p class="gear-acc-type">Action Camera</p></div>
+      <div class="gear-acc-item"><p class="gear-acc-name">Rode</p><p class="gear-acc-type">Audio</p></div>
+      <div class="gear-acc-item"><p class="gear-acc-name">Shure</p><p class="gear-acc-type">Audio</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="section-inner">
+    <p class="section-label">Kind Words</p>
+    <h2 class="section-title">What people say.</h2>
+    <div class="testimonials-grid">
+      <div class="testi-card testi-placeholder fade-up">
+        <p class="testi-quote">Your testimonial will go here — reach out to a client or manager and ask for a short quote about working with you.</p>
+        <div class="testi-logo">?</div>
+        <p class="testi-name">Name Surname</p>
+        <p class="testi-role">Role · Organisation</p>
+      </div>
+      <div class="testi-card testi-placeholder fade-up" style="transition-delay:0.1s">
+        <p class="testi-quote">A second testimonial from someone across a different discipline — photography, comms, or social media — shows range.</p>
+        <div class="testi-logo">?</div>
+        <p class="testi-name">Name Surname</p>
+        <p class="testi-role">Role · Organisation</p>
+      </div>
+      <div class="testi-card testi-placeholder fade-up" style="transition-delay:0.2s">
+        <p class="testi-quote">A third from a client or collaborator — even someone from the school photography days or Macquarie would be great here.</p>
+        <div class="testi-logo">?</div>
+        <p class="testi-name">Name Surname</p>
+        <p class="testi-role">Role · Organisation</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="bg-canvas">
+    <div class="bg-shape" style="top:10%;left:6%;width:110px;height:110px;opacity:0.04;">
+      <svg viewBox="0 0 110 110" fill="none" width="110" height="110"><circle cx="55" cy="55" r="46" stroke="white" stroke-width="0.7" stroke-dasharray="4 4"/><line x1="55" y1="9" x2="55" y2="101" stroke="white" stroke-width="0.35"/><line x1="9" y1="55" x2="101" y2="55" stroke="white" stroke-width="0.35"/></svg>
+    </div>
+  </div>
+  <div class="section-inner">
+    <div class="contact-photo-wrap">
+      <img id="gimbalImg" alt="Owen Williams with gimbal rig and camera"/>
+      <div class="contact-photo-caption">
+        <span>Owen Williams</span>
+        <span>On set · Macquarie University</span>
+      </div>
+    </div>
+    <p class="section-label">Let's Work</p>
+    <h2 class="contact-big">Let's make<br>something <span>worth</span><br>remembering.</h2>
+    <div class="contact-links">
+      <a href="mailto:owen14ejw@gmail.com" class="c-link c-link-hot">✉ owen14ejw@gmail.com</a>
+      <a href="https://www.linkedin.com/in/owenejw" target="_blank" class="c-link">LinkedIn</a>
+      <a href="https://instagram.com/owen14ejw" target="_blank" class="c-link">Instagram</a>
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);">SYDNEY, NSW, AUSTRALIA · AVAILABLE FOR FREELANCE & FULL-TIME</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Owen Williams. All rights reserved.</p>
+  <p>Sydney, NSW · Graduate, Bachelor of Media & Communications</p>
+</footer>
+
+<script>
+(function() {
+  // PHOTOS
+  window.addEventListener('load', function() {
+    var heroFloatImg = document.getElementById('heroFloatImg');
+    var fieldImg     = document.getElementById('fieldImg');
+    var gimbalImg    = document.getElementById('gimbalImg');
+    if (heroFloatImg) heroFloatImg.src = 'images/owen-hero.webp';
+    if (fieldImg)     fieldImg.src     = 'images/owen-field.webp';
+    if (gimbalImg)    gimbalImg.src    = 'images/owen-gimbal.webp';
+  });
+
+  // LEGO EASTER EGG
+  var legoEgg = document.getElementById('legoEgg');
+  var legoTooltip = document.getElementById('legoTooltip');
+  if (legoEgg && legoTooltip) {
+    legoEgg.addEventListener('click', function(e) {
+      e.preventDefault();
+      legoTooltip.classList.toggle('show');
+    });
+  }
+
+  // CURSOR
+  var cursor = document.getElementById('cursor');
+  var ring   = document.getElementById('cursorRing');
+  var mx=0, my=0, rx=0, ry=0;
+
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    if (cursor) { cursor.style.left = mx+'px'; cursor.style.top = my+'px'; }
+  });
+
+  function animRing() {
+    rx += (mx-rx)*0.22; ry += (my-ry)*0.22;
+    if (ring) { ring.style.left = rx+'px'; ring.style.top = ry+'px'; }
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a,button,.work-item,.exp-card,.school-tile,.sport-tag,.gear-card,.testi-card').forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
+      if (cursor) cursor.style.transform = 'translate(-50%,-50%) scale(2.2)';
+      if (ring) { ring.style.width='52px'; ring.style.height='52px'; }
+    });
+    el.addEventListener('mouseleave', function() {
+      if (cursor) cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      if (ring) { ring.style.width='32px'; ring.style.height='32px'; }
+    });
+  });
+
+  // INTERSECTION OBSERVER
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.tl-item,.fade-up').forEach(function(el) { io.observe(el); });
+
+  // WORK FILTER
+  window.filterWork = function(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.work-item').forEach(function(item) {
+      if (cat==='all' || item.dataset.cat===cat) {
+        item.style.display = '';
+        item.style.opacity = '0';
+        setTimeout(function() { item.style.transition='opacity 0.35s'; item.style.opacity='1'; }, 15);
+      } else {
+        item.style.opacity = '0';
+        setTimeout(function() { item.style.display='none'; }, 350);
+      }
+    });
+  };
+
+  // GEAR EXPAND
+  window.toggleGear = function(brand) {
+    var card = document.getElementById('gc-'+brand);
+    var details = document.getElementById('gd-'+brand);
+    if (!card || !details) return;
+    var isOpen = card.classList.contains('expanded');
+    document.querySelectorAll('.gear-card').forEach(function(c) { c.classList.remove('expanded'); });
+    document.querySelectorAll('.gear-details').forEach(function(d) { d.classList.remove('open'); });
+    if (!isOpen) { card.classList.add('expanded'); details.classList.add('open'); }
+  };
+
+  // HERO PARALLAX
+  window.addEventListener('scroll', function() {
+    var hf = document.getElementById('heroFloat');
+    if (hf) hf.style.transform = 'translateY('+(window.scrollY*0.18)+'px)';
+  }, {passive:true});
+
+  // ACTIVE NAV
+  var secs = document.querySelectorAll('section[id]');
+  var navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', function() {
+    var cur = '';
+    secs.forEach(function(s) { if (window.scrollY >= s.offsetTop-110) cur = s.id; });
+    navAs.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href')==='#'+cur); });
+  }, {passive:true});
+
+})();
+</script>
+</body>
+</html>

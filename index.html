@@ -13,13 +13,14 @@ html{scroll-behavior:smooth;}
 body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none;}
 .cursor{position:fixed;width:10px;height:10px;background:var(--hot);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:transform 0.12s;}
 .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(255,255,255,0.32);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.18s,height 0.18s;}
+@media(hover:none),(pointer:coarse){.cursor,.cursor-ring{display:none !important;}body{cursor:auto !important;}}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:9997;}
 .bg-canvas{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
 .bg-shape{position:absolute;pointer-events:none;opacity:0.05;}
 .bg-shape svg{animation:rotateSlow 25s linear infinite;}
 .bg-shape.rev svg{animation-direction:reverse;}
 @keyframes rotateSlow{to{transform:rotate(360deg);}}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.78);backdrop-filter:blur(16px);border-bottom:1px solid rgba(240,236,227,0.07);}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 48px;padding-top:calc(18px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(240,236,227,0.07);}
 .nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:14px;letter-spacing:-0.02em;color:var(--cream);text-decoration:none;}
 .nav-logo span{color:var(--hot);}
 .nav-links{display:flex;gap:28px;list-style:none;}
@@ -98,7 +99,7 @@ section{position:relative;}
 .stats-wrap{background:#0a0a0a;border-top:1px solid rgba(240,236,227,0.05);}
 .stats-band{padding:80px 48px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2px;}
 .stat-item{padding:36px 28px;border:1px solid rgba(240,236,227,0.06);background:rgba(240,236,227,0.02);}
-.stat-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:46px;letter-spacing:-0.04em;line-height:1;margin-bottom:8px;}
+.stat-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(28px,3.5vw,46px);letter-spacing:-0.04em;line-height:1;margin-bottom:8px;}
 .stat-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,236,227,0.38);line-height:1.6;}
 #expertise{background:#0d0d0d;position:relative;overflow:hidden;}
 #expertise::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 80% 50%,rgba(255,45,107,0.1) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 10% 50%,rgba(0,245,196,0.07) 0%,transparent 60%);}
@@ -582,7 +583,7 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
     <div class="contact-links">
       <a href="mailto:owen14ejw@gmail.com" class="c-link c-link-hot">✉ owen14ejw@gmail.com</a>
       <a href="https://www.linkedin.com/in/owenejw" target="_blank" class="c-link">LinkedIn</a>
-      <a href="https://instagram.com/owen14ejw" target="_blank" class="c-link">Instagram</a>
+      <a href="https://www.instagram.com/owenejw/" target="_blank" class="c-link">Instagram</a>
     </div>
     <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);">SYDNEY, NSW, AUSTRALIA · AVAILABLE FOR FREELANCE & FULL-TIME</p>
   </div>

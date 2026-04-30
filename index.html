@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Owen Williams — Media & Communications</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
@@ -20,7 +20,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .bg-shape svg{animation:rotateSlow 25s linear infinite;}
 .bg-shape.rev svg{animation-direction:reverse;}
 @keyframes rotateSlow{to{transform:rotate(360deg);}}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 48px;padding-top:calc(18px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(240,236,227,0.07);}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 48px;padding-top:calc(18px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(240,236,227,0.07);}
+nav::before{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:#0a0a0a;z-index:201;}
 .nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:14px;letter-spacing:-0.02em;color:var(--cream);text-decoration:none;}
 .nav-logo span{color:var(--hot);}
 .nav-links{display:flex;gap:28px;list-style:none;}

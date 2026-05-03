@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OW Benchmark — How fast are you?</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--cream:#f0ece3;--hot:#ff2d6b;--electric:#00f5c4;--violet:#7b2fff;--amber:#ffb800;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:0;}
+
+/* NAV */
+.bench-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(240,236,227,0.07);}
+.bench-nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;color:var(--cream);text-decoration:none;letter-spacing:-0.02em;}
+.bench-nav-logo span{color:var(--hot);}
+.bench-back{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.45);text-decoration:none;transition:color 0.2s;}
+.bench-back:hover{color:var(--cream);}
+.bench-secret{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.2);text-transform:uppercase;}
+
+/* MAIN */
+.bench-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 60px;position:relative;z-index:1;}
+
+/* HOME SCREEN */
+#homeScreen{text-align:center;max-width:600px;}
+.bench-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--electric);margin-bottom:16px;}
+.bench-main-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(36px,7vw,80px);letter-spacing:-0.03em;line-height:0.95;margin-bottom:20px;}
+.bench-main-title span{color:var(--hot);}
+.bench-desc{font-size:16px;font-weight:300;color:rgba(240,236,227,0.55);line-height:1.65;margin-bottom:48px;}
+.tests-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:48px;}
+.test-card{background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.08);padding:20px 16px;text-align:left;}
+.test-card-icon{font-size:20px;margin-bottom:10px;}
+.test-card-name{font-family:'Unbounded',sans-serif;font-weight:700;font-size:12px;margin-bottom:4px;}
+.test-card-desc{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.05em;color:rgba(240,236,227,0.35);line-height:1.5;}
+.start-btn{font-family:'Unbounded',sans-serif;font-weight:700;font-size:14px;letter-spacing:-0.01em;padding:16px 48px;background:var(--hot);color:var(--cream);border:none;cursor:pointer;transition:all 0.2s;border-radius:2px;}
+.start-btn:hover{background:var(--cream);color:var(--ink);}
+
+/* GAME SCREENS */
+.game-screen{display:none;width:100%;max-width:700px;text-align:center;}
+.game-screen.active{display:flex;flex-direction:column;align-items:center;}
+.game-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,236,227,0.3);margin-bottom:8px;}
+.game-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(24px,4vw,40px);letter-spacing:-0.02em;margin-bottom:12px;}
+.game-instructions{font-size:15px;color:rgba(240,236,227,0.5);margin-bottom:40px;line-height:1.6;max-width:500px;}
+
+/* REACTION TEST */
+#reactionBox{width:100%;max-width:480px;height:280px;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:background 0.15s;border:2px solid rgba(240,236,227,0.1);user-select:none;}
+#reactionBox.waiting{background:rgba(123,47,255,0.15);border-color:var(--violet);}
+#reactionBox.ready{background:rgba(255,45,107,0.2);border-color:var(--hot);}
+#reactionBox.go{background:rgba(0,245,196,0.2);border-color:var(--electric);}
+#reactionBox.done{background:rgba(240,236,227,0.05);border-color:rgba(240,236,227,0.2);}
+.reaction-msg{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(18px,3vw,28px);letter-spacing:-0.02em;margin-bottom:8px;}
+.reaction-sub{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:rgba(240,236,227,0.4);}
+.reaction-result{font-family:'Unbounded',sans-serif;font-weight:900;font-size:56px;letter-spacing:-0.04em;color:var(--electric);}
+.reaction-unit{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.1em;color:rgba(240,236,227,0.4);margin-top:4px;}
+
+/* MEMORY TEST */
+.memory-board{display:grid;gap:6px;margin-bottom:24px;}
+.memory-tile{width:64px;height:64px;border-radius:3px;background:rgba(240,236,227,0.07);border:1px solid rgba(240,236,227,0.1);cursor:pointer;transition:all 0.15s;}
+.memory-tile.lit{background:var(--violet);border-color:var(--violet);box-shadow:0 0 16px rgba(123,47,255,0.5);}
+.memory-tile.selected{background:var(--hot);border-color:var(--hot);}
+.memory-tile.correct{background:var(--electric);border-color:var(--electric);}
+.memory-tile.wrong{background:rgba(255,45,107,0.4);border-color:var(--hot);}
+.memory-status{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:rgba(240,236,227,0.4);margin-bottom:16px;min-height:20px;}
+.memory-level{font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;color:var(--violet);margin-bottom:8px;}
+
+/* TYPING TEST */
+.typing-passage{font-size:17px;line-height:1.8;color:rgba(240,236,227,0.35);margin-bottom:20px;text-align:left;max-width:560px;letter-spacing:0.01em;position:relative;padding:24px;border:1px solid rgba(240,236,227,0.08);background:rgba(240,236,227,0.02);border-radius:2px;}
+.typing-passage .typed-correct{color:var(--cream);}
+.typing-passage .typed-wrong{color:var(--hot);text-decoration:underline;}
+.typing-passage .cursor-pos{border-left:2px solid var(--electric);margin-left:-1px;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+#typingInput{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;}
+.typing-start-hint{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.3);margin-bottom:8px;}
+.typing-stats{display:flex;gap:32px;margin-top:16px;}
+.typing-stat{text-align:center;}
+.typing-stat-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:32px;letter-spacing:-0.03em;}
+.typing-stat-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.35);}
+
+/* RESULTS */
+#resultsScreen{display:none;text-align:center;max-width:600px;}
+#resultsScreen.active{display:flex;flex-direction:column;align-items:center;}
+.results-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(28px,5vw,52px);letter-spacing:-0.03em;margin-bottom:8px;}
+.results-sub{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:rgba(240,236,227,0.35);margin-bottom:40px;}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;width:100%;margin-bottom:40px;}
+.result-card{background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.08);padding:24px 16px;}
+.result-icon{font-size:20px;margin-bottom:8px;}
+.result-score{font-family:'Unbounded',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.03em;margin-bottom:4px;}
+.result-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,236,227,0.35);}
+.result-rating{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.06em;margin-top:6px;}
+.results-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.res-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:12px 24px;border:1px solid;border-radius:2px;cursor:pointer;text-decoration:none;transition:all 0.2s;background:transparent;}
+.res-btn-hot{border-color:var(--hot);color:var(--hot);}
+.res-btn-hot:hover{background:var(--hot);color:var(--cream);}
+.res-btn-outline{border-color:rgba(240,236,227,0.2);color:rgba(240,236,227,0.5);}
+.res-btn-outline:hover{border-color:var(--cream);color:var(--cream);}
+
+/* PROGRESS */
+.progress-bar{width:100%;max-width:480px;height:2px;background:rgba(240,236,227,0.08);margin-bottom:40px;border-radius:1px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(to right,var(--hot),var(--violet),var(--electric));transition:width 0.4s ease;border-radius:1px;}
+
+/* NEXT BTN */
+.next-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 28px;background:transparent;border:1px solid rgba(240,236,227,0.2);color:rgba(240,236,227,0.5);cursor:pointer;transition:all 0.2s;border-radius:2px;margin-top:20px;display:none;}
+.next-btn.show{display:inline-block;}
+.next-btn:hover{border-color:var(--cream);color:var(--cream);}
+
+@media(max-width:600px){
+  .tests-grid{grid-template-columns:1fr;}
+  .results-grid{grid-template-columns:1fr;}
+  .memory-tile{width:52px;height:52px;}
+  .bench-nav{padding:14px 20px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="bench-nav">
+  <a href="/" class="bench-nav-logo">OW<span>.</span></a>
+  <span class="bench-secret">// hidden</span>
+  <a href="/" class="bench-back">← Back to portfolio</a>
+</nav>
+
+<div class="bench-wrap">
+
+  <!-- HOME -->
+  <div id="homeScreen">
+    <p class="bench-eyebrow">You found the Easter egg</p>
+    <h1 class="bench-main-title">OW<br><span>Benchmark</span></h1>
+    <p class="bench-desc">Three quick tests. How do you stack up? Reaction time, visual memory, and typing speed — all in under 2 minutes.</p>
+    <div class="tests-grid">
+      <div class="test-card"><div class="test-card-icon">⚡</div><p class="test-card-name">Reaction</p><p class="test-card-desc">Click when the screen turns green</p></div>
+      <div class="test-card"><div class="test-card-icon">🧠</div><p class="test-card-name">Memory</p><p class="test-card-desc">Remember which tiles lit up</p></div>
+      <div class="test-card"><div class="test-card-icon">⌨️</div><p class="test-card-name">Typing</p><p class="test-card-desc">How fast can you type?</p></div>
+    </div>
+    <button class="start-btn" onclick="startBenchmark()">Start</button>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progressBar" style="display:none;">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+
+  <!-- TEST 1: REACTION -->
+  <div class="game-screen" id="reactionScreen">
+    <p class="game-num">Test 1 of 3</p>
+    <h2 class="game-title">Reaction Time</h2>
+    <p class="game-instructions">Click the box the moment it turns green.<br>We'll take your best of 3 attempts.</p>
+    <div id="reactionBox" class="waiting" onclick="handleReactionClick()">
+      <p class="reaction-msg" id="reactionMsg">Click to start</p>
+      <p class="reaction-sub" id="reactionSub">Get ready</p>
+    </div>
+    <button class="next-btn" id="reactionNext" onclick="startMemory()">Next test →</button>
+  </div>
+
+  <!-- TEST 2: MEMORY -->
+  <div class="game-screen" id="memoryScreen">
+    <p class="game-num">Test 2 of 3</p>
+    <h2 class="game-title">Visual Memory</h2>
+    <p class="game-instructions">Watch which tiles light up, then click them in any order.</p>
+    <p class="memory-level" id="memoryLevel">Level 1 — 3 tiles</p>
+    <div class="memory-board" id="memoryBoard"></div>
+    <p class="memory-status" id="memoryStatus">Get ready...</p>
+    <button class="next-btn" id="memoryNext" onclick="startTyping()">Next test →</button>
+  </div>
+
+  <!-- TEST 3: TYPING -->
+  <div class="game-screen" id="typingScreen">
+    <p class="game-num">Test 3 of 3</p>
+    <h2 class="game-title">Typing Speed</h2>
+    <p class="game-instructions">Type the passage below as fast as you can.<br>The timer starts on your first keystroke.</p>
+    <p class="typing-start-hint" id="typingHint">Click below to focus, then start typing</p>
+    <div class="typing-passage" id="typingPassage" onclick="focusTyping()"></div>
+    <input type="text" id="typingInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    <div class="typing-stats">
+      <div class="typing-stat"><div class="typing-stat-num" id="wpmDisplay" style="color:var(--electric);">0</div><div class="typing-stat-label">WPM</div></div>
+      <div class="typing-stat"><div class="typing-stat-num" id="accDisplay" style="color:var(--hot);">100%</div><div class="typing-stat-label">Accuracy</div></div>
+      <div class="typing-stat"><div class="typing-stat-num" id="timeDisplay" style="color:var(--amber);">0s</div><div class="typing-stat-label">Time</div></div>
+    </div>
+    <button class="next-btn" id="typingNext" onclick="showResults()">See results →</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsScreen">
+    <p class="bench-eyebrow">All done</p>
+    <h2 class="results-title">Your results</h2>
+    <p class="results-sub" id="resultsOverall"></p>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-icon">⚡</div>
+        <div class="result-score" id="r-reaction" style="color:var(--electric);">—</div>
+        <div class="result-label">Reaction time</div>
+        <div class="result-rating" id="r-reaction-rating"></div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">🧠</div>
+        <div class="result-score" id="r-memory" style="color:var(--violet);">—</div>
+        <div class="result-label">Memory level</div>
+        <div class="result-rating" id="r-memory-rating"></div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">⌨️</div>
+        <div class="result-score" id="r-wpm" style="color:var(--hot);">—</div>
+        <div class="result-label">WPM</div>
+        <div class="result-rating" id="r-wpm-rating"></div>
+      </div>
+    </div>
+    <div class="results-btns">
+      <button class="res-btn res-btn-hot" onclick="restartBenchmark()">Try again</button>
+      <a href="/" class="res-btn res-btn-outline">Back to portfolio</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+
+var scores = { reaction: null, memory: null, wpm: null };
+
+// ── GENERAL ──
+function showScreen(id) {
+  ['homeScreen','reactionScreen','memoryScreen','typingScreen','resultsScreen'].forEach(function(s) {
+    var el = document.getElementById(s);
+    if (el) { el.style.display = 'none'; el.classList.remove('active'); }
+  });
+  var target = document.getElementById(id);
+  if (target) { target.style.display = 'flex'; target.classList.add('active'); }
+}
+
+function setProgress(pct) {
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+window.startBenchmark = function() {
+  document.getElementById('progressBar').style.display = 'block';
+  setProgress(5);
+  startReaction();
+};
+
+window.restartBenchmark = function() {
+  scores = { reaction: null, memory: null, wpm: null };
+  reactionAttempts = 0; reactionTimes = []; reactionState = 'idle';
+  memoryLevel = 1; memoryMaxLevel = 1;
+  typingStarted = false; typingDone = false; typingTimer = null;
+  document.getElementById('progressBar').style.display = 'none';
+  setProgress(0);
+  showScreen('homeScreen');
+};
+
+// ── REACTION ──
+var reactionState = 'idle';
+var reactionStart = 0;
+var reactionAttempts = 0;
+var reactionTimes = [];
+var reactionTimeout = null;
+
+function startReaction() {
+  showScreen('reactionScreen');
+  setProgress(10);
+  reactionState = 'waiting';
+  var box = document.getElementById('reactionBox');
+  box.className = 'waiting';
+  document.getElementById('reactionMsg').textContent = 'Wait for green...';
+  document.getElementById('reactionSub').textContent = 'Don\'t click yet';
+  document.getElementById('reactionNext').classList.remove('show');
+  var delay = 1500 + Math.random() * 3000;
+  reactionTimeout = setTimeout(function() {
+    box.className = 'go';
+    document.getElementById('reactionMsg').textContent = 'CLICK NOW!';
+    document.getElementById('reactionSub').textContent = '';
+    reactionStart = performance.now();
+    reactionState = 'go';
+  }, delay);
+}
+
+window.handleReactionClick = function() {
+  if (reactionState === 'idle') return;
+  if (reactionState === 'waiting') {
+    clearTimeout(reactionTimeout);
+    var box = document.getElementById('reactionBox');
+    box.className = 'ready';
+    document.getElementById('reactionMsg').textContent = 'Too early!';
+    document.getElementById('reactionSub').textContent = 'Clicking again to retry';
+    reactionState = 'penalised';
+    setTimeout(startReaction, 1200);
+    return;
+  }
+  if (reactionState === 'penalised') { startReaction(); return; }
+  if (reactionState === 'go') {
+    var rt = Math.round(performance.now() - reactionStart);
+    reactionTimes.push(rt);
+    reactionAttempts++;
+    var box = document.getElementById('reactionBox');
+    box.className = 'done';
+    box.innerHTML = '<p class="reaction-result">' + rt + '</p><p class="reaction-unit">milliseconds</p>';
+    reactionState = 'done';
+    if (reactionAttempts < 3) {
+      setTimeout(function() {
+        box.innerHTML = '<p class="reaction-msg" id="reactionMsg">Click to try again</p><p class="reaction-sub" id="reactionSub">Attempt ' + (reactionAttempts+1) + ' of 3</p>';
+        reactionState = 'waiting';
+        var delay = 1500 + Math.random() * 2500;
+        reactionTimeout = setTimeout(function() {
+          box.className = 'go';
+          box.innerHTML = '<p class="reaction-msg">CLICK NOW!</p>';
+          reactionStart = performance.now();
+          reactionState = 'go';
+        }, delay);
+      }, 1200);
+    } else {
+      var best = Math.min.apply(null, reactionTimes);
+      scores.reaction = best;
+      box.innerHTML = '<p class="reaction-result" style="color:var(--electric);">' + best + '</p><p class="reaction-unit">ms best of 3</p>';
+      document.getElementById('reactionNext').classList.add('show');
+      setProgress(35);
+    }
+  }
+};
+
+// ── MEMORY ──
+var memoryLevel = 1;
+var memoryMaxLevel = 1;
+var memorySequence = [];
+var memoryUserInput = [];
+var memoryPhase = 'idle';
+var GRID = 4;
+
+function startMemory() {
+  showScreen('memoryScreen');
+  setProgress(40);
+  memoryLevel = 1; memoryMaxLevel = 1;
+  document.getElementById('memoryNext').classList.remove('show');
+  buildMemoryBoard();
+  setTimeout(runMemoryLevel, 600);
+}
+window.startMemory = startMemory;
+
+function buildMemoryBoard() {
+  var board = document.getElementById('memoryBoard');
+  board.style.gridTemplateColumns = 'repeat(' + GRID + ', 1fr)';
+  board.innerHTML = '';
+  for (var i = 0; i < GRID * GRID; i++) {
+    var tile = document.createElement('div');
+    tile.className = 'memory-tile';
+    tile.dataset.index = i;
+    tile.addEventListener('click', handleMemoryClick);
+    board.appendChild(tile);
+  }
+}
+
+function runMemoryLevel() {
+  var count = memoryLevel + 2;
+  document.getElementById('memoryLevel').textContent = 'Level ' + memoryLevel + ' — ' + count + ' tiles';
+  document.getElementById('memoryStatus').textContent = 'Watch carefully...';
+  memoryPhase = 'showing';
+  memorySequence = [];
+  memoryUserInput = [];
+  var tiles = document.querySelectorAll('.memory-tile');
+  tiles.forEach(function(t) { t.className = 'memory-tile'; });
+
+  var indices = [];
+  while (indices.length < count) {
+    var r = Math.floor(Math.random() * GRID * GRID);
+    if (indices.indexOf(r) === -1) indices.push(r);
+  }
+  memorySequence = indices;
+
+  var delay = 0;
+  indices.forEach(function(idx) {
+    setTimeout(function() { tiles[idx].classList.add('lit'); }, delay);
+    setTimeout(function() { tiles[idx].classList.remove('lit'); }, delay + 600);
+    delay += 400;
+  });
+
+  setTimeout(function() {
+    memoryPhase = 'input';
+    document.getElementById('memoryStatus').textContent = 'Now click the tiles that lit up';
+  }, delay + 200);
+}
+
+function handleMemoryClick(e) {
+  if (memoryPhase !== 'input') return;
+  var tile = e.currentTarget;
+  var idx = parseInt(tile.dataset.index);
+  if (memoryUserInput.indexOf(idx) !== -1) return;
+  memoryUserInput.push(idx);
+  if (memorySequence.indexOf(idx) !== -1) {
+    tile.classList.add('selected');
+  } else {
+    tile.classList.add('wrong');
+    endMemory(false);
+    return;
+  }
+  if (memoryUserInput.length === memorySequence.length) {
+    memorySequence.forEach(function(i) {
+      document.querySelectorAll('.memory-tile')[i].className = 'memory-tile correct';
+    });
+    memoryMaxLevel = memoryLevel;
+    memoryLevel++;
+    if (memoryLevel > 6) {
+      document.getElementById('memoryStatus').textContent = '🎯 Incredible! Perfect score!';
+      scores.memory = memoryMaxLevel;
+      document.getElementById('memoryNext').classList.add('show');
+      setProgress(65);
+      memoryPhase = 'done';
+    } else {
+      document.getElementById('memoryStatus').textContent = '✓ Correct! Next level...';
+      setTimeout(function() {
+        document.querySelectorAll('.memory-tile').forEach(function(t){ t.className='memory-tile'; });
+        runMemoryLevel();
+      }, 900);
+    }
+  }
+}
+
+function endMemory(passed) {
+  memoryPhase = 'done';
+  scores.memory = memoryMaxLevel;
+  var status = passed ? 'Nice work!' : 'Game over — level ' + memoryLevel;
+  document.getElementById('memoryStatus').textContent = status;
+  setProgress(65);
+  document.getElementById('memoryNext').classList.add('show');
+}
+
+// ── TYPING ──
+var TYPING_TEXT = "Photography is the art of frozen time — the ability to store emotion and feelings within a frame.";
+var typingStarted = false;
+var typingDone = false;
+var typingTimer = null;
+var typingStartTime = 0;
+var typingErrors = 0;
+var typingElapsed = 0;
+
+function startTyping() {
+  showScreen('typingScreen');
+  setProgress(70);
+  typingStarted = false; typingDone = false; typingErrors = 0; typingElapsed = 0;
+  if (typingTimer) clearInterval(typingTimer);
+  document.getElementById('wpmDisplay').textContent = '0';
+  document.getElementById('accDisplay').textContent = '100%';
+  document.getElementById('timeDisplay').textContent = '0s';
+  document.getElementById('typingNext').classList.remove('show');
+  document.getElementById('typingHint').textContent = 'Click below to focus, then start typing';
+  renderTypingPassage(0, []);
+  var input = document.getElementById('typingInput');
+  input.value = '';
+  input.addEventListener('input', handleTyping);
+  setTimeout(function() { input.focus(); }, 100);
+}
+window.startTyping = startTyping;
+
+window.focusTyping = function() {
+  document.getElementById('typingInput').focus();
+};
+
+function renderTypingPassage(pos, errors) {
+  var passage = document.getElementById('typingPassage');
+  var html = '';
+  for (var i = 0; i < TYPING_TEXT.length; i++) {
+    var ch = TYPING_TEXT[i] === ' ' ? '&nbsp;' : TYPING_TEXT[i];
+    if (i < pos) {
+      if (errors.indexOf(i) !== -1) html += '<span class="typed-wrong">' + ch + '</span>';
+      else html += '<span class="typed-correct">' + ch + '</span>';
+    } else if (i === pos) {
+      html += '<span class="cursor-pos">' + ch + '</span>';
+    } else {
+      html += '<span>' + ch + '</span>';
+    }
+  }
+  passage.innerHTML = html;
+}
+
+function handleTyping(e) {
+  if (typingDone) return;
+  var input = document.getElementById('typingInput');
+  var typed = input.value;
+  var pos = typed.length;
+
+  if (!typingStarted && typed.length > 0) {
+    typingStarted = true;
+    typingStartTime = Date.now();
+    document.getElementById('typingHint').textContent = '';
+    typingTimer = setInterval(function() {
+      typingElapsed = Math.round((Date.now() - typingStartTime) / 1000);
+      document.getElementById('timeDisplay').textContent = typingElapsed + 's';
+      var words = typed.trim().split(/\s+/).length;
+      var mins = (Date.now() - typingStartTime) / 60000;
+      document.getElementById('wpmDisplay').textContent = mins > 0 ? Math.round(words / mins) : 0;
+    }, 200);
+  }
+
+  var errorPositions = [];
+  for (var i = 0; i < typed.length; i++) {
+    if (typed[i] !== TYPING_TEXT[i]) errorPositions.push(i);
+  }
+  typingErrors = errorPositions.length;
+  var acc = typed.length > 0 ? Math.round(((typed.length - typingErrors) / typed.length) * 100) : 100;
+  document.getElementById('accDisplay').textContent = acc + '%';
+  renderTypingPassage(pos, errorPositions);
+
+  if (typed.length >= TYPING_TEXT.length) {
+    clearInterval(typingTimer);
+    typingDone = true;
+    typingElapsed = Math.round((Date.now() - typingStartTime) / 1000);
+    var finalWords = TYPING_TEXT.trim().split(/\s+/).length;
+    var finalMins = (Date.now() - typingStartTime) / 60000;
+    var finalWpm = Math.round(finalWords / finalMins);
+    scores.wpm = finalWpm;
+    document.getElementById('wpmDisplay').textContent = finalWpm;
+    document.getElementById('timeDisplay').textContent = typingElapsed + 's';
+    document.getElementById('typingNext').classList.add('show');
+    setProgress(95);
+  }
+}
+
+// ── RESULTS ──
+window.showResults = function() {
+  setProgress(100);
+  showScreen('resultsScreen');
+
+  function reactionRating(ms) {
+    if (!ms) return '—';
+    if (ms < 200) return '🔥 Elite';
+    if (ms < 250) return '⚡ Above average';
+    if (ms < 300) return '👍 Average';
+    return '😅 Keep practising';
+  }
+  function memoryRating(lvl) {
+    if (!lvl) return '—';
+    if (lvl >= 5) return '🧠 Exceptional';
+    if (lvl >= 3) return '👍 Good';
+    return '😅 Try again';
+  }
+  function wpmRating(wpm) {
+    if (!wpm) return '—';
+    if (wpm >= 80) return '⌨️ Fast typist';
+    if (wpm >= 55) return '👍 Above average';
+    if (wpm >= 35) return '🐢 Average';
+    return '😅 Room to grow';
+  }
+
+  document.getElementById('r-reaction').textContent = scores.reaction ? scores.reaction + 'ms' : '—';
+  document.getElementById('r-reaction-rating').textContent = reactionRating(scores.reaction);
+  document.getElementById('r-memory').textContent = scores.memory ? 'Level ' + scores.memory : '—';
+  document.getElementById('r-memory-rating').textContent = memoryRating(scores.memory);
+  document.getElementById('r-wpm').textContent = scores.wpm ? scores.wpm + ' wpm' : '—';
+  document.getElementById('r-wpm-rating').textContent = wpmRating(scores.wpm);
+
+  var overalls = [
+    scores.reaction < 220 ? 'Sharp reflexes. ' : '',
+    scores.memory >= 4 ? 'Strong memory. ' : '',
+    scores.wpm >= 65 ? 'Fast fingers. ' : ''
+  ].join('');
+  document.getElementById('resultsOverall').textContent = overalls || 'Good effort — try again to beat your score.';
+};
+
+showScreen('homeScreen');
+
+})();
+</script>
+</body>
+</html>

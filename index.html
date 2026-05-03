@@ -97,11 +97,7 @@ section{position:relative;}
 .photo-strip-item img{width:100%;height:380px;object-fit:cover;object-position:center;display:block;transition:transform 0.5s;filter:brightness(0.85);}
 .photo-strip-item:hover img{transform:scale(1.03);filter:brightness(1);}
 .photo-strip-caption{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;background:linear-gradient(to top,rgba(10,10,10,0.8),transparent);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,236,227,0.5);}
-.stats-wrap{background:#0a0a0a;border-top:1px solid rgba(240,236,227,0.05);}
-.stats-band{padding:80px 48px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2px;}
-.stat-item{padding:36px 28px;border:1px solid rgba(240,236,227,0.06);background:rgba(240,236,227,0.02);}
-.stat-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(28px,3.5vw,46px);letter-spacing:-0.04em;line-height:1;margin-bottom:8px;}
-.stat-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,236,227,0.38);line-height:1.6;}
+
 #expertise{background:#0d0d0d;position:relative;overflow:hidden;}
 #expertise::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 80% 50%,rgba(255,45,107,0.1) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 10% 50%,rgba(0,245,196,0.07) 0%,transparent 60%);}
 .expertise-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:2px;margin-top:60px;}
@@ -216,7 +212,60 @@ section{position:relative;}
 .lego-tt-text{font-size:13px;color:rgba(240,236,227,0.6);margin-bottom:10px;line-height:1.6;}
 .lego-tt-link{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--amber);text-decoration:none;}
 .lego-tt-link:hover{opacity:0.7;}
-footer{padding:28px 48px;border-top:1px solid rgba(240,236,227,0.05);display:flex;justify-content:space-between;align-items:center;}
+.gts-wrap{background:#0a0a0a;border-top:1px solid rgba(240,236,227,0.05);border-bottom:1px solid rgba(240,236,227,0.05);}
+.gts-inner{max-width:1200px;margin:0 auto;padding:80px 48px;}
+.gts-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--hot);margin-bottom:12px;display:flex;align-items:center;gap:12px;}
+.gts-label::before{content:'';width:24px;height:1px;background:var(--hot);}
+.gts-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(28px,4vw,48px);letter-spacing:-0.03em;margin-bottom:8px;}
+.gts-sub{font-family:'Space Mono',monospace;font-size:11px;color:rgba(240,236,227,0.35);letter-spacing:0.06em;margin-bottom:48px;}
+.gts-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;}
+.gts-card{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:28px 24px;transition:border-color 0.3s;}
+.gts-card.revealed{border-color:rgba(240,236,227,0.18);}
+.gts-q{font-size:13px;line-height:1.65;color:rgba(240,236,227,0.65);margin-bottom:24px;min-height:52px;}
+.gts-slider-wrap{position:relative;margin-bottom:12px;}
+.gts-slider{width:100%;-webkit-appearance:none;appearance:none;height:2px;background:rgba(240,236,227,0.1);outline:none;border-radius:1px;cursor:pointer;}
+.gts-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--cream);cursor:pointer;border:2px solid rgba(10,10,10,0.8);transition:transform 0.15s;}
+.gts-slider::-webkit-slider-thumb:hover{transform:scale(1.3);}
+.gts-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--cream);cursor:pointer;border:2px solid rgba(10,10,10,0.8);}
+.gts-guess-display{display:flex;align-items:baseline;gap:6px;margin-bottom:16px;}
+.gts-guess-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:36px;letter-spacing:-0.03em;line-height:1;}
+.gts-guess-unit{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.35);}
+.gts-reveal-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:9px 20px;background:transparent;border:1px solid;border-radius:2px;cursor:pointer;transition:all 0.2s;}
+.gts-reveal-btn:hover{background:currentColor;color:var(--ink) !important;}
+.gts-result{margin-top:16px;padding-top:16px;border-top:1px solid rgba(240,236,227,0.07);}
+.gts-answer{font-family:'Unbounded',sans-serif;font-weight:700;font-size:20px;margin-bottom:4px;}
+.gts-reaction{font-family:'Space Mono',monospace;font-size:11px;color:rgba(240,236,227,0.4);letter-spacing:0.06em;}
+@media(max-width:768px){.gts-inner{padding:60px 20px;}}
+.contact-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;}
+.contact-left{}
+.contact-right{padding-top:8px;}
+.contact-location{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);margin-top:24px;}
+.form-eyebrow{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px;margin-bottom:6px;}
+.form-sub{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;color:rgba(240,236,227,0.35);margin-bottom:32px;}
+.enquiry-form{display:flex;flex-direction:column;gap:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(240,236,227,0.4);}
+.form-input{background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.1);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color 0.2s;border-radius:2px;width:100%;}
+.form-input:focus{border-color:rgba(240,236,227,0.3);}
+.form-input::placeholder{color:rgba(240,236,227,0.2);}
+.form-select{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(240,236,227,0.3)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.form-select option{background:#1a1a1a;color:var(--cream);}
+.form-textarea{min-height:120px;resize:vertical;font-family:'DM Sans',sans-serif;}
+.form-submit{font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;letter-spacing:-0.01em;padding:15px 32px;background:var(--hot);color:var(--cream);border:none;cursor:pointer;transition:all 0.2s;border-radius:2px;align-self:flex-start;margin-top:4px;}
+.form-submit:hover{background:var(--cream);color:var(--ink);}
+.form-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.form-success{display:none;text-align:center;padding:32px;border:1px solid rgba(0,245,196,0.3);background:rgba(0,245,196,0.05);border-radius:2px;}
+.form-success-icon{font-size:24px;color:var(--electric);margin-bottom:12px;}
+.form-success-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px;margin-bottom:6px;}
+.form-success-msg{font-family:'Space Mono',monospace;font-size:11px;color:rgba(240,236,227,0.45);letter-spacing:0.06em;}
+.form-error{margin-top:8px;font-family:'Space Mono',monospace;font-size:11px;color:var(--hot);}
+.form-error a{color:var(--hot);}
+@media(max-width:900px){
+  .contact-layout{grid-template-columns:1fr;gap:48px;}
+  .form-row{grid-template-columns:1fr;}
+}
+footer{padding:28px 48px;footer{padding:28px 48px;border-top:1px solid rgba(240,236,227,0.05);display:flex;justify-content:space-between;align-items:center;}
 footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);}
 .fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
 .fade-up.visible{opacity:1;transform:translateY(0);}
@@ -231,6 +280,7 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
   footer{flex-direction:column;gap:10px;text-align:center;}
 }
 </style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div class="cursor" id="cursor"></div>
@@ -403,13 +453,84 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
   </div>
 </section>
 
-<div class="stats-wrap">
-  <div class="stats-band">
-    <div class="stat-item fade-up"><div class="stat-num" style="color:var(--hot);">14+</div><p class="stat-label">Years with a camera</p></div>
-    <div class="stat-item fade-up" style="transition-delay:0.08s"><div class="stat-num" style="color:var(--violet);">13M+</div><p class="stat-label">Combined native views on Instagram</p></div>
-    <div class="stat-item fade-up" style="transition-delay:0.13s"><div class="stat-num" style="color:var(--electric);">4</div><p class="stat-label">Retail brands, 2 countries — every store, every team member</p></div>
-    <div class="stat-item fade-up" style="transition-delay:0.18s"><div class="stat-num" style="color:var(--amber);">3000+</div><p class="stat-label">In-person event audiences, live broadcast nationwide</p></div>
-    <div class="stat-item fade-up" style="transition-delay:0.23s"><div class="stat-num" style="color:var(--hot);">33+</div><p class="stat-label">Prestigious independent schools photographed across Sydney</p></div>
+<div class="gts-wrap" id="guessGame">
+  <div class="gts-inner">
+    <p class="gts-label">Think you know the numbers?</p>
+    <h2 class="gts-title">Guess the stat.</h2>
+    <p class="gts-sub">Drag each slider to your guess, then reveal.</p>
+    <div class="gts-cards" id="gtsCards">
+
+      <div class="gts-card" data-answer="14" data-min="1" data-max="25" data-unit="yrs" data-color="var(--hot)">
+        <p class="gts-q">How many years has Owen been shooting professionally?</p>
+        <div class="gts-slider-wrap">
+          <input type="range" class="gts-slider" min="1" max="25" value="12" oninput="updateSlider(this)"/>
+          <div class="gts-track-fill" style="background:var(--hot)"></div>
+        </div>
+        <div class="gts-guess-display"><span class="gts-guess-num">12</span><span class="gts-guess-unit">yrs</span></div>
+        <button class="gts-reveal-btn" style="border-color:var(--hot);color:var(--hot);" onclick="revealStat(this)">Reveal</button>
+        <div class="gts-result" style="display:none;">
+          <p class="gts-answer" style="color:var(--hot);">14+ years</p>
+          <p class="gts-reaction"></p>
+        </div>
+      </div>
+
+      <div class="gts-card" data-answer="13000000" data-min="100000" data-max="50000000" data-unit="views" data-color="var(--violet)">
+        <p class="gts-q">How many native views did Owen's Macquarie University content get on Instagram?</p>
+        <div class="gts-slider-wrap">
+          <input type="range" class="gts-slider" min="100000" max="50000000" value="5000000" step="100000" oninput="updateSlider(this)"/>
+          <div class="gts-track-fill" style="background:var(--violet)"></div>
+        </div>
+        <div class="gts-guess-display"><span class="gts-guess-num">5M</span><span class="gts-guess-unit">views</span></div>
+        <button class="gts-reveal-btn" style="border-color:var(--violet);color:var(--violet);" onclick="revealStat(this)">Reveal</button>
+        <div class="gts-result" style="display:none;">
+          <p class="gts-answer" style="color:var(--violet);">13M+ views</p>
+          <p class="gts-reaction"></p>
+        </div>
+      </div>
+
+      <div class="gts-card" data-answer="3000" data-min="50" data-max="10000" data-unit="people" data-color="var(--electric)">
+        <p class="gts-q">What's the biggest in-person audience Owen has produced an event for?</p>
+        <div class="gts-slider-wrap">
+          <input type="range" class="gts-slider" min="50" max="10000" value="500" step="50" oninput="updateSlider(this)"/>
+          <div class="gts-track-fill" style="background:var(--electric)"></div>
+        </div>
+        <div class="gts-guess-display"><span class="gts-guess-num">500</span><span class="gts-guess-unit">people</span></div>
+        <button class="gts-reveal-btn" style="border-color:var(--electric);color:var(--electric);" onclick="revealStat(this)">Reveal</button>
+        <div class="gts-result" style="display:none;">
+          <p class="gts-answer" style="color:var(--electric);">3,000+ people</p>
+          <p class="gts-reaction"></p>
+        </div>
+      </div>
+
+      <div class="gts-card" data-answer="33" data-min="1" data-max="60" data-unit="schools" data-color="var(--amber)">
+        <p class="gts-q">How many prestigious Sydney private schools has Owen photographed for?</p>
+        <div class="gts-slider-wrap">
+          <input type="range" class="gts-slider" min="1" max="60" value="15" oninput="updateSlider(this)"/>
+          <div class="gts-track-fill" style="background:var(--amber)"></div>
+        </div>
+        <div class="gts-guess-display"><span class="gts-guess-num">15</span><span class="gts-guess-unit">schools</span></div>
+        <button class="gts-reveal-btn" style="border-color:var(--amber);color:var(--amber);" onclick="revealStat(this)">Reveal</button>
+        <div class="gts-result" style="display:none;">
+          <p class="gts-answer" style="color:var(--amber);">33+ schools</p>
+          <p class="gts-reaction"></p>
+        </div>
+      </div>
+
+      <div class="gts-card" data-answer="4" data-min="1" data-max="10" data-unit="brands" data-color="var(--hot)">
+        <p class="gts-q">Across how many major retail brands does Owen's internal comms work reach?</p>
+        <div class="gts-slider-wrap">
+          <input type="range" class="gts-slider" min="1" max="10" value="2" oninput="updateSlider(this)"/>
+          <div class="gts-track-fill" style="background:var(--hot)"></div>
+        </div>
+        <div class="gts-guess-display"><span class="gts-guess-num">2</span><span class="gts-guess-unit">brands</span></div>
+        <button class="gts-reveal-btn" style="border-color:var(--hot);color:var(--hot);" onclick="revealStat(this)">Reveal</button>
+        <div class="gts-result" style="display:none;">
+          <p class="gts-answer" style="color:var(--hot);">4 brands · 2 countries</p>
+          <p class="gts-reaction"></p>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -568,31 +689,99 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
 <section id="contact">
   <div class="bg-canvas">
     <div class="bg-shape" style="top:10%;left:6%;width:110px;height:110px;opacity:0.04;">
-      <svg viewBox="0 0 110 110" fill="none" width="110" height="110"><circle cx="55" cy="55" r="46" stroke="white" stroke-width="0.7" stroke-dasharray="4 4"/><line x1="55" y1="9" x2="55" y2="101" stroke="white" stroke-width="0.35"/><line x1="9" y1="55" x2="101" y2="55" stroke="white" stroke-width="0.35"/></svg>
+      <svg viewBox="0 0 110 110" fill="none" width="110" height="110"><circle cx="55" cy="55" r="46" stroke="white" stroke-width="0.7" stroke-dasharray="4 4"/><line x1="55" y1="9" x2="55" y2="101" stroke="white" stroke-width="0.35"/><line x1="9" y1="55" x2="101" y2="55" stroke="white" stroke-width="0.35"/><polygon points="55,20 88,82 22,82" stroke="white" stroke-width="0.35" fill="none"/></svg>
     </div>
   </div>
   <div class="section-inner">
-    <div class="contact-photo-wrap">
-      <img id="gimbalImg" alt="Owen Williams with gimbal rig and camera"/>
-      <div class="contact-photo-caption">
-        <span>Owen Williams</span>
-        <span>On set · Macquarie University</span>
+    <div class="contact-layout">
+
+      <div class="contact-left">
+        <div class="contact-photo-wrap">
+          <img id="gimbalImg" alt="Owen Williams with gimbal rig and camera"/>
+          <div class="contact-photo-caption">
+            <span>Owen Williams</span>
+            <span>On set &middot; Macquarie University</span>
+          </div>
+        </div>
+        <p class="section-label" style="margin-top:40px;">Let's Work</p>
+        <h2 class="contact-big">Let's make<br>something <span>worth</span><br>remembering.</h2>
+        <div class="contact-links">
+          <a href="mailto:owen14ejw@gmail.com" class="c-link c-link-hot">&#9993; Email</a>
+          <a href="https://www.linkedin.com/in/owenejw" target="_blank" class="c-link">LinkedIn</a>
+          <a href="https://www.instagram.com/owenejw/" target="_blank" class="c-link">Instagram</a>
+        </div>
+        <p class="contact-location">SYDNEY, NSW &middot; AVAILABLE FOR FREELANCE &amp; FULL-TIME</p>
       </div>
+
+      <div class="contact-right">
+        <p class="form-eyebrow">Send an enquiry</p>
+        <p class="form-sub">I'll get back to you within 24 hours.</p>
+        <form class="enquiry-form" id="enquiryForm" action="https://formspree.io/f/xjglkdbp" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input type="text" name="name" class="form-input" placeholder="Your name" required/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-input" placeholder="your@email.com" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Enquiry type</label>
+            <select name="enquiry_type" class="form-input form-select" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="Photography / Videography Booking">Photography / Videography Booking</option>
+              <option value="Corporate Comms Project">Corporate Comms Project</option>
+              <option value="Event Coverage">Event Coverage</option>
+              <option value="General Enquiry">General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Budget range</label>
+              <select name="budget" class="form-input form-select">
+                <option value="" disabled selected>Select range</option>
+                <option value="Under $500">Under $500</option>
+                <option value="$500 - $1,500">$500 - $1,500</option>
+                <option value="$1,500 - $5,000">$1,500 - $5,000</option>
+                <option value="$5,000+">$5,000+</option>
+                <option value="Let's discuss">Let's discuss</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Preferred timeline</label>
+              <input type="text" name="timeline" class="form-input" placeholder="e.g. June 2026, ASAP"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tell me about the project</label>
+            <textarea name="message" class="form-input form-textarea" placeholder="What are you working on? The more detail the better." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="formSubmit">
+            <span id="submitText">Send enquiry</span>
+          </button>
+          <div class="form-success" id="formSuccess" style="display:none;">
+            <p class="form-success-icon">&#10022;</p>
+            <p class="form-success-title">Got it &mdash; thanks!</p>
+            <p class="form-success-msg">I'll be in touch within 24 hours.</p>
+          </div>
+          <div class="form-error" id="formError" style="display:none;">
+            <p>Something went wrong. Email me at <a href="mailto:owen14ejw@gmail.com">owen14ejw@gmail.com</a></p>
+          </div>
+        </form>
+      </div>
+
     </div>
-    <p class="section-label">Let's Work</p>
-    <h2 class="contact-big">Let's make<br>something <span>worth</span><br>remembering.</h2>
-    <div class="contact-links">
-      <a href="mailto:owen14ejw@gmail.com" class="c-link c-link-hot">✉ owen14ejw@gmail.com</a>
-      <a href="https://www.linkedin.com/in/owenejw" target="_blank" class="c-link">LinkedIn</a>
-      <a href="https://www.instagram.com/owenejw/" target="_blank" class="c-link">Instagram</a>
-    </div>
-    <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);">SYDNEY, NSW, AUSTRALIA · AVAILABLE FOR FREELANCE & FULL-TIME</p>
   </div>
 </section>
 
 <footer>
   <p>© 2026 Owen Williams. All rights reserved.</p>
-  <p>Sydney, NSW · Graduate, Bachelor of Media & Communications</p>
+  <div style="display:flex;gap:20px;align-items:center;">
+    <p>Sydney, NSW · Graduate, Bachelor of Media & Communications</p>
+    <a href="/play" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.15);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='rgba(240,236,227,0.5)'" onmouseout="this.style.color='rgba(240,236,227,0.15)'">Play ↗</a>
+  </div>
 </footer>
 
 <script>
@@ -684,6 +873,58 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
     if (hf) hf.style.transform = 'translateY('+(window.scrollY*0.18)+'px)';
   }, {passive:true});
 
+  // GUESS THE STAT
+  window.updateSlider = function(input) {
+    var card = input.closest('.gts-card');
+    var val = parseInt(input.value);
+    var min = parseInt(input.min);
+    var max = parseInt(input.max);
+    var pct = ((val - min) / (max - min)) * 100;
+    var fill = card.querySelector('.gts-track-fill');
+    if (fill) { fill.style.width = pct + '%'; fill.style.position='absolute';fill.style.left='0';fill.style.top='0';fill.style.height='2px';fill.style.borderRadius='1px';fill.style.pointerEvents='none'; }
+    var numEl = card.querySelector('.gts-guess-num');
+    if (numEl) {
+      if (val >= 1000000) numEl.textContent = (val/1000000).toFixed(1).replace('.0','') + 'M';
+      else if (val >= 1000) numEl.textContent = val.toLocaleString();
+      else numEl.textContent = val;
+    }
+  };
+
+  window.revealStat = function(btn) {
+    var card = btn.closest('.gts-card');
+    var answer = parseInt(card.dataset.answer);
+    var guess = parseInt(card.querySelector('.gts-slider').value);
+    var result = card.querySelector('.gts-result');
+    var reaction = card.querySelector('.gts-reaction');
+    var diff = Math.abs(guess - answer) / answer;
+    var reactions = [
+      diff <= 0.05 ? '🎯 Nailed it. Scary accurate.' :
+      diff <= 0.15 ? '🔥 So close!' :
+      diff <= 0.35 ? '👀 Not bad, getting warmer.' :
+      diff <= 0.6  ? '😅 A fair guess but not quite.' :
+      '💀 Not even close — but now you know.'
+    ];
+    reaction.textContent = reactions[0];
+    result.style.display = 'block';
+    result.style.animation = 'fadeIn 0.4s ease';
+    btn.style.display = 'none';
+    card.classList.add('revealed');
+    card.querySelector('.gts-slider').disabled = true;
+  };
+
+  // Init slider fills on load
+  document.querySelectorAll('.gts-slider').forEach(function(s) { window.updateSlider(s); });
+
+  // MAKE HERO SHAPE CLICKABLE for easter egg
+  var heroShape = document.querySelector('.hero-bg-shape');
+  if (heroShape) {
+    heroShape.style.cursor = 'pointer';
+    heroShape.style.pointerEvents = 'all';
+    heroShape.addEventListener('click', function() {
+      window.location.href = '/benchmark';
+    });
+  }
+
   // ACTIVE NAV
   var secs = document.querySelectorAll('section[id]');
   var navAs = document.querySelectorAll('.nav-links a');
@@ -692,6 +933,37 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
     secs.forEach(function(s) { if (window.scrollY >= s.offsetTop-110) cur = s.id; });
     navAs.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href')==='#'+cur); });
   }, {passive:true});
+
+
+  // ENQUIRY FORM
+  var form = document.getElementById('enquiryForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('formSubmit');
+      var txt = document.getElementById('submitText');
+      btn.disabled = true;
+      txt.textContent = 'Sending...';
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res) {
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          document.getElementById('formError').style.display = 'block';
+          btn.disabled = false;
+          txt.textContent = 'Send enquiry';
+        }
+      }).catch(function() {
+        document.getElementById('formError').style.display = 'block';
+        btn.disabled = false;
+        txt.textContent = 'Send enquiry';
+      });
+    });
+  }
 
 })();
 </script>

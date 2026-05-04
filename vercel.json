@@ -1,9 +1,28 @@
 {
   "rewrites": [
-    { "source": "/play", "destination": "/play.html" },
-    { "source": "/benchmark", "destination": "/benchmark.html" },
-    { "source": "/gallery", "destination": "/gallery.html" },
-    { "source": "/offshore", "destination": "/offshore.html" },
-    { "source": "/mummy", "destination": "/mummy.html" }
+    {
+      "source": "/play",
+      "destination": "/play.html"
+    },
+    {
+      "source": "/benchmark",
+      "destination": "/benchmark.html"
+    },
+    {
+      "source": "/gallery",
+      "destination": "/gallery.html"
+    },
+    {
+      "source": "/offshore",
+      "destination": "/offshore.html"
+    },
+    {
+      "source": "/mummy",
+      "destination": "/mummy.html"
+    },
+    {
+      "source": "/cosmos",
+      "destination": "/cosmos.html"
+    }
   ]
 }

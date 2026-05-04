@@ -138,10 +138,11 @@ section{position:relative;}
 .work-yt-badge{position:absolute;top:16px;right:16px;background:rgba(200,0,0,0.85);color:white;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;z-index:3;}
 #clients{background:#0d0d0d;border-top:1px solid rgba(240,236,227,0.05);border-bottom:1px solid rgba(240,236,227,0.05);}
 .marquee-wrap{overflow:hidden;margin-top:44px;}
-.marquee-track{display:flex;gap:44px;animation:marquee 28s linear infinite;width:max-content;}
+.marquee-track{display:flex;align-items:center;gap:56px;animation:marquee 35s linear infinite;width:max-content;}
 @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-.m-item{font-family:'Unbounded',sans-serif;font-weight:300;font-size:17px;letter-spacing:-0.02em;color:rgba(240,236,227,0.18);white-space:nowrap;padding:8px 0;}
-.m-dot{color:var(--hot);margin-right:44px;}
+.logo-item{display:flex;align-items:center;color:rgba(240,236,227,0.18);transition:color 0.3s;padding:8px 0;white-space:nowrap;}
+.logo-item:hover{color:rgba(240,236,227,0.6);}
+.logo-item svg{display:block;}
 #schools{background:var(--ink);}
 .schools-intro{font-size:14.5px;color:rgba(240,236,227,0.42);max-width:580px;line-height:1.72;margin-bottom:44px;margin-top:-14px;}
 .subsection-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,236,227,0.28);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
@@ -280,6 +281,14 @@ section{position:relative;}
 .story-card-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.1;}
 .story-card-desc{font-size:13.5px;line-height:1.7;color:rgba(240,236,227,0.5);margin-bottom:16px;}
 .story-card-cta{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--electric);}
+.astro-teaser-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.astro-teaser-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 24px;border:1px solid var(--violet);color:var(--violet);text-decoration:none;transition:all 0.2s;display:inline-block;border-radius:2px;}
+.astro-teaser-btn:hover{background:var(--violet);color:var(--cream);}
+.astro-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.astro-preview-slot{aspect-ratio:1;position:relative;border:1px solid rgba(240,236,227,0.07);overflow:hidden;transition:border-color 0.3s;}
+.astro-preview-slot:hover{border-color:rgba(240,236,227,0.2);}
+.astro-preview-label{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,236,227,0.4);background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);}
+@media(max-width:768px){.astro-teaser-layout{grid-template-columns:1fr;}}
 footer{padding:28px 48px;footer{padding:28px 48px;border-top:1px solid rgba(240,236,227,0.05);display:flex;justify-content:space-between;align-items:center;}
 footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);}
 .fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
@@ -310,6 +319,7 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
     <li><a href="#clients">Partners</a></li>
     <li><a href="#gear">Gear</a></li>
     <li><a href="#stories">Stories</a></li>
+    <li><a href="/cosmos">Cosmos</a></li>
     <li><a href="#testimonials">Kind Words</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -615,8 +625,123 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
     <h2 class="section-title">Trusted by organisations<br>that move culture.</h2>
   </div>
   <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span class="m-item">Woolworths Group</span><span class="m-dot">✦</span><span class="m-item">Macquarie University</span><span class="m-dot">✦</span><span class="m-item">Google</span><span class="m-dot">✦</span><span class="m-item">Visa</span><span class="m-dot">✦</span><span class="m-item">Sydney FC</span><span class="m-dot">✦</span><span class="m-item">TikTok Australia</span><span class="m-dot">✦</span><span class="m-item">Red Bull</span><span class="m-dot">✦</span><span class="m-item">Quantium</span><span class="m-dot">✦</span><span class="m-item">BuzzFeed</span><span class="m-dot">✦</span><span class="m-item">HerVillage Foundation</span><span class="m-dot">✦</span><span class="m-item">Gammay Rangers</span><span class="m-dot">✦</span><span class="m-item">AK Photography</span><span class="m-dot">✦</span><span class="m-item">Powerhouse Museum</span><span class="m-dot">✦</span><span class="m-item">Woolworths Group</span><span class="m-dot">✦</span><span class="m-item">Macquarie University</span><span class="m-dot">✦</span><span class="m-item">Google</span><span class="m-dot">✦</span><span class="m-item">Visa</span><span class="m-dot">✦</span><span class="m-item">Sydney FC</span><span class="m-dot">✦</span><span class="m-item">TikTok Australia</span><span class="m-dot">✦</span><span class="m-item">Red Bull</span><span class="m-dot">✦</span><span class="m-item">Quantium</span><span class="m-dot">✦</span><span class="m-item">BuzzFeed</span><span class="m-dot">✦</span><span class="m-item">HerVillage Foundation</span><span class="m-dot">✦</span><span class="m-item">Gammay Rangers</span><span class="m-dot">✦</span><span class="m-item">AK Photography</span><span class="m-dot">✦</span><span class="m-item">Powerhouse Museum</span><span class="m-dot">✦</span>
+    <div class="marquee-track logo-track">
+
+      <!-- WOOLWORTHS -->
+      <div class="logo-item" title="Woolworths Group">
+        <svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <text x="4" y="28" font-family="Arial,sans-serif" font-weight="700" font-size="15" fill="currentColor">Woolworths</text>
+          <text x="4" y="38" font-family="Arial,sans-serif" font-size="8" fill="currentColor" opacity="0.6">GROUP</text>
+        </svg>
+      </div>
+
+      <!-- MACQUARIE -->
+      <div class="logo-item" title="Macquarie University">
+        <svg viewBox="0 0 110 36" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <rect x="0" y="8" width="4" height="20" fill="currentColor"/>
+          <text x="10" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="currentColor">MACQUARIE</text>
+          <text x="10" y="32" font-family="Arial,sans-serif" font-size="9" fill="currentColor" opacity="0.6">UNIVERSITY</text>
+        </svg>
+      </div>
+
+      <!-- GOOGLE -->
+      <div class="logo-item" title="Google">
+        <svg viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="22" fill="currentColor" letter-spacing="-1">Google</text>
+        </svg>
+      </div>
+
+      <!-- VISA -->
+      <div class="logo-item" title="Visa">
+        <svg viewBox="0 0 60 32" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <text x="0" y="26" font-family="Arial,sans-serif" font-weight="900" font-size="26" fill="currentColor" letter-spacing="2">VISA</text>
+        </svg>
+      </div>
+
+      <!-- SYDNEY FC -->
+      <div class="logo-item" title="Sydney FC">
+        <svg viewBox="0 0 80 36" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <polygon points="12,4 20,4 20,28 12,28" fill="currentColor" opacity="0.3"/>
+          <text x="26" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="currentColor">SYDNEY</text>
+          <text x="26" y="33" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="currentColor" opacity="0.7">FC</text>
+        </svg>
+      </div>
+
+      <!-- TIKTOK -->
+      <div class="logo-item" title="TikTok Australia">
+        <svg viewBox="0 0 90 32" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="20" fill="currentColor">TikTok</text>
+          <text x="66" y="24" font-family="Arial,sans-serif" font-size="9" fill="currentColor" opacity="0.5">AU</text>
+        </svg>
+      </div>
+
+      <!-- RED BULL -->
+      <div class="logo-item" title="Red Bull">
+        <svg viewBox="0 0 80 36" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <circle cx="14" cy="18" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <circle cx="28" cy="18" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <text x="42" y="16" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="currentColor">RED</text>
+          <text x="42" y="27" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="currentColor">BULL</text>
+        </svg>
+      </div>
+
+      <!-- QUANTIUM -->
+      <div class="logo-item" title="Quantium">
+        <svg viewBox="0 0 90 32" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <rect x="0" y="10" width="12" height="12" fill="currentColor" opacity="0.4" transform="rotate(45 6 16)"/>
+          <text x="18" y="22" font-family="Arial,sans-serif" font-weight="700" font-size="15" fill="currentColor">QUANTIUM</text>
+        </svg>
+      </div>
+
+      <!-- BUZZFEED -->
+      <div class="logo-item" title="BuzzFeed">
+        <svg viewBox="0 0 90 32" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <text x="0" y="24" font-family="Arial,sans-serif" font-weight="900" font-size="20" fill="currentColor">BuzzFeed</text>
+        </svg>
+      </div>
+
+      <!-- HERVILLAGE -->
+      <div class="logo-item" title="HerVillage Foundation">
+        <svg viewBox="0 0 100 36" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <path d="M6 8 L14 14 L22 8 L22 28 L6 28 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <text x="28" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="currentColor">HerVillage</text>
+          <text x="28" y="32" font-family="Arial,sans-serif" font-size="8" fill="currentColor" opacity="0.5">FOUNDATION</text>
+        </svg>
+      </div>
+
+      <!-- AK PHOTOGRAPHY -->
+      <div class="logo-item" title="AK Photography">
+        <svg viewBox="0 0 80 36" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <text x="0" y="26" font-family="Arial,sans-serif" font-weight="900" font-size="28" fill="currentColor">AK</text>
+          <text x="38" y="20" font-family="Arial,sans-serif" font-size="9" fill="currentColor" opacity="0.6">PHOTO</text>
+          <text x="38" y="30" font-family="Arial,sans-serif" font-size="9" fill="currentColor" opacity="0.6">GRAPHY</text>
+        </svg>
+      </div>
+
+      <!-- POWERHOUSE -->
+      <div class="logo-item" title="Powerhouse Museum">
+        <svg viewBox="0 0 110 36" fill="none" xmlns="http://www.w3.org/2000/svg" height="32">
+          <rect x="0" y="4" width="6" height="28" fill="currentColor"/>
+          <rect x="9" y="4" width="6" height="28" fill="currentColor" opacity="0.5"/>
+          <text x="20" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="currentColor">POWERHOUSE</text>
+          <text x="20" y="32" font-family="Arial,sans-serif" font-size="8" fill="currentColor" opacity="0.5">MUSEUM</text>
+        </svg>
+      </div>
+
+      <!-- DUPLICATE SET for seamless loop -->
+      <div class="logo-item" title="Woolworths Group"><svg viewBox="0 0 120 40" fill="none" height="32"><text x="4" y="28" font-family="Arial,sans-serif" font-weight="700" font-size="15" fill="currentColor">Woolworths</text><text x="4" y="38" font-family="Arial,sans-serif" font-size="8" fill="currentColor" opacity="0.6">GROUP</text></svg></div>
+      <div class="logo-item" title="Macquarie University"><svg viewBox="0 0 110 36" fill="none" height="32"><rect x="0" y="8" width="4" height="20" fill="currentColor"/><text x="10" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="currentColor">MACQUARIE</text><text x="10" y="32" font-family="Arial,sans-serif" font-size="9" fill="currentColor" opacity="0.6">UNIVERSITY</text></svg></div>
+      <div class="logo-item" title="Google"><svg viewBox="0 0 80 32" fill="none" height="32"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="22" fill="currentColor">Google</text></svg></div>
+      <div class="logo-item" title="Visa"><svg viewBox="0 0 60 32" fill="none" height="32"><text x="0" y="26" font-family="Arial,sans-serif" font-weight="900" font-size="26" fill="currentColor" letter-spacing="2">VISA</text></svg></div>
+      <div class="logo-item" title="Sydney FC"><svg viewBox="0 0 80 36" fill="none" height="32"><polygon points="12,4 20,4 20,28 12,28" fill="currentColor" opacity="0.3"/><text x="26" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="currentColor">SYDNEY</text><text x="26" y="33" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="currentColor" opacity="0.7">FC</text></svg></div>
+      <div class="logo-item" title="TikTok Australia"><svg viewBox="0 0 90 32" fill="none" height="32"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="20" fill="currentColor">TikTok</text><text x="66" y="24" font-family="Arial,sans-serif" font-size="9" fill="currentColor" opacity="0.5">AU</text></svg></div>
+      <div class="logo-item" title="Red Bull"><svg viewBox="0 0 80 36" fill="none" height="32"><circle cx="14" cy="18" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="28" cy="18" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><text x="42" y="16" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="currentColor">RED</text><text x="42" y="27" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="currentColor">BULL</text></svg></div>
+      <div class="logo-item" title="Quantium"><svg viewBox="0 0 90 32" fill="none" height="32"><rect x="0" y="10" width="12" height="12" fill="currentColor" opacity="0.4" transform="rotate(45 6 16)"/><text x="18" y="22" font-family="Arial,sans-serif" font-weight="700" font-size="15" fill="currentColor">QUANTIUM</text></svg></div>
+      <div class="logo-item" title="BuzzFeed"><svg viewBox="0 0 90 32" fill="none" height="32"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="900" font-size="20" fill="currentColor">BuzzFeed</text></svg></div>
+      <div class="logo-item" title="HerVillage Foundation"><svg viewBox="0 0 100 36" fill="none" height="32"><path d="M6 8 L14 14 L22 8 L22 28 L6 28 Z" stroke="currentColor" stroke-width="1.5" fill="none"/><text x="28" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="currentColor">HerVillage</text><text x="28" y="32" font-family="Arial,sans-serif" font-size="8" fill="currentColor" opacity="0.5">FOUNDATION</text></svg></div>
+      <div class="logo-item" title="AK Photography"><svg viewBox="0 0 80 36" fill="none" height="32"><text x="0" y="26" font-family="Arial,sans-serif" font-weight="900" font-size="28" fill="currentColor">AK</text><text x="38" y="20" font-family="Arial,sans-serif" font-size="9" fill="currentColor" opacity="0.6">PHOTO</text><text x="38" y="30" font-family="Arial,sans-serif" font-size="9" fill="currentColor" opacity="0.6">GRAPHY</text></svg></div>
+      <div class="logo-item" title="Powerhouse Museum"><svg viewBox="0 0 110 36" fill="none" height="32"><rect x="0" y="4" width="6" height="28" fill="currentColor"/><rect x="9" y="4" width="6" height="28" fill="currentColor" opacity="0.5"/><text x="20" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="currentColor">POWERHOUSE</text><text x="20" y="32" font-family="Arial,sans-serif" font-size="8" fill="currentColor" opacity="0.5">MUSEUM</text></svg></div>
+
     </div>
   </div>
   <div style="height:72px;"></div>
@@ -671,6 +796,40 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
       <div class="gear-acc-item"><p class="gear-acc-name">GoPro</p><p class="gear-acc-type">Action Camera</p></div>
       <div class="gear-acc-item"><p class="gear-acc-name">Rode</p><p class="gear-acc-type">Audio</p></div>
       <div class="gear-acc-item"><p class="gear-acc-name">Shure</p><p class="gear-acc-type">Audio</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="astro-teaser" style="background:var(--ink);position:relative;overflow:hidden;">
+  <div class="bg-canvas">
+    <div class="bg-shape" style="top:20%;left:5%;width:160px;height:160px;opacity:0.04;">
+      <svg viewBox="0 0 160 160" fill="none" width="160" height="160"><circle cx="80" cy="80" r="70" stroke="white" stroke-width="0.6" stroke-dasharray="3 6"/><circle cx="80" cy="80" r="40" stroke="white" stroke-width="0.3"/><circle cx="80" cy="80" r="10" stroke="white" stroke-width="0.3"/></svg>
+    </div>
+  </div>
+  <div class="section-inner">
+    <p class="section-label" style="color:var(--violet);">Beyond Earth</p>
+    <div class="astro-teaser-layout">
+      <div class="astro-teaser-left">
+        <h2 class="section-title">I also shoot<br>other galaxies.</h2>
+        <p style="font-size:15px;color:rgba(240,236,227,0.5);line-height:1.75;max-width:480px;margin-bottom:32px;">When I'm not working, I point a Celestron NexStar 5SE and a Nikon D750 at the sky. M83, the Sombrero Galaxy, Orion Nebula, lunar eclipses, and a few embarrassingly early attempts at Saturn. All of it — the good and the rough — is on the astro page.</p>
+        <a href="/cosmos" class="astro-teaser-btn">Explore the cosmos ↗</a>
+      </div>
+      <div class="astro-teaser-right">
+        <div class="astro-preview-grid">
+          <div class="astro-preview-slot" style="background:radial-gradient(ellipse at 40% 50%,rgba(123,47,255,0.4) 0%,rgba(0,0,20,0.9) 70%);">
+            <div class="astro-preview-label">M83 · Southern Pinwheel</div>
+          </div>
+          <div class="astro-preview-slot" style="background:radial-gradient(ellipse at 60% 40%,rgba(255,184,0,0.25) 0%,rgba(0,0,20,0.9) 70%);">
+            <div class="astro-preview-label">Orion Nebula</div>
+          </div>
+          <div class="astro-preview-slot" style="background:radial-gradient(ellipse at 50% 50%,rgba(240,236,227,0.15) 0%,rgba(0,0,20,0.9) 65%);">
+            <div class="astro-preview-label">Lunar Eclipse</div>
+          </div>
+          <div class="astro-preview-slot" style="background:radial-gradient(ellipse at 50% 60%,rgba(0,245,196,0.2) 0%,rgba(0,0,20,0.9) 70%);">
+            <div class="astro-preview-label">Sombrero Galaxy</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

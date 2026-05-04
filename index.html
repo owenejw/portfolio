@@ -189,8 +189,8 @@ section{position:relative;}
 .testi-logo{width:32px;height:32px;border-radius:50%;background:rgba(240,236,227,0.08);border:1px solid rgba(240,236,227,0.1);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:9px;color:rgba(240,236,227,0.35);margin-bottom:10px;}
 .testi-name{font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;margin-bottom:3px;}
 .testi-role{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.07em;color:rgba(240,236,227,0.35);}
-#contact{background:#0d0d0d;position:relative;overflow:hidden;}
-#contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(123,47,255,0.22) 0%,transparent 60%);}
+#contact{background:#0d0d0d;position:relative;overflow:hidden;isolation:isolate;}
+#contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(123,47,255,0.22) 0%,transparent 60%);pointer-events:none;z-index:0;}
 .contact-photo-wrap{margin-bottom:56px;display:inline-block;position:relative;}
 .contact-photo-wrap img{width:260px;height:320px;object-fit:cover;object-position:center top;display:block;filter:brightness(0.88);border:1px solid rgba(240,236,227,0.08);}
 .contact-photo-caption{position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(to top,rgba(10,10,10,0.85),transparent);display:flex;flex-direction:column;gap:3px;}
@@ -236,7 +236,7 @@ section{position:relative;}
 .gts-answer{font-family:'Unbounded',sans-serif;font-weight:700;font-size:20px;margin-bottom:4px;}
 .gts-reaction{font-family:'Space Mono',monospace;font-size:11px;color:rgba(240,236,227,0.4);letter-spacing:0.06em;}
 @media(max-width:768px){.gts-inner{padding:60px 20px;}}
-.contact-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;}
+.contact-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;position:relative;z-index:2;}
 .contact-left{}
 .contact-right{padding-top:8px;}
 .contact-location{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);margin-top:24px;}
@@ -246,7 +246,7 @@ section{position:relative;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .form-group{display:flex;flex-direction:column;gap:6px;}
 .form-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(240,236,227,0.4);}
-.form-input{background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.1);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color 0.2s;border-radius:2px;width:100%;}
+.form-input{background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.1);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color 0.2s;border-radius:2px;width:100%;position:relative;z-index:2;}
 .form-input:focus{border-color:rgba(240,236,227,0.3);}
 .form-input::placeholder{color:rgba(240,236,227,0.2);}
 .form-select{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(240,236,227,0.3)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
@@ -265,6 +265,21 @@ section{position:relative;}
   .contact-layout{grid-template-columns:1fr;gap:48px;}
   .form-row{grid-template-columns:1fr;}
 }
+.stories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2px;}
+.story-card{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.08);overflow:hidden;transition:border-color 0.3s,transform 0.3s;display:block;color:var(--cream);}
+.story-card:hover{border-color:rgba(240,236,227,0.2);transform:translateY(-2px);}
+.story-card-img{height:220px;position:relative;overflow:hidden;}
+.story-card-bg{position:absolute;inset:0;}
+.story-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.8) 0%,transparent 60%);}
+.story-card-coords{position:absolute;top:16px;left:16px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.4);z-index:2;}
+.story-map-preview{position:absolute;inset:0;padding:32px 16px 16px;z-index:1;}
+.story-card-body{padding:24px 28px 28px;}
+.story-card-meta{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.story-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border:1px solid;border-radius:2px;}
+.story-date{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.3);}
+.story-card-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.1;}
+.story-card-desc{font-size:13.5px;line-height:1.7;color:rgba(240,236,227,0.5);margin-bottom:16px;}
+.story-card-cta{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--electric);}
 footer{padding:28px 48px;footer{padding:28px 48px;border-top:1px solid rgba(240,236,227,0.05);display:flex;justify-content:space-between;align-items:center;}
 footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.18);}
 .fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
@@ -294,6 +309,7 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
     <li><a href="#work">Work</a></li>
     <li><a href="#clients">Partners</a></li>
     <li><a href="#gear">Gear</a></li>
+    <li><a href="#stories">Stories</a></li>
     <li><a href="#testimonials">Kind Words</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -600,7 +616,7 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
   </div>
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span class="m-item">Woolworths Group</span><span class="m-dot">✦</span><span class="m-item">Macquarie University</span><span class="m-dot">✦</span><span class="m-item">Google</span><span class="m-dot">✦</span><span class="m-item">Visa</span><span class="m-dot">✦</span><span class="m-item">Sydney FC</span><span class="m-dot">✦</span><span class="m-item">TikTok Australia</span><span class="m-dot">✦</span><span class="m-item">Red Bull</span><span class="m-dot">✦</span><span class="m-item">Quantium</span><span class="m-dot">✦</span><span class="m-item">BuzzFeed</span><span class="m-dot">✦</span><span class="m-item">HerVillage Foundation</span><span class="m-dot">✦</span><span class="m-item">Gammay Rangers</span><span class="m-dot">✦</span><span class="m-item">AK Photography</span><span class="m-dot">✦</span><span class="m-item">Woolworths Group</span><span class="m-dot">✦</span><span class="m-item">Macquarie University</span><span class="m-dot">✦</span><span class="m-item">Google</span><span class="m-dot">✦</span><span class="m-item">Visa</span><span class="m-dot">✦</span><span class="m-item">Sydney FC</span><span class="m-dot">✦</span><span class="m-item">TikTok Australia</span><span class="m-dot">✦</span><span class="m-item">Red Bull</span><span class="m-dot">✦</span><span class="m-item">Quantium</span><span class="m-dot">✦</span><span class="m-item">BuzzFeed</span><span class="m-dot">✦</span><span class="m-item">HerVillage Foundation</span><span class="m-dot">✦</span><span class="m-item">Gammay Rangers</span><span class="m-dot">✦</span><span class="m-item">AK Photography</span><span class="m-dot">✦</span>
+      <span class="m-item">Woolworths Group</span><span class="m-dot">✦</span><span class="m-item">Macquarie University</span><span class="m-dot">✦</span><span class="m-item">Google</span><span class="m-dot">✦</span><span class="m-item">Visa</span><span class="m-dot">✦</span><span class="m-item">Sydney FC</span><span class="m-dot">✦</span><span class="m-item">TikTok Australia</span><span class="m-dot">✦</span><span class="m-item">Red Bull</span><span class="m-dot">✦</span><span class="m-item">Quantium</span><span class="m-dot">✦</span><span class="m-item">BuzzFeed</span><span class="m-dot">✦</span><span class="m-item">HerVillage Foundation</span><span class="m-dot">✦</span><span class="m-item">Gammay Rangers</span><span class="m-dot">✦</span><span class="m-item">AK Photography</span><span class="m-dot">✦</span><span class="m-item">Powerhouse Museum</span><span class="m-dot">✦</span><span class="m-item">Woolworths Group</span><span class="m-dot">✦</span><span class="m-item">Macquarie University</span><span class="m-dot">✦</span><span class="m-item">Google</span><span class="m-dot">✦</span><span class="m-item">Visa</span><span class="m-dot">✦</span><span class="m-item">Sydney FC</span><span class="m-dot">✦</span><span class="m-item">TikTok Australia</span><span class="m-dot">✦</span><span class="m-item">Red Bull</span><span class="m-dot">✦</span><span class="m-item">Quantium</span><span class="m-dot">✦</span><span class="m-item">BuzzFeed</span><span class="m-dot">✦</span><span class="m-item">HerVillage Foundation</span><span class="m-dot">✦</span><span class="m-item">Gammay Rangers</span><span class="m-dot">✦</span><span class="m-item">AK Photography</span><span class="m-dot">✦</span><span class="m-item">Powerhouse Museum</span><span class="m-dot">✦</span>
     </div>
   </div>
   <div style="height:72px;"></div>
@@ -655,6 +671,66 @@ footer p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;c
       <div class="gear-acc-item"><p class="gear-acc-name">GoPro</p><p class="gear-acc-type">Action Camera</p></div>
       <div class="gear-acc-item"><p class="gear-acc-name">Rode</p><p class="gear-acc-type">Audio</p></div>
       <div class="gear-acc-item"><p class="gear-acc-name">Shure</p><p class="gear-acc-type">Audio</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="stories" style="background:#0d0d0d;position:relative;overflow:hidden;">
+  <div class="bg-canvas">
+    <div class="bg-shape rev" style="top:5%;right:5%;width:130px;height:130px;opacity:0.035;">
+      <svg viewBox="0 0 130 130" fill="none" width="130" height="130"><circle cx="65" cy="65" r="56" stroke="white" stroke-width="0.7" stroke-dasharray="5 5"/><line x1="65" y1="9" x2="65" y2="121" stroke="white" stroke-width="0.35"/><line x1="9" y1="65" x2="121" y2="65" stroke="white" stroke-width="0.35"/></svg>
+    </div>
+  </div>
+  <div class="section-inner">
+    <p class="section-label">Field Notes</p>
+    <h2 class="section-title">Stories from<br>the field.</h2>
+    <p style="font-size:14.5px;color:rgba(240,236,227,0.42);max-width:560px;line-height:1.72;margin-bottom:56px;margin-top:-16px;">Some shoots leave a mark. These are the ones worth writing about.</p>
+    <div class="stories-grid">
+
+      <a href="/offshore" class="story-card" style="text-decoration:none;">
+        <div class="story-card-img">
+          <div class="story-card-bg" style="background:linear-gradient(135deg,rgba(0,245,196,0.15) 0%,rgba(123,47,255,0.2) 100%);"></div>
+          <div class="story-card-overlay"></div>
+          <div class="story-card-coords">33.8688° S, 151.8000° E</div>
+          <div class="story-map-preview">
+            <svg viewBox="0 0 200 120" fill="none" width="100%" height="100%">
+              <path d="M 30 20 Q 80 15 110 35 Q 150 55 170 95" stroke="var(--electric)" stroke-width="1.5" stroke-dasharray="4 3" fill="none" opacity="0.6"/>
+              <circle cx="30" cy="20" r="4" fill="var(--electric)" opacity="0.8"/>
+              <circle cx="170" cy="95" r="4" fill="var(--hot)" opacity="0.8"/>
+              <text x="35" y="16" fill="rgba(240,236,227,0.4)" font-size="7" font-family="Space Mono">SPIT BRIDGE</text>
+              <text x="128" y="100" fill="rgba(240,236,227,0.4)" font-size="7" font-family="Space Mono">CONT. SHELF</text>
+            </svg>
+          </div>
+        </div>
+        <div class="story-card-body">
+          <div class="story-card-meta">
+            <span class="story-tag" style="border-color:var(--electric);color:var(--electric);">Marine Biology</span>
+            <span class="story-date">October 2025</span>
+          </div>
+          <h3 class="story-card-title">50km Offshore</h3>
+          <p class="story-card-desc">A day on the open ocean with marine scientists, Gammay Rangers, and Dr Vanessa Pirotta — collecting eDNA at the continental shelf for the first time at that distance. Whales, dolphins, sharks, and a record heat run.</p>
+          <p class="story-card-cta">Read the story ↗</p>
+        </div>
+      </a>
+
+      <a href="/mummy" class="story-card" style="text-decoration:none;opacity:0.6;">
+        <div class="story-card-img">
+          <div class="story-card-bg" style="background:linear-gradient(135deg,rgba(255,184,0,0.15) 0%,rgba(255,45,107,0.15) 100%);"></div>
+          <div class="story-card-overlay"></div>
+          <div class="story-card-coords">Macquarie University · Sydney</div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:48px;opacity:0.15;">𓂀</div>
+        </div>
+        <div class="story-card-body">
+          <div class="story-card-meta">
+            <span class="story-tag" style="border-color:var(--amber);color:var(--amber);">Archaeology</span>
+            <span class="story-date">Coming soon</span>
+          </div>
+          <h3 class="story-card-title">The Mummy in the MRI</h3>
+          <p class="story-card-desc">Inside a Macquarie University research project scanning an ancient Egyptian mummy's coffin. From artefact to MRI room — I was there for all of it.</p>
+          <p class="story-card-cta" style="opacity:0.4;">Story coming soon</p>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>

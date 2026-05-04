@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OW · Client Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--cream:#f0ece3;--hot:#ff2d6b;--electric:#00f5c4;--violet:#7b2fff;--amber:#ffb800;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{min-height:100%;background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:0;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(240,236,227,0.07);}
+.nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;color:var(--cream);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--hot);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.nav-client{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(240,236,227,0.35);display:none;}
+.nav-logout{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.35);background:transparent;border:1px solid rgba(240,236,227,0.12);padding:7px 14px;cursor:pointer;transition:all 0.2s;display:none;}
+.nav-logout:hover{color:var(--hot);border-color:var(--hot);}
+
+/* LOGIN */
+#loginScreen{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+.login-box{width:100%;max-width:400px;background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.08);padding:48px 40px;}
+.login-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--hot);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.login-eyebrow::before{content:'';width:16px;height:1px;background:var(--hot);}
+.login-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.02em;margin-bottom:6px;}
+.login-sub{font-family:'Space Mono',monospace;font-size:10px;color:rgba(240,236,227,0.3);letter-spacing:0.06em;margin-bottom:36px;}
+.login-group{margin-bottom:16px;}
+.login-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(240,236,227,0.4);display:block;margin-bottom:6px;}
+.login-input{width:100%;background:rgba(240,236,227,0.05);border:1px solid rgba(240,236,227,0.1);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;padding:12px 14px;outline:none;transition:border-color 0.2s;border-radius:2px;}
+.login-input:focus{border-color:rgba(240,236,227,0.3);}
+.login-btn{width:100%;margin-top:8px;font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;padding:14px;background:var(--hot);color:var(--cream);border:none;cursor:pointer;transition:all 0.2s;border-radius:2px;}
+.login-btn:hover{background:var(--cream);color:var(--ink);}
+.login-error{font-family:'Space Mono',monospace;font-size:10px;color:var(--hot);letter-spacing:0.06em;margin-top:12px;display:none;}
+
+/* GALLERY */
+#galleryScreen{display:none;position:relative;z-index:1;padding:90px 40px 60px;max-width:1200px;margin:0 auto;}
+.gallery-header{margin-bottom:48px;}
+.gallery-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--electric);margin-bottom:10px;}
+.gallery-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(28px,4vw,48px);letter-spacing:-0.02em;margin-bottom:8px;}
+.gallery-meta{font-family:'Space Mono',monospace;font-size:10px;color:rgba(240,236,227,0.3);letter-spacing:0.08em;}
+.gallery-info{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:20px 24px;margin-bottom:36px;border-left:2px solid var(--electric);}
+.gallery-info p{font-size:14px;color:rgba(240,236,227,0.55);line-height:1.65;}
+.gallery-grid{columns:3;gap:4px;}
+.gallery-item{break-inside:avoid;margin-bottom:4px;overflow:hidden;cursor:pointer;position:relative;}
+.gallery-item img{width:100%;display:block;transition:transform 0.4s,filter 0.3s;filter:brightness(0.9);}
+.gallery-item:hover img{transform:scale(1.03);filter:brightness(1);}
+.gallery-placeholder{width:100%;background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.07);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;min-height:180px;}
+.gallery-placeholder-icon{font-size:28px;margin-bottom:10px;opacity:0.3;}
+.gallery-placeholder-text{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.25);}
+.download-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 22px;background:transparent;border:1px solid rgba(240,236,227,0.15);color:rgba(240,236,227,0.4);cursor:pointer;transition:all 0.2s;border-radius:2px;margin-top:32px;display:inline-block;text-decoration:none;}
+.download-btn:hover{border-color:var(--electric);color:var(--electric);}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(10,10,10,0.97);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border:1px solid rgba(240,236,227,0.08);}
+.lightbox-close{position:fixed;top:24px;right:32px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.4);background:transparent;border:1px solid rgba(240,236,227,0.12);padding:8px 16px;cursor:pointer;transition:all 0.2s;border-radius:2px;}
+.lightbox-close:hover{color:var(--cream);border-color:rgba(240,236,227,0.3);}
+
+/* EMPTY STATE */
+.gallery-empty{text-align:center;padding:80px 20px;}
+.gallery-empty-icon{font-size:48px;margin-bottom:16px;opacity:0.2;}
+.gallery-empty-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:20px;margin-bottom:8px;opacity:0.4;}
+.gallery-empty-sub{font-family:'Space Mono',monospace;font-size:10px;color:rgba(240,236,227,0.25);letter-spacing:0.08em;}
+
+@media(max-width:768px){
+  nav{padding:14px 20px;}
+  #galleryScreen{padding:80px 20px 40px;}
+  .gallery-grid{columns:2;}
+  .login-box{padding:32px 24px;}
+}
+@media(max-width:480px){
+  .gallery-grid{columns:1;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">OW<span>.</span></a>
+  <div class="nav-right">
+    <span class="nav-client" id="navClient"></span>
+    <button class="nav-logout" id="navLogout" onclick="logout()">Sign out</button>
+  </div>
+</nav>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <p class="login-eyebrow">Client Access</p>
+    <h1 class="login-title">Your Gallery</h1>
+    <p class="login-sub">Enter your credentials to access your photos.</p>
+    <div class="login-group">
+      <label class="login-label" for="loginUser">Username</label>
+      <input type="text" id="loginUser" class="login-input" placeholder="Your username" autocomplete="off" autocapitalize="off"/>
+    </div>
+    <div class="login-group">
+      <label class="login-label" for="loginPass">Password</label>
+      <input type="password" id="loginPass" class="login-input" placeholder="Your password"/>
+    </div>
+    <button class="login-btn" onclick="doLogin()">Access gallery</button>
+    <p class="login-error" id="loginError">Incorrect credentials. Please try again.</p>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div id="galleryScreen">
+  <div class="gallery-header">
+    <p class="gallery-eyebrow">Private Gallery</p>
+    <h2 class="gallery-title" id="galleryTitle">Your Photos</h2>
+    <p class="gallery-meta" id="galleryMeta"></p>
+  </div>
+  <div class="gallery-info" id="galleryInfo" style="display:none;">
+    <p id="galleryInfoText"></p>
+  </div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+  <div class="gallery-empty" id="galleryEmpty" style="display:none;">
+    <div class="gallery-empty-icon">📷</div>
+    <h3 class="gallery-empty-title">Photos coming soon</h3>
+    <p class="gallery-empty-sub">Owen is still editing. Check back shortly.</p>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close">Close ✕</button>
+  <img id="lightboxImg" src="" alt=""/>
+</div>
+
+<script>
+(function() {
+
+// ── CLIENT DATABASE ──
+// To add a client: copy one of the objects below and fill in their details
+// photos: array of image paths in your images/gallery/ folder
+// If photos is empty, shows "coming soon" state
+var CLIENTS = {
+  'demo': {
+    password: 'gallery2026',
+    name: 'Demo Client',
+    event: 'Sample Event · May 2026',
+    info: 'Your edited photos are ready to view and download. Click any image to view full size.',
+    folder: 'images/gallery/demo/',
+    photos: []
+  },
+  // ── ADD NEW CLIENTS BELOW ──
+  // 'clientusername': {
+  //   password: 'theirpassword',
+  //   name: 'Client Name',
+  //   event: 'Event Name · Month Year',
+  //   info: 'A note to the client about their photos.',
+  //   folder: 'images/gallery/clientusername/',
+  //   photos: ['photo1.webp', 'photo2.webp']
+  // },
+};
+
+var currentClient = null;
+
+// ── LOGIN ──
+window.doLogin = function() {
+  var user = document.getElementById('loginUser').value.trim().toLowerCase();
+  var pass = document.getElementById('loginPass').value;
+  var err  = document.getElementById('loginError');
+  if (CLIENTS[user] && CLIENTS[user].password === pass) {
+    err.style.display = 'none';
+    currentClient = user;
+    sessionStorage.setItem('owgallery_user', user);
+    sessionStorage.setItem('owgallery_pass', pass);
+    showGallery(user);
+  } else {
+    err.style.display = 'block';
+    document.getElementById('loginPass').value = '';
+  }
+};
+
+// Allow Enter key
+document.getElementById('loginPass').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') window.doLogin();
+});
+document.getElementById('loginUser').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') document.getElementById('loginPass').focus();
+});
+
+// Auto login if session exists
+var savedUser = sessionStorage.getItem('owgallery_user');
+var savedPass = sessionStorage.getItem('owgallery_pass');
+if (savedUser && CLIENTS[savedUser] && CLIENTS[savedUser].password === savedPass) {
+  showGallery(savedUser);
+}
+
+// ── SHOW GALLERY ──
+function showGallery(user) {
+  var client = CLIENTS[user];
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('galleryScreen').style.display = 'block';
+  document.getElementById('navClient').style.display = 'block';
+  document.getElementById('navClient').textContent = client.name;
+  document.getElementById('navLogout').style.display = 'block';
+  document.getElementById('galleryTitle').textContent = client.name;
+  document.getElementById('galleryMeta').textContent = client.event;
+
+  if (client.info) {
+    document.getElementById('galleryInfo').style.display = 'block';
+    document.getElementById('galleryInfoText').textContent = client.info;
+  }
+
+  var grid = document.getElementById('galleryGrid');
+  grid.innerHTML = '';
+
+  if (!client.photos || client.photos.length === 0) {
+    document.getElementById('galleryEmpty').style.display = 'block';
+    return;
+  }
+
+  client.photos.forEach(function(photo, i) {
+    var path = client.folder + photo;
+    var item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.onclick = function() { openLightbox(path); };
+    var img = document.createElement('img');
+    img.src = path;
+    img.alt = client.name + ' photo ' + (i+1);
+    img.loading = 'lazy';
+    item.appendChild(img);
+    grid.appendChild(item);
+  });
+}
+
+// ── LOGOUT ──
+window.logout = function() {
+  sessionStorage.removeItem('owgallery_user');
+  sessionStorage.removeItem('owgallery_pass');
+  currentClient = null;
+  document.getElementById('galleryScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('navClient').style.display = 'none';
+  document.getElementById('navLogout').style.display = 'none';
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('galleryEmpty').style.display = 'none';
+};
+
+// ── LIGHTBOX ──
+window.openLightbox = function(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+};
+window.closeLightbox = function() {
+  document.getElementById('lightbox').classList.remove('open');
+};
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') window.closeLightbox();
+});
+
+})();
+</script>
+</body>
+</html>

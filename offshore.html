@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50km Offshore — Owen Williams</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--cream:#f0ece3;--hot:#ff2d6b;--electric:#00f5c4;--violet:#7b2fff;--amber:#ffb800;--ocean-deep:#001a2e;--ocean-mid:#003355;--ocean-light:#0077aa;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:0;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(240,236,227,0.07);}
+.nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;color:var(--cream);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--hot);}
+.nav-back{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.4);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--cream);}
+
+/* HERO */
+.story-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;position:relative;overflow:hidden;}
+.story-hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,#001020 0%,#002040 40%,#003060 70%,#001830 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,245,196,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,196,0.03) 1px,transparent 1px);background-size:60px 60px;}
+.hero-depth-lines{position:absolute;inset:0;overflow:hidden;}
+.hero-depth-line{position:absolute;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(0,119,170,0.2),transparent);}
+.story-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--electric);margin-bottom:16px;position:relative;}
+.story-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(48px,8vw,110px);line-height:0.9;letter-spacing:-0.03em;margin-bottom:20px;position:relative;}
+.story-title .outline{color:transparent;-webkit-text-stroke:1.5px var(--cream);display:block;}
+.story-subtitle{font-size:18px;font-weight:300;color:rgba(240,236,227,0.55);max-width:560px;line-height:1.6;margin-bottom:40px;position:relative;}
+.story-meta-chips{display:flex;gap:10px;flex-wrap:wrap;position:relative;}
+.chip{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:7px 14px;border:1px solid;border-radius:2px;}
+.chip-electric{border-color:var(--electric);color:var(--electric);}
+.chip-violet{border-color:var(--violet);color:var(--violet);}
+.chip-amber{border-color:var(--amber);color:var(--amber);}
+.chip-hot{border-color:var(--hot);color:var(--hot);}
+.scroll-hint{position:absolute;bottom:40px;right:48px;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(240,236,227,0.25);}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(0,245,196,0.4),transparent);animation:scrollAnim 2s ease-in-out infinite;}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+/* MAP SECTION */
+.map-section{background:var(--ocean-deep);position:relative;overflow:hidden;padding:80px 0;}
+.map-wrap{max-width:900px;margin:0 auto;padding:0 48px;}
+.map-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--electric);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.map-label::before{content:'';width:20px;height:1px;background:var(--electric);}
+.map-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);margin-bottom:8px;letter-spacing:-0.02em;}
+.map-desc{font-family:'Space Mono',monospace;font-size:11px;color:rgba(240,236,227,0.35);letter-spacing:0.06em;margin-bottom:48px;}
+.map-canvas-wrap{position:relative;background:rgba(0,30,60,0.8);border:1px solid rgba(0,245,196,0.1);border-radius:4px;overflow:hidden;}
+#mapCanvas{width:100%;display:block;}
+.map-legend{display:flex;gap:24px;margin-top:16px;flex-wrap:wrap;}
+.map-legend-item{display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;color:rgba(240,236,227,0.4);}
+.legend-dot{width:8px;height:8px;border-radius:50%;}
+
+/* DEPTH SECTION */
+.depth-section{position:relative;overflow:hidden;}
+.depth-band{padding:0 48px;max-width:900px;margin:0 auto;}
+.depth-row{display:grid;grid-template-columns:120px 1fr;gap:32px;align-items:start;padding:40px 0;border-bottom:1px solid rgba(240,236,227,0.05);}
+.depth-row:last-child{border-bottom:none;}
+.depth-marker{text-align:right;}
+.depth-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.03em;color:var(--electric);}
+.depth-unit{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.3);text-transform:uppercase;}
+.depth-content-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(240,236,227,0.4);margin-bottom:8px;}
+.depth-content-text{font-size:15px;line-height:1.75;color:rgba(240,236,227,0.65);}
+.depth-content-text em{font-style:italic;color:var(--cream);}
+.depth-photo-placeholder{width:100%;height:200px;background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.07);display:flex;align-items:center;justify-content:center;margin-top:16px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.2);text-transform:uppercase;}
+.depth-photo-placeholder.has-photo{padding:0;overflow:hidden;}
+.depth-photo-placeholder img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* STORY BODY */
+.story-body{max-width:720px;margin:0 auto;padding:80px 48px;}
+.story-body h2{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(20px,2.5vw,30px);letter-spacing:-0.02em;margin-bottom:20px;margin-top:56px;}
+.story-body h2:first-child{margin-top:0;}
+.story-body p{font-size:16px;line-height:1.85;color:rgba(240,236,227,0.68);margin-bottom:20px;}
+.story-body p strong{color:var(--cream);font-weight:400;}
+.story-body p em{font-style:italic;color:rgba(240,236,227,0.85);}
+.story-pullquote{border-left:2px solid var(--electric);padding:20px 28px;margin:36px 0;background:rgba(0,245,196,0.04);}
+.story-pullquote p{font-family:'Unbounded',sans-serif;font-weight:300;font-size:clamp(17px,2vw,22px);line-height:1.4;color:var(--cream);letter-spacing:-0.01em;margin:0;}
+.story-stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:2px;margin:36px 0;}
+.story-stat{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:20px 18px;}
+.story-stat-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:32px;letter-spacing:-0.03em;margin-bottom:4px;}
+.story-stat-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.35);line-height:1.5;}
+.story-photo-grid{display:grid;gap:4px;margin:36px 0;}
+.story-photo-grid.cols-2{grid-template-columns:1fr 1fr;}
+.story-photo-grid.cols-3{grid-template-columns:1fr 1fr 1fr;}
+.story-photo-slot{overflow:hidden;position:relative;background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.07);}
+.story-photo-slot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;}
+.story-photo-slot:hover img{transform:scale(1.03);}
+.photo-placeholder-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.2);}
+.story-tag-row{display:flex;gap:8px;flex-wrap:wrap;margin:32px 0;}
+.story-nav-footer{border-top:1px solid rgba(240,236,227,0.07);padding:40px 0 0;display:flex;justify-content:space-between;align-items:center;margin-top:60px;}
+.snf-link{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.4);text-decoration:none;transition:color 0.2s;}
+.snf-link:hover{color:var(--cream);}
+
+/* OCEAN BG for depth section */
+.ocean-gradient-bg{background:linear-gradient(180deg,#001020 0%,#000810 100%);}
+
+@media(max-width:768px){
+  nav{padding:14px 20px;}
+  .story-hero{padding:0 20px 60px;}
+  .map-wrap,.depth-band,.story-body{padding-left:20px;padding-right:20px;}
+  .depth-row{grid-template-columns:80px 1fr;gap:16px;}
+  .scroll-hint{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">OW<span>.</span></a>
+  <a href="/#stories" class="nav-back">← Field Notes</a>
+</nav>
+
+<!-- HERO -->
+<section class="story-hero">
+  <div class="story-hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-depth-lines" id="depthLines"></div>
+  <p class="story-eyebrow">Field Notes · October 2025</p>
+  <h1 class="story-title">
+    50km<br>
+    <span class="outline">Offshore</span>
+  </h1>
+  <p class="story-subtitle">A day on the open ocean with marine scientists, Gammay Rangers, and Dr Vanessa Pirotta — collecting environmental DNA at the continental shelf for the first time at that distance from shore.</p>
+  <div class="story-meta-chips">
+    <span class="chip chip-electric">Marine Biology</span>
+    <span class="chip chip-violet">Macquarie University</span>
+    <span class="chip chip-amber">Gammay Rangers</span>
+    <span class="chip chip-hot">Powerhouse Museum</span>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- MAP -->
+<div class="map-section">
+  <div class="map-wrap">
+    <p class="map-label">The Route</p>
+    <h2 class="map-title">Spit Bridge to the Continental Shelf</h2>
+    <p class="map-desc">~50km offshore · 8 hours on the water · First eDNA collection at this distance</p>
+    <div class="map-canvas-wrap">
+      <canvas id="mapCanvas" height="300"></canvas>
+    </div>
+    <div class="map-legend">
+      <div class="map-legend-item"><div class="legend-dot" style="background:var(--electric);"></div>Departure — Spit Bridge</div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:var(--hot);"></div>Destination — Brown Mountain (Continental Shelf)</div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:var(--amber);"></div>eDNA collection stops</div>
+    </div>
+  </div>
+</div>
+
+<!-- STORY BODY -->
+<div class="story-body">
+
+  <h2>How it happened</h2>
+  <p>In early October 2025, I joined a research expedition organised through Macquarie University, partnering with <strong>Dr Vanessa Pirotta</strong> — one of Australia's leading whale and marine mammal researchers — alongside <strong>Gammay Rangers</strong> (the Traditional Custodians of the ocean Country we were moving through) and a representative from the <strong>Powerhouse Museum</strong>.</p>
+  <p>The mission: travel approximately 50 kilometres offshore from Sydney's Spit Bridge to a deep-sea formation known as Brown Mountain on the continental shelf — and collect environmental DNA samples from the water column at regular intervals along the way. For a collection point this far out, it was a first.</p>
+
+  <div class="story-stat-row">
+    <div class="story-stat"><div class="story-stat-num" style="color:var(--electric);">~50km</div><div class="story-stat-label">Offshore from Sydney</div></div>
+    <div class="story-stat"><div class="story-stat-num" style="color:var(--violet);">8hrs</div><div class="story-stat-label">On the water, 7am to 3pm</div></div>
+    <div class="story-stat"><div class="story-stat-num" style="color:var(--hot);">1st</div><div class="story-stat-label">eDNA collected at this distance</div></div>
+    <div class="story-stat"><div class="story-stat-num" style="color:var(--amber);">Record</div><div class="story-stat-label">Whale heat run sighting</div></div>
+  </div>
+
+  <h2>The science</h2>
+  <p>Environmental DNA — or eDNA — is exactly what it sounds like: genetic material left behind in the water by animals that have passed through. Shed skin cells, mucus, waste. Scientists can take a water sample from the middle of the ocean, sequence what's in it, and tell you which species were there.</p>
+  <p>Every few kilometres we stopped the boat. The team lowered buckets over the side, collected water from the surface, and transferred it into sample containers for lab analysis back on shore. They couldn't get live results out there — the processing happens later — but each stop built a picture of what lives in that corridor of ocean between the coastline and the shelf edge.</p>
+
+  <div class="story-pullquote">
+    <p>"We were building a picture of the ocean from the inside out — one bucket of water at a time."</p>
+  </div>
+
+  <h2>What I brought</h2>
+  <p>Sony was my primary camera for video, with a Nikon alongside for stills. I also had microphones for audio capture, GoPros for behind-the-scenes and wide environmental footage, and phones as backup. My coworker was on the boat too but spent most of the journey dealing with seasickness — so the bulk of the filming fell to me.</p>
+  <p><em>Shooting on a moving vessel 50 kilometres from shore in open ocean swells is a genuinely different challenge.</em> You're hand-holding everything, the horizon is never still, and the light changes fast over open water. You adapt or you miss it.</p>
+
+  <div class="story-photo-grid cols-2" style="height:320px;">
+    <div class="story-photo-slot" style="height:320px;"><p class="photo-placeholder-text">Photos coming soon</p></div>
+    <div class="story-photo-slot" style="height:320px;"><p class="photo-placeholder-text">Photos coming soon</p></div>
+  </div>
+
+  <h2>What we saw</h2>
+  <p>The marine life out there was extraordinary. A massive pod of dolphins found us early and swam alongside the boat — I got extended video of them directly below the bow, which ended up being some of the best footage of the day.</p>
+  <p>We encountered sharks, seals, and then — the moment that stopped everyone on deck — a whale heat run. A large group of humpbacks in an intense surface display, churning the water around us. Dr Pirotta told us it was one of the largest heat runs she'd ever witnessed. That's not a sentence you forget.</p>
+
+  <div class="story-pullquote">
+    <p>"Dr Pirotta said it was one of the largest heat runs she'd ever seen. That's not a sentence you forget when you're standing on a boat 50km from shore."</p>
+  </div>
+
+  <div class="story-photo-grid cols-3" style="height:240px;">
+    <div class="story-photo-slot" style="height:240px;"><p class="photo-placeholder-text">Dolphins</p></div>
+    <div class="story-photo-slot" style="height:240px;"><p class="photo-placeholder-text">Heat run</p></div>
+    <div class="story-photo-slot" style="height:240px;"><p class="photo-placeholder-text">On deck</p></div>
+  </div>
+
+  <h2>Managing the shoot</h2>
+  <p>Days like this don't have a shot list. You keep your camera up, you stay ready, and you learn to brace yourself against the rail while tracking something that's moving faster than you expected. The eDNA collection stops gave us structured moments — scientists at work, equipment over the side, the geometry of buckets and ropes and open water. But the wildlife was pure instinct.</p>
+  <p>I was responsible for all video and photography across the day. That meant capturing the science, the environment, the people, and the unexpected. By the time we got back to the Spit Bridge at 3pm, I had more usable footage than any single day shoot I'd done before.</p>
+
+  <div class="story-tag-row">
+    <span class="chip chip-electric">eDNA Research</span>
+    <span class="chip chip-violet">Humpback Whales</span>
+    <span class="chip chip-amber">Sony FX6</span>
+    <span class="chip chip-hot">Nikon</span>
+    <span class="chip" style="border-color:rgba(240,236,227,0.2);color:rgba(240,236,227,0.4);">GoPro</span>
+    <span class="chip" style="border-color:rgba(240,236,227,0.2);color:rgba(240,236,227,0.4);">Open Ocean</span>
+  </div>
+
+  <div class="story-nav-footer">
+    <a href="/#stories" class="snf-link">← All Field Notes</a>
+    <a href="/mummy" class="snf-link">The Mummy in the MRI →</a>
+  </div>
+
+</div>
+
+<!-- DEPTH VISUALISER -->
+<div class="ocean-gradient-bg">
+  <div style="max-width:900px;margin:0 auto;padding:80px 48px 40px;">
+    <p class="map-label" style="color:var(--electric);">The Ocean Below</p>
+    <h2 class="map-title">How deep is it out there?</h2>
+    <p class="map-desc">Where we were on the continental shelf — the ocean drops sharply from coastal waters into the abyss</p>
+  </div>
+  <div class="depth-band">
+    <div class="depth-row">
+      <div class="depth-marker"><div class="depth-num" style="color:var(--electric);">0m</div><div class="depth-unit">Surface</div></div>
+      <div><p class="depth-content-label">Where we were</p><p class="depth-content-text">On deck, hand-holding a Sony through ocean swells. Dolphins at the bow. The coast long out of sight.</p></div>
+    </div>
+    <div class="depth-row">
+      <div class="depth-marker"><div class="depth-num" style="color:#00d4aa;">−50m</div><div class="depth-unit">Shallow</div></div>
+      <div><p class="depth-content-label">Sunlight zone</p><p class="depth-content-text">The eDNA in the buckets came from this layer — surface water carrying genetic traces of everything that's passed through.</p></div>
+    </div>
+    <div class="depth-row">
+      <div class="depth-marker"><div class="depth-num" style="color:#0099cc;">−200m</div><div class="depth-unit">Shelf edge</div></div>
+      <div><p class="depth-content-label">The continental shelf drop-off</p><p class="depth-content-text">Brown Mountain sits near here — the underwater formation that marks the edge of the continental shelf, where the ocean floor falls away sharply.</p></div>
+    </div>
+    <div class="depth-row">
+      <div class="depth-marker"><div class="depth-num" style="color:#0066aa;">−1,000m</div><div class="depth-unit">Deep</div></div>
+      <div><p class="depth-content-label">Midnight zone begins</p><p class="depth-content-text">No sunlight. The whales we saw at the surface dive through this layer regularly — humpbacks can reach over 500m.</p></div>
+    </div>
+    <div class="depth-row">
+      <div class="depth-marker"><div class="depth-num" style="color:#003366;">−4,000m</div><div class="depth-unit">Abyssal</div></div>
+      <div><p class="depth-content-label">The ocean floor nearby</p><p class="depth-content-text">The Tasman Sea floor in this region reaches 4,000–5,000m. The eDNA samples collected that day may eventually reveal what lives down here.</p></div>
+    </div>
+  </div>
+  <div style="height:80px;"></div>
+</div>
+
+<script>
+(function() {
+
+// HERO DEPTH LINES
+var dl = document.getElementById('depthLines');
+for (var i = 0; i < 12; i++) {
+  var line = document.createElement('div');
+  line.className = 'hero-depth-line';
+  line.style.top = (8 + i * 8) + '%';
+  line.style.opacity = (0.3 - i * 0.02).toString();
+  dl.appendChild(line);
+}
+
+// MAP ANIMATION
+var canvas = document.getElementById('mapCanvas');
+var ctx = canvas.getContext('2d');
+var W, H;
+var progress = 0;
+var animating = false;
+var stops = [];
+
+// Route points (normalized 0-1)
+var route = [
+  {x:0.18, y:0.28, label:'Spit Bridge', color:'#00f5c4'},
+  {x:0.28, y:0.22, label:'', color:'#ffb800'},
+  {x:0.42, y:0.35, label:'eDNA Stop 1', color:'#ffb800'},
+  {x:0.55, y:0.48, label:'eDNA Stop 2', color:'#ffb800'},
+  {x:0.68, y:0.58, label:'eDNA Stop 3', color:'#ffb800'},
+  {x:0.80, y:0.72, label:'Brown Mountain', color:'#ff2d6b'}
+];
+
+function resize() {
+  W = canvas.offsetWidth;
+  H = 300;
+  canvas.width = W;
+  canvas.height = H;
+  drawMap(progress);
+}
+
+function drawMap(t) {
+  ctx.clearRect(0,0,W,H);
+
+  // Ocean background gradient
+  var bg = ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#001830');
+  bg.addColorStop(1,'#000810');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,H);
+
+  // Depth lines
+  for (var i = 0; i < 8; i++) {
+    var y = H * (0.1 + i * 0.11);
+    ctx.strokeStyle = 'rgba(0,119,170,' + (0.06 - i*0.005) + ')';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
+  }
+
+  // Grid
+  ctx.strokeStyle = 'rgba(0,245,196,0.04)';
+  ctx.lineWidth = 0.5;
+  for (var gx = 0; gx < W; gx += 60) {
+    ctx.beginPath(); ctx.moveTo(gx,0); ctx.lineTo(gx,H); ctx.stroke();
+  }
+  for (var gy = 0; gy < H; gy += 40) {
+    ctx.beginPath(); ctx.moveTo(0,gy); ctx.lineTo(W,gy); ctx.stroke();
+  }
+
+  // Draw route up to t
+  var totalPoints = route.length - 1;
+  var currentSeg = Math.floor(t * totalPoints);
+  var segProgress = (t * totalPoints) - currentSeg;
+
+  ctx.strokeStyle = '#00f5c4';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([6, 4]);
+  ctx.shadowColor = '#00f5c4';
+  ctx.shadowBlur = 6;
+  ctx.beginPath();
+
+  for (var i = 0; i <= currentSeg && i < route.length - 1; i++) {
+    var p1 = route[i], p2 = route[i+1];
+    var x1 = p1.x * W, y1 = p1.y * H;
+    var x2, y2;
+    if (i < currentSeg) {
+      x2 = p2.x * W; y2 = p2.y * H;
+    } else {
+      x2 = x1 + (p2.x - p1.x) * W * segProgress;
+      y2 = y1 + (p2.y - p1.y) * H * segProgress;
+    }
+    if (i === 0) ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.shadowBlur = 0;
+
+  // Draw dots for passed stops
+  for (var i = 0; i < route.length; i++) {
+    var pt = route[i];
+    var ptProgress = i / totalPoints;
+    if (ptProgress > t) break;
+    var px = pt.x * W, py = pt.y * H;
+
+    // Pulse ring
+    ctx.strokeStyle = pt.color;
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = 0.3;
+    ctx.beginPath();
+    ctx.arc(px, py, 10, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    ctx.fillStyle = pt.color;
+    ctx.beginPath();
+    ctx.arc(px, py, 4, 0, Math.PI*2);
+    ctx.fill();
+
+    if (pt.label) {
+      ctx.fillStyle = 'rgba(240,236,227,0.5)';
+      ctx.font = '9px Space Mono, monospace';
+      ctx.textAlign = px > W*0.6 ? 'right' : 'left';
+      var labelX = px > W*0.6 ? px - 12 : px + 12;
+      ctx.fillText(pt.label, labelX, py - 8);
+    }
+  }
+
+  // Boat cursor at current position
+  if (t > 0 && t < 1) {
+    var ci = Math.min(currentSeg, route.length-2);
+    var sp = (t * totalPoints) - ci;
+    var bx = (route[ci].x + (route[ci+1].x - route[ci].x) * sp) * W;
+    var by = (route[ci].y + (route[ci+1].y - route[ci].y) * sp) * H;
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '16px serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('⛵', bx, by - 6);
+  }
+
+  // Coordinates watermark
+  ctx.fillStyle = 'rgba(0,245,196,0.15)';
+  ctx.font = '10px Space Mono, monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('33.7969° S  151.2767° E → 33.8688° S  151.8000° E', 12, H - 12);
+}
+
+// Animate map on scroll
+var mapSection = document.querySelector('.map-section');
+var mapStarted = false;
+var startTime = null;
+var DURATION = 3000;
+
+function animateMap(ts) {
+  if (!startTime) startTime = ts;
+  var elapsed = ts - startTime;
+  progress = Math.min(elapsed / DURATION, 1);
+  drawMap(progress);
+  if (progress < 1) requestAnimationFrame(animateMap);
+}
+
+var io = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting && !mapStarted) {
+    mapStarted = true;
+    requestAnimationFrame(animateMap);
+  }
+}, {threshold: 0.3});
+io.observe(mapSection);
+
+// Fade-in depth rows on scroll
+var depthRows = document.querySelectorAll('.depth-row');
+var depthIO = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateX(0)';
+    }
+  });
+}, {threshold: 0.2});
+depthRows.forEach(function(r) {
+  r.style.opacity = '0';
+  r.style.transform = 'translateX(-16px)';
+  r.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  depthIO.observe(r);
+});
+
+window.addEventListener('resize', resize);
+resize();
+
+})();
+</script>
+</body>
+</html>

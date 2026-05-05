@@ -23,6 +23,10 @@
     {
       "source": "/beyond-earth",
       "destination": "/beyond-earth.html"
+    },
+    {
+      "source": "/cosmos",
+      "destination": "/cosmos.html"
     }
   ]
 }

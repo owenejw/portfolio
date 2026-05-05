@@ -299,6 +299,7 @@ section{position:relative;}
 .astro-teaser-btn:hover{background:var(--violet);color:var(--cream);}
 .astro-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
 .astro-preview-slot{aspect-ratio:1;position:relative;border:1px solid rgba(240,236,227,0.07);overflow:hidden;transition:border-color 0.3s;}
+.astro-preview-slot:hover img{filter:brightness(1)!important;}
 .astro-preview-slot:hover{border-color:rgba(240,236,227,0.2);}
 .astro-preview-label{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,236,227,0.4);background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);}
 @media(max-width:768px){.astro-teaser-layout{grid-template-columns:1fr;}}
@@ -312,6 +313,47 @@ section{position:relative;}
 .site-lightbox-close:hover{color:var(--cream);border-color:rgba(240,236,227,0.3);}
 .site-lightbox-caption{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.3);white-space:nowrap;}
 img[data-lightbox]{cursor:zoom-in;}
+.work-request-card{cursor:pointer!important;transition:border-color 0.3s,background 0.3s!important;}
+.work-request-card:hover{background:rgba(240,236,227,0.04)!important;border-color:rgba(0,245,196,0.2)!important;}
+.work-request-card:hover .work-request-btn{border-color:var(--electric);color:var(--electric);}
+.work-request-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 24px;border:1px solid rgba(240,236,227,0.2);color:rgba(240,236,227,0.45);border-radius:2px;transition:all 0.2s;white-space:nowrap;}
+
+/* REQUEST MODAL */
+.req-modal{position:fixed;inset:0;background:rgba(10,10,10,0.92);z-index:800;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(12px);}
+.req-modal.open{display:flex;}
+.req-box{background:#0f0f0f;border:1px solid rgba(240,236,227,0.1);width:100%;max-width:580px;max-height:90vh;overflow-y:auto;position:relative;}
+.req-header{padding:32px 36px 24px;border-bottom:1px solid rgba(240,236,227,0.07);}
+.req-close{position:absolute;top:20px;right:20px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.3);background:transparent;border:1px solid rgba(240,236,227,0.1);padding:6px 12px;cursor:pointer;transition:all 0.2s;border-radius:2px;}
+.req-close:hover{color:var(--cream);border-color:rgba(240,236,227,0.3);}
+.req-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--electric);margin-bottom:10px;}
+.req-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:20px;margin-bottom:8px;letter-spacing:-0.01em;}
+.req-sub{font-size:13px;color:rgba(240,236,227,0.45);line-height:1.65;}
+.req-body{padding:28px 36px;}
+.req-group{margin-bottom:20px;}
+.req-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(240,236,227,0.4);display:block;margin-bottom:8px;}
+.req-input{width:100%;background:rgba(240,236,227,0.04);border:1px solid rgba(240,236,227,0.1);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;padding:11px 14px;outline:none;transition:border-color 0.2s;border-radius:2px;}
+.req-input:focus{border-color:rgba(240,236,227,0.3);}
+.req-input::placeholder{color:rgba(240,236,227,0.2);}
+.req-textarea{min-height:80px;resize:vertical;font-family:'DM Sans',sans-serif;}
+.req-radio-group{display:flex;gap:8px;}
+.req-radio-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 20px;border:1px solid rgba(240,236,227,0.12);color:rgba(240,236,227,0.4);background:transparent;cursor:pointer;transition:all 0.2s;border-radius:2px;flex:1;text-align:center;}
+.req-radio-btn.selected{border-color:var(--electric);color:var(--electric);background:rgba(0,245,196,0.06);}
+.req-sports-wrap{display:none;margin-top:16px;animation:fadeIn 0.3s ease;}
+.req-sports-wrap.show{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.req-sports-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-top:10px;}
+.req-checkbox{display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 12px;border:1px solid rgba(240,236,227,0.07);border-radius:2px;transition:all 0.15s;background:rgba(240,236,227,0.02);}
+.req-checkbox:hover{border-color:rgba(240,236,227,0.15);background:rgba(240,236,227,0.04);}
+.req-checkbox input{accent-color:var(--electric);width:14px;height:14px;cursor:pointer;flex-shrink:0;}
+.req-checkbox span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.07em;text-transform:uppercase;color:rgba(240,236,227,0.5);}
+.req-submit{width:100%;font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;padding:14px;background:var(--electric);color:var(--ink);border:none;cursor:pointer;transition:all 0.2s;border-radius:2px;margin-top:8px;}
+.req-submit:hover{background:var(--cream);}
+.req-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.req-success{display:none;text-align:center;padding:40px 36px;}
+.req-success-icon{font-size:32px;margin-bottom:16px;color:var(--electric);}
+.req-success-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px;}
+.req-success-msg{font-family:'Space Mono',monospace;font-size:10px;color:rgba(240,236,227,0.4);letter-spacing:0.06em;line-height:1.6;}
+.req-error{font-family:'Space Mono',monospace;font-size:10px;color:var(--hot);margin-top:8px;display:none;}
 footer{padding:28px 48px;footer{padding:28px 48px;border-top:1px solid rgba(240,236,227,0.05);display:flex;justify-content:space-between;align-items:center;}
 footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,236,227,0.12);text-decoration:none;}
 .fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
@@ -661,6 +703,19 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
       <div class="work-item col-6" data-cat="comms"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">▽</div><div class="work-content"><p class="work-cat">Social Media · 13M+ Views</p><h3 class="work-title">Macquarie University Instagram</h3><p class="work-sub">Including the Daniel Kish series · 2022–25</p></div></div></div>
       <div class="work-item col-8" data-cat="events"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">✺</div><div class="work-content"><p class="work-cat">Nonprofit · Events · Brand</p><h3 class="work-title">HerVillage Foundation</h3><p class="work-sub">Photography, video, strategy, brand comms · 2025–Present</p></div></div></div>
       <div class="work-item col-4" data-cat="video"><div class="work-ph"><div class="work-overlay"></div><div class="work-bg">▶</div><div class="work-yt-badge">YouTube</div><div class="work-content"><p class="work-cat">Music Video · Freelance</p><h3 class="work-title">Music Video Production</h3><p class="work-sub">Link coming soon</p></div></div></div>
+
+      <div class="work-item col-12 work-request-card" data-cat="photography" onclick="openWorkRequest()">
+        <div class="work-ph" style="aspect-ratio:auto;min-height:180px;background:rgba(240,236,227,0.02);border:1px dashed rgba(240,236,227,0.12);display:flex;align-items:center;padding:40px 48px;gap:48px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:240px;">
+            <p class="work-cat" style="color:var(--electric);">Schools · Sports · Corporate Events</p>
+            <h3 class="work-title" style="font-size:18px;margin-bottom:10px;">Private Portfolio — Available on Request</h3>
+            <p style="font-size:13px;color:rgba(240,236,227,0.4);line-height:1.65;max-width:560px;">Out of respect for client privacy, student welfare, and corporate confidentiality, a significant portion of my work isn't publicly displayed. This includes school sports and events, private corporate work, and Woolworths Group content. I'm happy to share selected work privately — just let me know what you're looking for.</p>
+          </div>
+          <div style="flex-shrink:0;">
+            <div class="work-request-btn">Request access ↗</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -862,16 +917,20 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
       </div>
       <div class="astro-teaser-right">
         <div class="astro-preview-grid">
-          <div class="astro-preview-slot" style="background:radial-gradient(ellipse at 40% 50%,rgba(123,47,255,0.4) 0%,rgba(0,0,20,0.9) 70%);">
+          <div class="astro-preview-slot">
+            <img src="images/astro-southern_pinwheel.webp" alt="M83 Southern Pinwheel Galaxy" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);transition:filter 0.3s;"/>
             <div class="astro-preview-label">M83 · Southern Pinwheel</div>
           </div>
-          <div class="astro-preview-slot" style="background:radial-gradient(ellipse at 60% 40%,rgba(255,184,0,0.25) 0%,rgba(0,0,20,0.9) 70%);">
-            <div class="astro-preview-label">Orion Nebula</div>
+          <div class="astro-preview-slot">
+            <img src="images/astro-helix.webp" alt="Helix Nebula" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);transition:filter 0.3s;"/>
+            <div class="astro-preview-label">Helix Nebula</div>
           </div>
-          <div class="astro-preview-slot" style="background:radial-gradient(ellipse at 50% 50%,rgba(240,236,227,0.15) 0%,rgba(0,0,20,0.9) 65%);">
-            <div class="astro-preview-label">Lunar Eclipse</div>
+          <div class="astro-preview-slot">
+            <img src="images/astro-moon_composite.webp" alt="Moon Composite" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);transition:filter 0.3s;"/>
+            <div class="astro-preview-label">Moon Composite</div>
           </div>
-          <div class="astro-preview-slot" style="background:radial-gradient(ellipse at 50% 60%,rgba(0,245,196,0.2) 0%,rgba(0,0,20,0.9) 70%);">
+          <div class="astro-preview-slot">
+            <img src="images/astro-sombrero.webp" alt="Sombrero Galaxy" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);transition:filter 0.3s;"/>
             <div class="astro-preview-label">Sombrero Galaxy</div>
           </div>
         </div>
@@ -1247,6 +1306,63 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
   }
 
 
+  // PRIVATE PORTFOLIO REQUEST
+  var specificSelected = null;
+
+  window.openWorkRequest = function() {
+    document.getElementById('reqModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeWorkRequest = function(e) {
+    if (e && e.target !== document.getElementById('reqModal')) return;
+    document.getElementById('reqModal').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  window.selectSpecific = function(yes) {
+    specificSelected = yes;
+    document.getElementById('reqNo').classList.toggle('selected', !yes);
+    document.getElementById('reqYes').classList.toggle('selected', yes);
+    document.getElementById('reqSportsWrap').classList.toggle('show', yes);
+  };
+  window.submitRequest = function() {
+    var name = document.getElementById('reqName').value.trim();
+    var email = document.getElementById('reqEmail').value.trim();
+    if (!name || !email) { alert('Please fill in your name and email.'); return; }
+    var btn = document.getElementById('reqSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    var sports = [];
+    document.querySelectorAll('.req-sports-grid input:checked').forEach(function(cb) { sports.push(cb.value); });
+    var message = 'Name: ' + name + '\n' +
+      'Email: ' + email + '\n' +
+      'Reason: ' + (document.getElementById('reqReason').value || 'Not specified') + '\n' +
+      'Specific request: ' + (specificSelected === null ? 'Not specified' : specificSelected ? 'Yes — ' + (sports.length ? sports.join(', ') : 'No categories selected') : 'No — best of anything') + '\n' +
+      'Message: ' + (document.getElementById('reqMessage').value || 'None');
+    var formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('_subject', 'Private Portfolio Request from ' + name);
+    formData.append('message', message);
+    fetch('https://formspree.io/f/xjglkdbp', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res) {
+      if (res.ok) {
+        document.getElementById('reqForm').style.display = 'none';
+        document.getElementById('reqSuccess').style.display = 'block';
+      } else {
+        document.getElementById('reqError').style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Send request';
+      }
+    }).catch(function() {
+      document.getElementById('reqError').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Send request';
+    });
+  };
+
   // SITE LIGHTBOX
   window.openSiteLightbox = function(imgEl) {
     var lb = document.getElementById('siteLightbox');
@@ -1289,6 +1405,81 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
 
 })();
 </script>
+
+<!-- PRIVATE PORTFOLIO REQUEST MODAL -->
+<div class="req-modal" id="reqModal" onclick="closeWorkRequest(event)">
+  <div class="req-box">
+    <button class="req-close" onclick="closeWorkRequest()">Close ✕</button>
+    <div class="req-header">
+      <p class="req-eyebrow">Private Portfolio</p>
+      <h2 class="req-title">Request Access</h2>
+      <p class="req-sub">Out of respect for client privacy, student welfare, and corporate confidentiality, some of my best work isn't publicly displayed. Fill in your details and I'll send you a private link to the relevant work.</p>
+    </div>
+    <div id="reqForm">
+      <div class="req-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" class="req-name-email">
+          <div class="req-group">
+            <label class="req-label">Your name</label>
+            <input type="text" class="req-input" id="reqName" placeholder="Name" required/>
+          </div>
+          <div class="req-group">
+            <label class="req-label">Your email</label>
+            <input type="email" class="req-input" id="reqEmail" placeholder="email@example.com" required/>
+          </div>
+        </div>
+        <div class="req-group">
+          <label class="req-label">Why you're interested</label>
+          <input type="text" class="req-input" id="reqReason" placeholder="e.g. Hiring manager, prospective client, colleague..."/>
+        </div>
+        <div class="req-group">
+          <label class="req-label">Would you like to specify a particular sport or category?</label>
+          <div class="req-radio-group">
+            <div class="req-radio-btn" id="reqNo" onclick="selectSpecific(false)">No — send me your best</div>
+            <div class="req-radio-btn" id="reqYes" onclick="selectSpecific(true)">Yes — I have something specific in mind</div>
+          </div>
+          <div class="req-sports-wrap" id="reqSportsWrap">
+            <p class="req-label" style="margin-bottom:10px;">Select what you'd like to see (tick all that apply)</p>
+            <div class="req-sports-grid">
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Football (Soccer)"/><span>Football</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Rugby Union"/><span>Rugby Union</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Rugby League"/><span>Rugby League</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Cricket"/><span>Cricket</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Rowing"/><span>Rowing</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Swimming"/><span>Swimming</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Athletics"/><span>Athletics</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Basketball"/><span>Basketball</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Netball"/><span>Netball</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Tennis"/><span>Tennis</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Water Polo"/><span>Water Polo</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Gymnastics"/><span>Gymnastics</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="AFL"/><span>AFL</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Hockey"/><span>Hockey</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Volleyball"/><span>Volleyball</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Badminton"/><span>Badminton</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Baseball"/><span>Baseball</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Softball"/><span>Softball</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="School Formals"/><span>School Formals</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Graduations"/><span>Graduations</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Corporate Events"/><span>Corporate Events</span></label>
+              <label class="req-checkbox"><input type="checkbox" name="sport" value="Executive Headshots"/><span>Exec Headshots</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="req-group">
+          <label class="req-label">Anything else you'd like to mention? (optional)</label>
+          <textarea class="req-input req-textarea" id="reqMessage" placeholder="Any context about what you're looking for..."></textarea>
+        </div>
+        <button class="req-submit" id="reqSubmit" onclick="submitRequest()">Send request</button>
+        <p class="req-error" id="reqError">Something went wrong. Please email me directly at owen14ejw@gmail.com</p>
+      </div>
+    </div>
+    <div class="req-success" id="reqSuccess">
+      <div class="req-success-icon">✦</div>
+      <h3 class="req-success-title">Request sent!</h3>
+      <p class="req-success-msg">I'll be in touch within 24 hours with a private link to the relevant work.<br/>Thanks for reaching out.</p>
+    </div>
+  </div>
+</div>
 
 <!-- SITE LIGHTBOX -->
 <div class="site-lightbox" id="siteLightbox" onclick="closeSiteLightbox(event)">

@@ -52,7 +52,8 @@ section{position:relative;}
 .hero-float-photo img{width:100%;display:block;object-fit:contain;object-position:bottom;filter:drop-shadow(0 0 80px rgba(123,47,255,0.45));mask-image:linear-gradient(to top,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.9) 50%,rgba(0,0,0,0.3) 85%,transparent 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,0.95) 0%,rgba(0,0,0,0.9) 50%,rgba(0,0,0,0.3) 85%,transparent 100%);}
 .hero-stamp{position:absolute;top:120px;right:420px;width:130px;height:150px;border:2px dashed rgba(240,236,227,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(240,236,227,0.22);transform:rotate(8deg);}
 .hero-stamp::before{content:'';width:44px;height:44px;border-radius:50%;border:1px solid rgba(240,236,227,0.16);display:block;}
-.hero-bg-shape{position:absolute;top:36%;right:22%;width:200px;height:200px;opacity:0.07;pointer-events:none;animation:rotateSlow 22s linear infinite;}
+.hero-bg-shape{position:absolute;top:36%;right:22%;width:200px;height:200px;opacity:0.07;pointer-events:auto;animation:rotateSlow 22s linear infinite;cursor:pointer;z-index:5;}
+.hero-easter-target{position:absolute;top:30%;right:16%;width:240px;height:240px;z-index:10;cursor:pointer;border-radius:50%;}
 .hero-year{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--electric);text-transform:uppercase;margin-bottom:24px;position:relative;}
 .hero-name{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(52px,9vw,118px);line-height:0.9;letter-spacing:-0.03em;margin-bottom:32px;position:relative;}
 .hero-name .outline{color:transparent;-webkit-text-stroke:1.5px var(--cream);display:block;}
@@ -232,7 +233,7 @@ section{position:relative;}
 .gts-card{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:28px 24px;transition:border-color 0.3s;}
 .gts-card.revealed{border-color:rgba(240,236,227,0.18);}
 .gts-q{font-size:13px;line-height:1.65;color:rgba(240,236,227,0.65);margin-bottom:24px;min-height:52px;}
-.gts-slider-wrap{position:relative;margin-bottom:12px;}
+.gts-slider-wrap{margin-bottom:12px;}
 .gts-slider{width:100%;-webkit-appearance:none;appearance:none;height:2px;background:rgba(240,236,227,0.1);outline:none;border-radius:1px;cursor:pointer;margin:8px 0;}
 .gts-slider.colored-track{background:linear-gradient(to right, currentColor var(--pct,50%), rgba(240,236,227,0.1) var(--pct,50%));}
 .gts-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--cream);cursor:pointer;border:2px solid rgba(10,10,10,0.8);transition:transform 0.15s;margin-top:-9px;}
@@ -383,6 +384,7 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
   <div class="hero-float-photo" id="heroFloat">
     <img id="heroFloatImg" alt="Owen Williams on campus"/>
   </div>
+  <div class="hero-easter-target" onclick="window.location.href='/benchmark'" title="..."></div>
   <div class="hero-stamp"><span>PORTFOLIO</span><span>MMXXVI</span><span>SYD NSW AU</span></div>
   <div class="hero-year">Sydney, Australia</div>
   <h1 class="hero-name">Owen<br><span class="outline">Williams</span></h1>
@@ -534,7 +536,7 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
         <p class="gts-q">How many years has Owen been shooting professionally?</p>
         <div class="gts-slider-wrap">
           <input type="range" class="gts-slider" min="1" max="25" value="12" oninput="updateSlider(this)"/>
-          <div class="gts-track-fill" style="background:var(--hot)"></div>
+          
         </div>
         <div class="gts-guess-display"><span class="gts-guess-num">12</span><span class="gts-guess-unit">yrs</span></div>
         <button class="gts-reveal-btn" style="border-color:var(--hot);color:var(--hot);" onclick="revealStat(this)">Reveal</button>
@@ -548,7 +550,7 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
         <p class="gts-q">How many native views did Owen's Macquarie University content get on Instagram?</p>
         <div class="gts-slider-wrap">
           <input type="range" class="gts-slider" min="100000" max="50000000" value="5000000" step="100000" oninput="updateSlider(this)"/>
-          <div class="gts-track-fill" style="background:var(--violet)"></div>
+          
         </div>
         <div class="gts-guess-display"><span class="gts-guess-num">5M</span><span class="gts-guess-unit">views</span></div>
         <button class="gts-reveal-btn" style="border-color:var(--violet);color:var(--violet);" onclick="revealStat(this)">Reveal</button>
@@ -562,7 +564,7 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
         <p class="gts-q">What's the biggest in-person audience Owen has produced an event for?</p>
         <div class="gts-slider-wrap">
           <input type="range" class="gts-slider" min="50" max="10000" value="500" step="50" oninput="updateSlider(this)"/>
-          <div class="gts-track-fill" style="background:var(--electric)"></div>
+          
         </div>
         <div class="gts-guess-display"><span class="gts-guess-num">500</span><span class="gts-guess-unit">people</span></div>
         <button class="gts-reveal-btn" style="border-color:var(--electric);color:var(--electric);" onclick="revealStat(this)">Reveal</button>
@@ -576,7 +578,7 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
         <p class="gts-q">How many prestigious Sydney private schools has Owen photographed for?</p>
         <div class="gts-slider-wrap">
           <input type="range" class="gts-slider" min="1" max="60" value="15" oninput="updateSlider(this)"/>
-          <div class="gts-track-fill" style="background:var(--amber)"></div>
+          
         </div>
         <div class="gts-guess-display"><span class="gts-guess-num">15</span><span class="gts-guess-unit">schools</span></div>
         <button class="gts-reveal-btn" style="border-color:var(--amber);color:var(--amber);" onclick="revealStat(this)">Reveal</button>
@@ -590,7 +592,7 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
         <p class="gts-q">Across how many major retail brands does Owen's internal comms work reach?</p>
         <div class="gts-slider-wrap">
           <input type="range" class="gts-slider" min="1" max="10" value="2" oninput="updateSlider(this)"/>
-          <div class="gts-track-fill" style="background:var(--hot)"></div>
+          
         </div>
         <div class="gts-guess-display"><span class="gts-guess-num">2</span><span class="gts-guess-unit">brands</span></div>
         <button class="gts-reveal-btn" style="border-color:var(--hot);color:var(--hot);" onclick="revealStat(this)">Reveal</button>
@@ -1159,11 +1161,8 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
     var min = parseInt(input.min);
     var max = parseInt(input.max);
     var pct = ((val - min) / (max - min)) * 100;
-    var fill = card.querySelector('.gts-track-fill');
-    if (fill) { fill.style.width = pct + '%'; fill.style.position='absolute';fill.style.left='0';fill.style.top='50%';fill.style.transform='translateY(-50%)';fill.style.height='2px';fill.style.borderRadius='1px';fill.style.pointerEvents='none';fill.style.zIndex='0'; }
-    // Also set CSS custom property on the slider for native track colouring
-    var slider = card.querySelector('.gts-slider');
-    if (slider) { slider.style.setProperty('--pct', pct + '%'); slider.style.background = 'linear-gradient(to right,' + (slider.closest('.gts-card').dataset.color||'var(--hot)') + ' ' + pct + '%, rgba(240,236,227,0.1) ' + pct + '%)'; }
+    var color = card.dataset.color || 'var(--hot)';
+    input.style.background = 'linear-gradient(to right,' + color + ' ' + pct + '%, rgba(240,236,227,0.1) ' + pct + '%)';
     var numEl = card.querySelector('.gts-guess-num');
     if (numEl) {
       if (val >= 1000000) numEl.textContent = (val/1000000).toFixed(1).replace('.0','') + 'M';

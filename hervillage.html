@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>HerVillage Foundation — Owen Williams</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--cream:#f0ece3;--hot:#ff2d6b;--electric:#00f5c4;--violet:#7b2fff;--amber:#ffb800;--hv:#e8547a;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 48px;padding-top:max(16px,calc(10px + env(safe-area-inset-top)));display:flex;align-items:center;justify-content:space-between;background:#0a0a0a;border-bottom:1px solid rgba(240,236,227,0.07);}
+.nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;color:var(--cream);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--hot);}
+.nav-back{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.4);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--cream);}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 40% 25%,rgba(232,84,122,0.15) 0%,transparent 60%),var(--ink);}
+.eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--hv);margin-bottom:16px;position:relative;z-index:2;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--hv);}
+.page-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(38px,7vw,96px);line-height:0.9;letter-spacing:-0.03em;margin-bottom:24px;position:relative;z-index:2;}
+.page-title .outline{color:transparent;-webkit-text-stroke:1.5px rgba(240,236,227,0.3);display:block;}
+.page-sub{font-size:16px;font-weight:300;color:rgba(240,236,227,0.5);max-width:560px;line-height:1.7;margin-bottom:40px;position:relative;z-index:2;}
+.chips{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:2;}
+.chip{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;border:1px solid;border-radius:2px;}
+.c-hv{border-color:var(--hv);color:var(--hv);}
+.c-electric{border-color:var(--electric);color:var(--electric);}
+.c-amber{border-color:var(--amber);color:var(--amber);}
+.c-violet{border-color:var(--violet);color:var(--violet);}
+.section-wrap{position:relative;z-index:1;padding:80px 0;}
+.section-inner{max-width:1100px;margin:0 auto;padding:0 48px;}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--hv);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-label::before{content:'';width:18px;height:1px;background:var(--hv);}
+.section-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,38px);letter-spacing:-0.02em;margin-bottom:16px;line-height:1.05;}
+.section-intro{font-size:15px;color:rgba(240,236,227,0.5);line-height:1.75;max-width:620px;margin-bottom:40px;}
+.work-pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px;}
+.pillar{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:28px 24px;position:relative;}
+.pillar::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--hv);opacity:0.5;}
+.pillar-icon{font-size:24px;margin-bottom:12px;opacity:0.6;}
+.pillar-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;margin-bottom:10px;}
+.pillar-desc{font-size:13px;line-height:1.7;color:rgba(240,236,227,0.45);}
+.todo{display:inline-block;background:rgba(255,184,0,0.1);border:1px dashed rgba(255,184,0,0.3);color:var(--amber);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.08em;padding:2px 8px;border-radius:2px;margin-top:8px;}
+.page-footer{border-top:1px solid rgba(240,236,227,0.06);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+.page-footer a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.3);text-decoration:none;transition:color 0.2s;}
+.page-footer a:hover{color:var(--cream);}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .hero,.page-footer{padding-left:20px;padding-right:20px;}
+  .section-inner{padding-left:20px;padding-right:20px;}
+}
+</style>
+</head>
+<body>
+<nav><a href="/" class="nav-logo">OW<span>.</span></a><a href="/" class="nav-back">← Portfolio</a></nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="eyebrow">HerVillage Foundation · Jun 2025 — Present</p>
+  <h1 class="page-title">HerVillage<br><span class="outline">Foundation</span></h1>
+  <p class="page-sub">Marketing & Communications Co-Manager at HerVillage Foundation — a not-for-profit supporting women and families. Leading a small creator team across social, events, newsletters, and partner communications.</p>
+  <div class="chips">
+    <span class="chip c-hv">Marketing & Comms</span>
+    <span class="chip c-electric">Social Media</span>
+    <span class="chip c-amber">Events</span>
+    <span class="chip c-violet">Team Lead</span>
+  </div>
+</section>
+
+<div class="section-wrap">
+  <div class="section-inner">
+    <p class="section-label">The Role</p>
+    <h2 class="section-title">Leading comms<br>for a growing not-for-profit.</h2>
+    <p class="section-intro">HerVillage was the shift from executing to leading. I run the marketing and communications function — which means not just creating content myself, but directing others, managing strategy, and making sure every external touchpoint is on-brand and effective.</p>
+    <div class="work-pillars">
+      <div class="pillar fade-in">
+        <div class="pillar-icon">📱</div>
+        <h3 class="pillar-title">Social Media</h3>
+        <p class="pillar-desc">Leading content strategy and production across Instagram and other platforms — Reels, stories, and grid content. Directing other photographers and videographers at events.</p>
+        <span class="todo">Add follower growth stats when ready ↑</span>
+      </div>
+      <div class="pillar fade-in" style="transition-delay:0.06s">
+        <div class="pillar-icon">📸</div>
+        <h3 class="pillar-title">Event Coverage</h3>
+        <p class="pillar-desc">Photographing and directing coverage at fundraisers, corporate partnerships, and community programs — shooting myself while managing the wider creative output on the day.</p>
+        <span class="todo">Add specific events when ready ↑</span>
+      </div>
+      <div class="pillar fade-in" style="transition-delay:0.12s">
+        <div class="pillar-icon">📧</div>
+        <h3 class="pillar-title">Newsletters & Comms</h3>
+        <p class="pillar-desc">Writing and designing regular newsletters and partner communications. Managing the messaging that goes to donors, partners, and the wider HerVillage community.</p>
+      </div>
+      <div class="pillar fade-in" style="transition-delay:0.18s">
+        <div class="pillar-icon">🤝</div>
+        <h3 class="pillar-title">Partner Comms</h3>
+        <p class="pillar-desc">Building and maintaining communication with HerVillage's corporate and community partners — event promotion, partnership content, and collaborative campaigns.</p>
+        <span class="todo">Add specific partner examples ↑</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-footer">
+  <a href="/">← Portfolio</a>
+  <a href="/woolworths">Woolworths Group →</a>
+</div>
+
+<script>
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+  }, {threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>

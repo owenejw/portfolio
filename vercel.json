@@ -27,6 +27,30 @@
     {
       "source": "/cosmos",
       "destination": "/cosmos.html"
+    },
+    {
+      "source": "/mqu",
+      "destination": "/mqu.html"
+    },
+    {
+      "source": "/daniel-kish",
+      "destination": "/daniel-kish.html"
+    },
+    {
+      "source": "/open-day",
+      "destination": "/open-day.html"
+    },
+    {
+      "source": "/woolworths",
+      "destination": "/woolworths.html"
+    },
+    {
+      "source": "/hervillage",
+      "destination": "/hervillage.html"
+    },
+    {
+      "source": "/ak-photography",
+      "destination": "/ak-photography.html"
     }
   ]
 }

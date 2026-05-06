@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>AK Photography — Owen Williams</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--cream:#f0ece3;--hot:#ff2d6b;--electric:#00f5c4;--violet:#7b2fff;--amber:#ffb800;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 48px;padding-top:max(16px,calc(10px + env(safe-area-inset-top)));display:flex;align-items:center;justify-content:space-between;background:#0a0a0a;border-bottom:1px solid rgba(240,236,227,0.07);}
+.nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;color:var(--cream);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--hot);}
+.nav-back{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.4);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--cream);}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 40% 25%,rgba(123,47,255,0.15) 0%,transparent 60%),var(--ink);}
+.eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--violet);margin-bottom:16px;position:relative;z-index:2;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--violet);}
+.page-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(44px,8vw,110px);line-height:0.9;letter-spacing:-0.03em;margin-bottom:24px;position:relative;z-index:2;}
+.page-title .outline{color:transparent;-webkit-text-stroke:1.5px rgba(240,236,227,0.3);display:block;}
+.page-sub{font-size:16px;font-weight:300;color:rgba(240,236,227,0.5);max-width:560px;line-height:1.7;margin-bottom:40px;position:relative;z-index:2;}
+.chips{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:2;}
+.chip{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;border:1px solid;border-radius:2px;}
+.c-violet{border-color:var(--violet);color:var(--violet);}
+.c-electric{border-color:var(--electric);color:var(--electric);}
+.c-amber{border-color:var(--amber);color:var(--amber);}
+.c-hot{border-color:var(--hot);color:var(--hot);}
+.stats-bar{background:rgba(123,47,255,0.05);border-top:1px solid rgba(123,47,255,0.12);border-bottom:1px solid rgba(123,47,255,0.12);position:relative;z-index:1;}
+.stats-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(4,1fr);}
+.stat{padding:36px 0;border-right:1px solid rgba(240,236,227,0.05);padding-right:28px;padding-left:28px;}
+.stat:first-child{padding-left:0;}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(22px,3vw,40px);letter-spacing:-0.03em;margin-bottom:6px;}
+.stat-l{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.35);line-height:1.5;}
+.section-wrap{position:relative;z-index:1;padding:80px 0;}
+.section-inner{max-width:1100px;margin:0 auto;padding:0 48px;}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--violet);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-label::before{content:'';width:18px;height:1px;background:var(--violet);}
+.section-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,38px);letter-spacing:-0.02em;margin-bottom:16px;line-height:1.05;}
+.section-intro{font-size:15px;color:rgba(240,236,227,0.5);line-height:1.75;max-width:620px;margin-bottom:40px;}
+.work-pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px;}
+.pillar{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:28px 24px;position:relative;}
+.pillar::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--violet);opacity:0.5;}
+.pillar-icon{font-size:24px;margin-bottom:12px;opacity:0.6;}
+.pillar-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:13px;margin-bottom:10px;}
+.pillar-desc{font-size:13px;line-height:1.7;color:rgba(240,236,227,0.45);}
+.todo{display:inline-block;background:rgba(255,184,0,0.1);border:1px dashed rgba(255,184,0,0.3);color:var(--amber);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.08em;padding:2px 8px;border-radius:2px;margin-top:8px;}
+.schools-marquee{overflow:hidden;border-top:1px solid rgba(240,236,227,0.05);border-bottom:1px solid rgba(240,236,227,0.05);padding:20px 0;background:rgba(240,236,227,0.02);}
+.schools-track{display:flex;gap:32px;animation:marquee 35s linear infinite;width:max-content;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.school-item{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;color:rgba(240,236,227,0.2);white-space:nowrap;}
+.private-note{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);border-left:2px solid rgba(255,184,0,0.4);padding:20px 24px;margin-top:32px;}
+.private-note p{font-size:14px;color:rgba(240,236,227,0.4);line-height:1.65;}
+.private-note a{color:var(--electric);text-decoration:none;}
+.page-footer{border-top:1px solid rgba(240,236,227,0.06);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+.page-footer a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.3);text-decoration:none;transition:color 0.2s;}
+.page-footer a:hover{color:var(--cream);}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .hero,.page-footer{padding-left:20px;padding-right:20px;}
+  .section-inner{padding-left:20px;padding-right:20px;}
+  .stats-inner{grid-template-columns:1fr 1fr;padding:0 20px;}
+  .stat:nth-child(2){border-right:none;}
+  .stat:nth-child(3){padding-left:0;}
+}
+</style>
+</head>
+<body>
+<nav><a href="/" class="nav-logo">OW<span>.</span></a><a href="/" class="nav-back">← Portfolio</a></nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="eyebrow">AK Photography · 2021–2025</p>
+  <h1 class="page-title">AK<br><span class="outline">Photography</span></h1>
+  <p class="page-sub">Sports and events photographer under Anthony Khoury at AK Photography — shooting across IPSHA, IGSA, and HICES competitions for 33+ of Sydney's most prestigious independent schools over four years.</p>
+  <div class="chips">
+    <span class="chip c-violet">Sports Photography</span>
+    <span class="chip c-electric">Events</span>
+    <span class="chip c-amber">33+ Schools</span>
+    <span class="chip c-hot">4 Years</span>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-n" style="color:var(--violet);">33+</div><div class="stat-l">Sydney independent<br>schools shot</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--electric);">4</div><div class="stat-l">Years employed<br>2021–2025</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--amber);">3</div><div class="stat-l">Competitions:<br>IPSHA · IGSA · HICES</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--hot);">100s</div><div class="stat-l">Events covered<br>across 4 years</div></div>
+  </div>
+</div>
+
+<!-- SCHOOLS MARQUEE -->
+<div class="schools-marquee">
+  <div class="schools-track">
+    <span class="school-item">Cranbrook</span><span class="school-item">·</span><span class="school-item">Knox Grammar</span><span class="school-item">·</span><span class="school-item">SHORE</span><span class="school-item">·</span><span class="school-item">Newington College</span><span class="school-item">·</span><span class="school-item">Sydney Grammar</span><span class="school-item">·</span><span class="school-item">Scots College</span><span class="school-item">·</span><span class="school-item">St Aloysius</span><span class="school-item">·</span><span class="school-item">Riverview</span><span class="school-item">·</span><span class="school-item">Barker College</span><span class="school-item">·</span><span class="school-item">St Ignatius</span><span class="school-item">·</span><span class="school-item">Joeys</span><span class="school-item">·</span><span class="school-item">Trinity Grammar</span><span class="school-item">·</span><span class="school-item">Abbotsleigh</span><span class="school-item">·</span><span class="school-item">SCEGGS</span><span class="school-item">·</span><span class="school-item">PLC</span><span class="school-item">·</span><span class="school-item">MLC</span><span class="school-item">·</span><span class="school-item">Pymble Ladies</span><span class="school-item">·</span>
+    <!-- duplicate for loop -->
+    <span class="school-item">Cranbrook</span><span class="school-item">·</span><span class="school-item">Knox Grammar</span><span class="school-item">·</span><span class="school-item">SHORE</span><span class="school-item">·</span><span class="school-item">Newington College</span><span class="school-item">·</span><span class="school-item">Sydney Grammar</span><span class="school-item">·</span><span class="school-item">Scots College</span><span class="school-item">·</span><span class="school-item">St Aloysius</span><span class="school-item">·</span><span class="school-item">Riverview</span><span class="school-item">·</span><span class="school-item">Barker College</span><span class="school-item">·</span><span class="school-item">St Ignatius</span><span class="school-item">·</span><span class="school-item">Joeys</span><span class="school-item">·</span><span class="school-item">Trinity Grammar</span><span class="school-item">·</span><span class="school-item">Abbotsleigh</span><span class="school-item">·</span><span class="school-item">SCEGGS</span><span class="school-item">·</span><span class="school-item">PLC</span><span class="school-item">·</span><span class="school-item">MLC</span><span class="school-item">·</span><span class="school-item">Pymble Ladies</span><span class="school-item">·</span>
+  </div>
+</div>
+
+<div class="section-wrap">
+  <div class="section-inner">
+    <p class="section-label">The Work</p>
+    <h2 class="section-title">Four years of sport,<br>pressure, and volume.</h2>
+    <p class="section-intro">Shooting sport at this level means showing up to 6am carnivals, tracking fast-moving athletes across multiple disciplines in a single day, and delivering hundreds of edited images on a tight turnaround. It's where I learned to work quickly, consistently, and under real pressure.</p>
+    <div class="work-pillars">
+      <div class="pillar fade-in">
+        <div class="pillar-icon">🏊</div>
+        <h3 class="pillar-title">Swimming Carnivals</h3>
+        <p class="pillar-desc">IPSHA and IGSA swimming competitions — early morning, indoor pool lighting, fast action. One of the technically hardest environments to shoot in consistently.</p>
+      </div>
+      <div class="pillar fade-in" style="transition-delay:0.06s">
+        <div class="pillar-icon">🏉</div>
+        <h3 class="pillar-title">Field Sports</h3>
+        <p class="pillar-desc">Rugby, football, cricket, athletics — outdoor sport across Sydney's top private school grounds. Tracking action across a full field while managing changing light.</p>
+      </div>
+      <div class="pillar fade-in" style="transition-delay:0.12s">
+        <div class="pillar-icon">🎓</div>
+        <h3 class="pillar-title">Formals & Graduations</h3>
+        <p class="pillar-desc">School formals, graduation ceremonies, valedictory dinners — formal event photography where the standard is high and there are no second chances on key moments.</p>
+      </div>
+      <div class="pillar fade-in" style="transition-delay:0.18s">
+        <div class="pillar-icon">🚣</div>
+        <h3 class="pillar-title">Rowing & Water Sports</h3>
+        <p class="pillar-desc">Regatta coverage and water sport competitions — shooting from the bank, from bridges, sometimes from support boats. A different set of constraints entirely.</p>
+      </div>
+    </div>
+    <div class="private-note">
+      <p>Due to student privacy and child safety considerations, images from school events are not publicly displayed. <a href="/#work">Request access</a> to the private portfolio — I'm happy to share selected non-identifiable work, or discuss the scope of the work directly.</p>
+    </div>
+  </div>
+</div>
+
+<div class="page-footer">
+  <a href="/">← Portfolio</a>
+  <a href="/mqu">Macquarie University →</a>
+</div>
+
+<script>
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+  }, {threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>

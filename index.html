@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a0a0a">
-<title>Owen Williams | Media & Communications</title>
+<title>Owen Williams — Media & Communications</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
@@ -55,6 +55,8 @@ section{position:relative;}
 .hero-bg-shape{position:absolute;top:36%;right:22%;width:200px;height:200px;opacity:0.07;pointer-events:auto;animation:rotateSlow 22s linear infinite;cursor:pointer;z-index:5;}
 .hero-easter-target{position:absolute;top:30%;right:16%;width:240px;height:240px;z-index:10;cursor:pointer;border-radius:50%;}
 .hero-year{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--electric);text-transform:uppercase;margin-bottom:24px;position:relative;}
+@keyframes heroReveal{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.hero-reveal{opacity:0;animation:heroReveal 0.75s cubic-bezier(0.22,1,0.36,1) forwards;}
 .hero-name{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(52px,9vw,118px);line-height:0.9;letter-spacing:-0.03em;margin-bottom:32px;position:relative;}
 .hero-name .outline{color:transparent;-webkit-text-stroke:1.5px var(--cream);display:block;}
 .hero-tagline{font-size:17px;font-weight:300;color:rgba(240,236,227,0.6);max-width:520px;line-height:1.65;margin-bottom:48px;position:relative;}
@@ -110,20 +112,6 @@ section{position:relative;}
 
 #expertise{background:#0d0d0d;position:relative;overflow:hidden;}
 #expertise::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 80% 50%,rgba(255,45,107,0.1) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 10% 50%,rgba(0,245,196,0.07) 0%,transparent 60%);}
-.expertise-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:2px;margin-top:60px;}
-.exp-card{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:36px 28px;position:relative;overflow:hidden;transition:background 0.3s,border-color 0.3s;}
-.exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:opacity 0.3s;opacity:0;}
-.exp-card:hover{background:rgba(240,236,227,0.055);border-color:rgba(240,236,227,0.11);}
-.exp-card:hover::before{opacity:1;}
-.ec-hot::before{background:var(--hot);}
-.ec-violet::before{background:var(--violet);}
-.ec-electric::before{background:var(--electric);}
-.ec-amber::before{background:var(--amber);}
-.exp-icon{font-size:24px;margin-bottom:18px;display:block;}
-.exp-name{font-family:'Unbounded',sans-serif;font-weight:700;font-size:15px;margin-bottom:11px;line-height:1.25;}
-.exp-desc{font-size:13px;line-height:1.72;color:rgba(240,236,227,0.48);margin-bottom:18px;}
-.exp-tags{display:flex;flex-wrap:wrap;gap:5px;}
-.etag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.07em;text-transform:uppercase;padding:4px 9px;background:rgba(240,236,227,0.055);border-radius:2px;color:rgba(240,236,227,0.4);}
 #work{background:var(--ink);}
 .work-filter{display:flex;gap:4px;margin-bottom:44px;flex-wrap:wrap;}
 .filter-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:9px 18px;background:transparent;border:1px solid rgba(240,236,227,0.11);color:rgba(240,236,227,0.42);cursor:pointer;transition:all 0.2s;border-radius:2px;}
@@ -402,7 +390,7 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
   <a href="#hero" class="nav-logo">OW<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#story">Story</a></li>
-    <li><a href="#expertise">Expertise</a></li>
+    
     <li><a href="#work">Work</a></li>
     <li><a href="#clients">Partners</a></li>
     <li><a href="#gear">Gear</a></li>
@@ -427,11 +415,11 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
     <img id="heroFloatImg" alt="Owen Williams on campus"/>
   </div>
   <div class="hero-easter-target" onclick="window.location.href='/benchmark'" title="..."></div>
-  <div class="hero-stamp"><span>PORTFOLIO</span><span>MMXXVI</span><span>SYD NSW AU</span></div>
+  <div class="hero-stamp hero-reveal" style="animation-delay:0.2s"><span>PORTFOLIO</span><span>MMXXVI</span><span>SYD NSW AU</span></div>
   <div class="hero-year">Sydney, Australia</div>
-  <h1 class="hero-name">Owen<br><span class="outline">Williams</span></h1>
-  <p class="hero-tagline">Media and Communications specialist. I tell stories through photography and cinematography — across live events, executive communications, and internal channels, with whatever gear the moment calls for.</p>
-  <div class="hero-badges">
+  <h1 class="hero-name hero-reveal" style="animation-delay:0.1s">Owen<br><span class="outline">Williams</span></h1>
+  <p class="hero-tagline hero-reveal" style="animation-delay:0.42s">Media and Communications specialist. I tell stories through photography and cinematography — across live events, executive communications, and internal channels, with whatever gear the moment calls for.</p>
+  <div class="hero-badges hero-reveal" style="animation-delay:0.4s">
     <span class="badge b-hot">Photography</span>
     <span class="badge b-violet">Cinematography</span>
     <span class="badge b-electric">AV & Events</span>
@@ -648,38 +636,8 @@ footer p,footer a{font-family:'Space Mono',monospace;font-size:9px;letter-spacin
   </div>
 </div>
 
-<section id="expertise">
-  <div class="section-inner">
-    <p class="section-label">What I Do</p>
-    <h2 class="section-title">What I bring<br>to the table.</h2>
-    <div class="expertise-grid">
-      <div class="exp-card ec-hot fade-up">
-        <span class="exp-icon">◉</span>
-        <h3 class="exp-name">Photography & Visual Storytelling</h3>
-        <p class="exp-desc">14 years behind the lens across events, sports, corporate, weddings, and real estate gives you someone who doesn't need hand-holding on a brief. I read environments quickly, work without disrupting the room, and deliver images that are usable — not just technically correct. Whatever the occasion, I find the frame that matters.</p>
-        <div class="exp-tags"><span class="etag">Events</span><span class="etag">Portraits</span><span class="etag">Corporate</span><span class="etag">Headshots</span><span class="etag">Sports</span><span class="etag">Weddings</span></div>
-      </div>
-      <div class="exp-card ec-violet fade-up" style="transition-delay:0.08s">
-        <span class="exp-icon">▣</span>
-        <h3 class="exp-name">Internal & Corporate Communications</h3>
-        <p class="exp-desc">At Woolworths Group I produce content that reaches 200,000+ team members across Australia and New Zealand — from CEO announcements to crisis communications. I understand how to craft messages that land inside a large organisation, and how to work with senior leaders to make them look and sound their best on camera and in print.</p>
-        <div class="exp-tags"><span class="etag">Executive Comms</span><span class="etag">CEO Content</span><span class="etag">Video</span><span class="etag">Internal Channels</span><span class="etag">Broadcast</span></div>
-      </div>
-      <div class="exp-card ec-electric fade-up" style="transition-delay:0.16s">
-        <span class="exp-icon">✦</span>
-        <h3 class="exp-name">Cinematography & Video Production</h3>
-        <p class="exp-desc">From short films on the Arri Amira to fortnightly broadcast videos with a Managing Director, I bring a filmmaker's eye to every production — not just a camera operator's. Sony is my primary kit. I can build a shot list, run a live multi-camera broadcast, and deliver an edit, all in the same week.</p>
-        <div class="exp-tags"><span class="etag">Sony</span><span class="etag">Multi-Camera</span><span class="etag">Live AV</span><span class="etag">Editing</span><span class="etag">Drone</span><span class="etag">Storytelling</span></div>
-      </div>
-      <div class="exp-card ec-amber fade-up" style="transition-delay:0.24s">
-        <span class="exp-icon">◈</span>
-        <h3 class="exp-name">Social Media & Content Strategy</h3>
-        <p class="exp-desc">At Macquarie University I helped produce content that drove 13M+ combined native views on Instagram. At HerVillage I lead a small team of creators — directing shoots, overseeing strategy, and managing everything from reels to newsletters to partner communications. I use sentiment analysis and performance data to inform what we make next, not just report on what we already made.</p>
-        <div class="exp-tags"><span class="etag">Instagram</span><span class="etag">TikTok</span><span class="etag">LinkedIn</span><span class="etag">Strategy</span><span class="etag">Sentiment Analysis</span><span class="etag">Data-Informed</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+
+
 
 <section id="work">
   <div class="section-inner">

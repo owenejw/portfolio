@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>TikTok HQ — Owen Williams</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@300;400;700;900&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--cream:#f0ece3;--hot:#ff2d6b;--electric:#00f5c4;--violet:#7b2fff;--amber:#ffb800;--tt:#fe2c55;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.04;pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 48px;padding-top:max(16px,calc(10px + env(safe-area-inset-top)));display:flex;align-items:center;justify-content:space-between;background:#0a0a0a;border-bottom:1px solid rgba(240,236,227,0.07);}
+.nav-logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;color:var(--cream);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--hot);}
+.nav-back{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.4);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--cream);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 20%,rgba(254,44,85,0.15) 0%,transparent 60%),var(--ink);}
+.hero-img{position:absolute;inset:0;background:url(images/tiktok-seminar.webp) center/cover no-repeat;opacity:0.18;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.97) 0%,rgba(10,10,10,0.7) 50%,rgba(10,10,10,0.4) 100%);}
+.eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--tt);margin-bottom:16px;position:relative;z-index:2;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--tt);}
+.page-title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(44px,8vw,110px);line-height:0.88;letter-spacing:-0.04em;margin-bottom:24px;position:relative;z-index:2;}
+.page-title .outline{color:transparent;-webkit-text-stroke:1.5px rgba(240,236,227,0.35);display:block;}
+.page-sub{font-size:16px;font-weight:300;color:rgba(240,236,227,0.5);max-width:560px;line-height:1.7;margin-bottom:40px;position:relative;z-index:2;}
+.chips{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:2;}
+.chip{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:6px 12px;border:1px solid;border-radius:2px;}
+.c-tt{border-color:var(--tt);color:var(--tt);}
+.c-electric{border-color:var(--electric);color:var(--electric);}
+.c-amber{border-color:var(--amber);color:var(--amber);}
+
+/* STATS */
+.stats-bar{background:rgba(254,44,85,0.05);border-top:1px solid rgba(254,44,85,0.12);border-bottom:1px solid rgba(254,44,85,0.12);position:relative;z-index:1;}
+.stats-inner{max-width:1000px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);}
+.stat{padding:32px 0;border-right:1px solid rgba(240,236,227,0.05);padding-right:28px;padding-left:28px;}
+.stat:first-child{padding-left:0;}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(22px,3.5vw,40px);letter-spacing:-0.03em;margin-bottom:6px;}
+.stat-l{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.35);line-height:1.5;}
+
+/* STORY */
+.story-wrap{max-width:760px;margin:0 auto;padding:80px 48px 0;}
+.story-wrap h2{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(20px,2.5vw,30px);letter-spacing:-0.02em;margin-bottom:18px;margin-top:52px;}
+.story-wrap h2:first-child{margin-top:0;}
+.story-wrap p{font-size:16px;line-height:1.85;color:rgba(240,236,227,0.65);margin-bottom:20px;}
+.story-wrap p strong{color:var(--cream);font-weight:400;}
+
+/* PULLQUOTE */
+.pullquote{border-left:2px solid var(--tt);padding:18px 24px;margin:32px 0;background:rgba(254,44,85,0.05);}
+.pullquote p{font-family:'Unbounded',sans-serif;font-weight:300;font-size:clamp(16px,2vw,22px);line-height:1.4;color:var(--cream);letter-spacing:-0.01em;margin:0;}
+
+/* PHOTO GRID */
+.photo-section{max-width:1100px;margin:0 auto;padding:60px 48px;}
+.photo-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:4px;}
+.photo-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;}
+.photo-slot{overflow:hidden;position:relative;}
+.photo-slot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;filter:brightness(0.9);}
+.photo-slot:hover img{transform:scale(1.03);filter:brightness(1);}
+.photo-caption{position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(to top,rgba(10,10,10,0.75),transparent);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(240,236,227,0.45);}
+
+/* LEARNINGS */
+.learnings-section{max-width:1000px;margin:0 auto;padding:0 48px 60px;}
+.learnings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px;margin-top:32px;}
+.learning-item{background:rgba(240,236,227,0.03);border:1px solid rgba(240,236,227,0.07);padding:22px 20px;border-top:2px solid var(--tt);}
+.learning-title{font-family:'Unbounded',sans-serif;font-weight:700;font-size:12px;margin-bottom:8px;color:var(--tt);}
+.learning-desc{font-size:13px;line-height:1.65;color:rgba(240,236,227,0.5);}
+
+/* DIVIDER */
+.divider{max-width:1100px;margin:0 auto;padding:0 48px;}
+.divider hr{border:none;border-top:1px solid rgba(240,236,227,0.05);}
+
+/* FOOTER */
+.page-footer{border-top:1px solid rgba(240,236,227,0.06);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+.page-footer a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,227,0.3);text-decoration:none;transition:color 0.2s;}
+.page-footer a:hover{color:var(--cream);}
+
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .hero,.story-wrap,.photo-section,.learnings-section,.divider,.page-footer{padding-left:20px;padding-right:20px;}
+  .stats-inner{grid-template-columns:1fr 1fr;padding:0 20px;}
+  .stat:nth-child(2){border-right:none;}
+  .stat:nth-child(3){padding-left:0;border-right:none;}
+  .photo-grid-2,.photo-grid-3{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">OW<span>.</span></a>
+  <a href="/mqu" class="nav-back">← MQU</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <p class="eyebrow">Macquarie University · 2023</p>
+  <h1 class="page-title">TikTok<br><span class="outline">HQ</span></h1>
+  <p class="page-sub">The Macquarie University social media team became the first Australian university to be invited to TikTok's Sydney headquarters. We earned the invite by running one of the best-performing TikTok Lives during Open Day 2023.</p>
+  <div class="chips">
+    <span class="chip c-tt">First Australian Uni</span>
+    <span class="chip c-electric">Macquarie University</span>
+    <span class="chip c-amber">2023 Open Day</span>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-n" style="color:var(--tt);">1st</div><div class="stat-l">Australian university<br>invited to TikTok HQ</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--electric);">2023</div><div class="stat-l">Open Day TikTok Live<br>earned the invitation</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--amber);">Sydney</div><div class="stat-l">TikTok Australia<br>headquarters</div></div>
+  </div>
+</div>
+
+<div class="story-wrap">
+  <h2>How it happened</h2>
+  <p>During Open Day 2023, the Macquarie University social media team ran a TikTok Live that performed exceptionally well. The engagement was strong enough that TikTok Australia took notice, and we received an invitation to visit their Sydney headquarters - the first Australian university to get that call.</p>
+  <p>The whole team made the trip. We spent the day at TikTok HQ meeting their local team, getting a briefing on what performs best on the platform, learning about engagement strategy and live content, and getting a look through their Sydney studio facilities.</p>
+
+  <div class="pullquote">
+    <p>"First Australian university invited to TikTok HQ. We earned it."</p>
+  </div>
+
+  <h2>The day</h2>
+  <p>The visit was both a recognition of the work we'd been doing and a genuine learning experience. TikTok walked us through their content best practices, explained what drives engagement on Lives, and gave us a tour of their production studio on-site. It was the kind of industry access that's hard to get anywhere else, and the insights fed directly back into how we approached content for the rest of our time at MQU.</p>
+</div>
+
+<!-- PHOTOS -->
+<div class="photo-section fade-in">
+  <div class="photo-grid-2" style="margin-bottom:4px;">
+    <div class="photo-slot" style="height:400px;">
+      <img src="images/tiktok-group2.webp" alt="Macquarie University social media team at TikTok HQ"/>
+      <div class="photo-caption">The MQU team at TikTok Sydney HQ, Sydney Harbour Bridge visible behind</div>
+    </div>
+    <div class="photo-slot" style="height:400px;">
+      <img src="images/tiktok-seminar.webp" alt="Content best practices session at TikTok HQ"/>
+      <div class="photo-caption">Content best practices session</div>
+    </div>
+  </div>
+  <div class="photo-grid-3">
+    <div class="photo-slot" style="height:260px;">
+      <img src="images/tiktok-chatting.webp" alt="Chatting with the TikTok team"/>
+    </div>
+    <div class="photo-slot" style="height:260px;">
+      <img src="images/tiktok-room.webp" alt="Inside TikTok HQ"/>
+      <div class="photo-caption">Inside TikTok HQ, Sydney</div>
+    </div>
+    <div class="photo-slot" style="height:260px;">
+      <img src="images/tiktok-studio2.webp" alt="TikTok production studio"/>
+      <div class="photo-caption">Production studio facilities</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr/></div>
+
+<!-- WHAT I LEARNED -->
+<div class="learnings-section fade-in">
+  <p style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--tt);margin-bottom:14px;display:flex;align-items:center;gap:10px;"><span style="width:18px;height:1px;background:var(--tt);display:inline-block;"></span>What I took away</p>
+  <h2 style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);letter-spacing:-0.02em;margin-bottom:16px;line-height:1.05;">Direct from TikTok's<br>own playbook.</h2>
+  <p style="font-size:15px;color:rgba(240,236,227,0.5);line-height:1.75;max-width:580px;margin-bottom:0;">The session covered what actually drives performance on the platform. These are the key takeaways I applied to my work going forward.</p>
+  <div class="learnings-grid">
+    <div class="learning-item">
+      <p class="learning-title">Vertical First</p>
+      <p class="learning-desc">Full-screen vertical content with good lighting. Shoot the way the platform is consumed - not landscape repurposed for mobile.</p>
+    </div>
+    <div class="learning-item">
+      <p class="learning-title">Short and Punchy</p>
+      <p class="learning-desc">11-17 second loops perform best. All videos should be at least 6 seconds. Hook immediately and loop cleanly.</p>
+    </div>
+    <div class="learning-item">
+      <p class="learning-title">Grab Attention Fast</p>
+      <p class="learning-desc">You have 2-3 seconds. The first frame needs to earn the next one. Use TikTok text for anything you want viewers to read.</p>
+    </div>
+    <div class="learning-item">
+      <p class="learning-title">Experiment with Formats</p>
+      <p class="learning-desc">Post more, test more. The more formats you try, the better your picture of what connects with your specific audience.</p>
+    </div>
+    <div class="learning-item">
+      <p class="learning-title">Leverage Trends</p>
+      <p class="learning-desc">Lean into relevant trends but add your own spin. Don't just replicate - find the angle that makes it yours and makes it relevant.</p>
+    </div>
+    <div class="learning-item">
+      <p class="learning-title">Think Like a New User</p>
+      <p class="learning-desc">If your video came up on someone's FYP for the first time, would they watch it through? That's the question every piece of content needs to answer.</p>
+    </div>
+  </div>
+</div>
+
+<div class="page-footer">
+  <a href="/mqu">← MQU Overview</a>
+  <a href="/daniel-kish">Daniel Kish →</a>
+</div>
+
+<script>
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+  }, {threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>

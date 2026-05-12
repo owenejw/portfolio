@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OW · Site Admin</title>
+<style>
+:root{--bg:#0f0f0f;--sf:#181818;--sf2:#222;--bd:#2a2a2a;--bd2:#333;--tx:#f0ece3;--tx2:#888;--tx3:#555;--ac:#ff2d6b;--el:#00f5c4;--vi:#7b2fff;--am:#ffb800;--ok:#00c87a;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh;font-size:14px;}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
+aside{background:var(--sf);border-right:1px solid var(--bd);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;}
+main{padding:32px;overflow-y:auto;}
+.logo{padding:20px;border-bottom:1px solid var(--bd);font-family:Georgia,serif;font-weight:700;font-size:18px;}
+.logo span{color:var(--ac);}
+.logo small{display:block;font-family:sans-serif;font-size:11px;color:var(--tx3);font-weight:400;margin-top:2px;}
+.nav-label{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--tx3);padding:20px 20px 8px;}
+nav ul{list-style:none;padding:0 8px;}
+nav ul li a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;color:var(--tx2);text-decoration:none;font-size:13px;transition:all 0.15s;cursor:pointer;}
+nav ul li a:hover{background:var(--sf2);color:var(--tx);}
+nav ul li a.on{background:rgba(255,45,107,0.12);color:var(--ac);}
+.sfooter{margin-top:auto;padding:16px;border-top:1px solid var(--bd);font-size:11px;color:var(--tx3);line-height:1.5;}
+.panel{display:none;}.panel.on{display:block;}
+h1{font-size:22px;font-weight:700;margin-bottom:4px;}
+.desc{font-size:13px;color:var(--tx2);margin-bottom:28px;line-height:1.6;}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:20px 24px;margin-bottom:16px;}
+.ct{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--tx2);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--ac);display:inline-block;}
+.fi{margin-bottom:16px;}.fi:last-child{margin-bottom:0;}
+.fl{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--tx2);margin-bottom:6px;display:flex;justify-content:space-between;}
+.fh{font-size:10px;color:var(--tx3);font-weight:400;letter-spacing:0;text-transform:none;}
+input[type=text],input[type=url],input[type=email],input[type=number],textarea,select{width:100%;background:var(--bg);border:1px solid var(--bd2);color:var(--tx);font-family:inherit;font-size:13px;padding:9px 12px;border-radius:6px;outline:none;transition:border-color 0.15s;}
+input[type=text]:focus,input[type=url]:focus,input[type=email]:focus,input[type=number]:focus,textarea:focus,select:focus{border-color:var(--ac);}
+textarea{resize:vertical;min-height:80px;line-height:1.6;}
+select{cursor:pointer;appearance:none;}
+input[type=range]{width:100%;accent-color:var(--ac);}
+input[type=number]{width:120px;}
+.rw{display:flex;align-items:center;gap:12px;}
+.rv{font-size:12px;font-weight:600;color:var(--ac);min-width:48px;text-align:right;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.pi{border-radius:6px;overflow:hidden;border:1px solid var(--bd2);}
+.ps{height:48px;cursor:pointer;position:relative;}
+.ps input[type=color]{position:absolute;inset:0;width:100%;height:100%;border:none;cursor:pointer;opacity:0;}
+.pn{font-size:10px;color:var(--tx2);padding:6px 8px;background:var(--sf);letter-spacing:0.06em;text-transform:uppercase;}
+.ph{font-size:10px;color:var(--tx3);padding:0 8px 6px;background:var(--sf);font-family:monospace;}
+.fp{background:var(--bg);border:1px solid var(--bd2);border-radius:6px;padding:12px 16px;margin-top:8px;font-size:18px;color:var(--tx);}
+.btn{font-family:inherit;font-size:12px;font-weight:600;padding:9px 18px;border-radius:6px;cursor:pointer;border:none;transition:all 0.15s;display:inline-flex;align-items:center;gap:6px;}
+.bp{background:var(--ac);color:#fff;}.bp:hover{background:#e02460;}
+.bs{background:var(--sf2);color:var(--tx);border:1px solid var(--bd2);}.bs:hover{background:var(--bd2);}
+.br{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
+.cb{background:var(--bg);border:1px solid var(--bd2);border-radius:6px;padding:16px;font-family:'SF Mono',Monaco,monospace;font-size:11px;line-height:1.6;color:#a8c;overflow-x:auto;max-height:280px;overflow-y:auto;white-space:pre;}
+.cw{position:relative;margin-top:12px;}
+.cc{position:absolute;top:8px;right:8px;font-size:10px;padding:4px 10px;background:var(--sf2);color:var(--tx2);border:1px solid var(--bd2);border-radius:4px;cursor:pointer;font-family:inherit;}
+.cc:hover{color:var(--tx);border-color:var(--ac);}
+.st{padding:10px 14px;border-radius:6px;font-size:12px;margin-top:12px;display:none;}
+.st.on{display:block;}
+.st.ok{background:rgba(0,200,122,0.1);border:1px solid rgba(0,200,122,0.3);color:var(--ok);}
+.st.warn{background:rgba(255,184,0,0.1);border:1px solid rgba(255,184,0,0.3);color:var(--am);}
+.tag{display:inline-block;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px;border:1px solid;margin-left:8px;}
+.tc{border-color:var(--el);color:var(--el);}
+.tk{border-color:var(--am);color:var(--am);}
+code{color:var(--ac);background:rgba(255,45,107,0.1);padding:2px 6px;border-radius:4px;font-size:12px;}
+ol,ul{padding-left:20px;}
+ol li,ul li{font-size:13px;color:var(--tx2);line-height:2.2;}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="logo">OW<span>.</span><small>Site Admin · owenejw.com</small></div>
+  <div class="nav-label">Visual</div>
+  <nav><ul>
+    <li><a class="on" onclick="sp('colours',this)">🎨 Colours</a></li>
+    <li><a onclick="sp('fonts',this)">✏️ Fonts & Type</a></li>
+    <li><a onclick="sp('spacing',this)">📐 Spacing</a></li>
+  </ul></nav>
+  <div class="nav-label">Content</div>
+  <nav><ul>
+    <li><a onclick="sp('copy',this)">📝 Copy & Text</a></li>
+    <li><a onclick="sp('stats',this)">📊 Stats & Numbers</a></li>
+    <li><a onclick="sp('links',this)">🔗 Links & Social</a></li>
+  </ul></nav>
+  <div class="nav-label">Tools</div>
+  <nav><ul>
+    <li><a onclick="sp('export',this)">⬇️ Export & Save</a></li>
+    <li><a onclick="sp('howto',this)">📖 How to use</a></li>
+  </ul></nav>
+  <div class="sfooter">Changes don't go live automatically. Generate a snippet → paste into HTML → push to GitHub.</div>
+</aside>
+
+<main>
+
+<!-- COLOURS -->
+<div class="panel on" id="p-colours">
+  <h1>Colours <span class="tag tc">CSS vars</span></h1>
+  <p class="desc">Click any swatch to change it. The preview updates live.</p>
+  <div class="card">
+    <div class="ct"><span class="dot"></span>Accent Palette</div>
+    <div class="pal">
+      <div class="pi"><div class="ps" id="sw-hot" style="background:#ff2d6b"><input type="color" value="#ff2d6b" oninput="sc('hot',this.value)"/></div><div class="pn">Hot Pink</div><div class="ph" id="hx-hot">#ff2d6b</div></div>
+      <div class="pi"><div class="ps" id="sw-electric" style="background:#00f5c4"><input type="color" value="#00f5c4" oninput="sc('electric',this.value)"/></div><div class="pn">Electric</div><div class="ph" id="hx-electric">#00f5c4</div></div>
+      <div class="pi"><div class="ps" id="sw-violet" style="background:#7b2fff"><input type="color" value="#7b2fff" oninput="sc('violet',this.value)"/></div><div class="pn">Violet</div><div class="ph" id="hx-violet">#7b2fff</div></div>
+      <div class="pi"><div class="ps" id="sw-amber" style="background:#ffb800"><input type="color" value="#ffb800" oninput="sc('amber',this.value)"/></div><div class="pn">Amber</div><div class="ph" id="hx-amber">#ffb800</div></div>
+      <div class="pi"><div class="ps" id="sw-cream" style="background:#f0ece3"><input type="color" value="#f0ece3" oninput="sc('cream',this.value)"/></div><div class="pn">Cream</div><div class="ph" id="hx-cream">#f0ece3</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--el)"></span>Background & Noise</div>
+    <div class="g2">
+      <div class="fi"><div class="fl">Ink colour</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div style="width:36px;height:36px;border-radius:6px;border:1px solid var(--bd2);overflow:hidden;position:relative;flex-shrink:0;" id="sw-ink"><input type="color" value="#0a0a0a" oninput="sc('ink',this.value)" style="position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);border:none;opacity:0;cursor:pointer;"/></div>
+          <input type="text" id="hx-ink" value="#0a0a0a" style="width:100px;" oninput="if(/^#[0-9a-fA-F]{6}$/.test(this.value))sc('ink',this.value)"/>
+        </div>
+      </div>
+      <div class="fi"><div class="fl">Noise opacity <span class="fh">0=off, 0.04=current</span></div>
+        <div class="rw"><input type="range" min="0" max="0.12" step="0.005" value="0.04" oninput="this.nextElementSibling.textContent=this.value" id="noise"/><span class="rv">0.04</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--am)"></span>Live Preview</div>
+    <div style="padding:20px;border-radius:6px;" id="cpbg">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;" id="cpchips"></div>
+      <span style="font-size:22px;font-weight:700;" id="cptx">Owen Williams</span>
+    </div>
+  </div>
+  <div class="br">
+    <button class="btn bp" onclick="gCol()">Generate CSS snippet</button>
+    <button class="btn bs" onclick="resetC()">Reset defaults</button>
+  </div>
+  <div id="colOut" style="display:none;margin-top:16px;">
+    <div style="font-size:11px;color:var(--tx2);margin-bottom:6px;">Replace the <code>:root{}</code> colour block in index.html:</div>
+    <div class="cw"><div class="cb" id="colCode"></div><button class="cc" onclick="cp('colCode',this)">Copy</button></div>
+  </div>
+</div>
+
+<!-- FONTS -->
+<div class="panel" id="p-fonts">
+  <h1>Fonts & Typography <span class="tag tc">CSS</span></h1>
+  <p class="desc">Three typefaces — headlines, labels, body. Change any here; preview loads live from Google Fonts.</p>
+  <div class="card">
+    <div class="ct"><span class="dot"></span>Display — Headlines</div>
+    <div class="fi"><div class="fl">Font</div>
+      <select id="fd" onchange="pf('d')">
+        <option value="Unbounded" selected>Unbounded (current)</option>
+        <option value="Syne">Syne</option><option value="Space Grotesk">Space Grotesk</option>
+        <option value="Bebas Neue">Bebas Neue</option><option value="Anton">Anton</option>
+        <option value="Oswald">Oswald</option><option value="DM Serif Display">DM Serif Display</option>
+        <option value="Playfair Display">Playfair Display</option>
+      </select>
+    </div>
+    <div class="fi"><div class="fl">Weight</div>
+      <select id="fdw" onchange="pf('d')">
+        <option value="900" selected>Black 900</option><option value="700">Bold 700</option><option value="400">Regular 400</option>
+      </select>
+    </div>
+    <div class="fi"><div class="fl">Letter spacing</div>
+      <div class="rw"><input type="range" min="-0.06" max="0.1" step="0.005" value="-0.03" id="fdls" oninput="this.nextElementSibling.textContent=parseFloat(this.value).toFixed(3)+'em';pf('d')"/><span class="rv">-0.03em</span></div>
+    </div>
+    <div id="pd" class="fp" style="font-family:'Unbounded',sans-serif;font-weight:900;letter-spacing:-0.03em;">Beyond Earth · Owen Williams</div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--el)"></span>Mono — Labels</div>
+    <div class="fi"><div class="fl">Font</div>
+      <select id="fm" onchange="pf('m')">
+        <option value="Space Mono" selected>Space Mono (current)</option>
+        <option value="JetBrains Mono">JetBrains Mono</option><option value="Fira Code">Fira Code</option>
+        <option value="IBM Plex Mono">IBM Plex Mono</option><option value="Courier Prime">Courier Prime</option>
+      </select>
+    </div>
+    <div class="fi"><div class="fl">Letter spacing</div>
+      <div class="rw"><input type="range" min="0.05" max="0.3" step="0.01" value="0.12" id="fmls" oninput="this.nextElementSibling.textContent=parseFloat(this.value).toFixed(2)+'em';pf('m')"/><span class="rv">0.12em</span></div>
+    </div>
+    <div id="pm" class="fp" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;">MEDIA & COMMUNICATIONS SPECIALIST</div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--am)"></span>Body — Paragraphs</div>
+    <div class="fi"><div class="fl">Font</div>
+      <select id="fb" onchange="pf('b')">
+        <option value="DM Sans" selected>DM Sans (current)</option>
+        <option value="Inter">Inter</option><option value="Plus Jakarta Sans">Plus Jakarta Sans</option>
+        <option value="Manrope">Manrope</option><option value="Outfit">Outfit</option>
+      </select>
+    </div>
+    <div class="fi"><div class="fl">Size</div>
+      <div class="rw"><input type="range" min="13" max="18" step="0.5" value="15" id="fbsz" oninput="this.nextElementSibling.textContent=this.value+'px';pf('b')"/><span class="rv">15px</span></div>
+    </div>
+    <div class="fi"><div class="fl">Line height</div>
+      <div class="rw"><input type="range" min="1.4" max="2.0" step="0.05" value="1.75" id="fblh" oninput="this.nextElementSibling.textContent=this.value;pf('b')"/><span class="rv">1.75</span></div>
+    </div>
+    <div id="pb" class="fp" style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.75;">Media and Communications specialist. I tell stories through photography and cinematography across live events, executive communications, and social content.</div>
+  </div>
+  <div class="br"><button class="btn bp" onclick="gFont()">Generate font snippet</button></div>
+  <div id="fontOut" style="display:none;margin-top:16px;">
+    <div style="font-size:11px;color:var(--tx2);margin-bottom:6px;">Two steps: replace the Google Fonts link in &lt;head&gt;, then update font-family values in CSS.</div>
+    <div class="cw"><div class="cb" id="fontCode"></div><button class="cc" onclick="cp('fontCode',this)">Copy</button></div>
+  </div>
+</div>
+
+<!-- SPACING -->
+<div class="panel" id="p-spacing">
+  <h1>Spacing & Layout <span class="tag tc">CSS</span></h1>
+  <p class="desc">Adjust padding, widths, and border styles to make the site feel more open or compact.</p>
+  <div class="card">
+    <div class="ct"><span class="dot"></span>Sections</div>
+    <div class="fi"><div class="fl">Horizontal padding <span class="fh">48px current</span></div><div class="rw"><input type="range" min="20" max="80" step="4" value="48" id="shp" oninput="this.nextElementSibling.textContent=this.value+'px'"/><span class="rv">48px</span></div></div>
+    <div class="fi"><div class="fl">Vertical padding <span class="fh">80px current</span></div><div class="rw"><input type="range" min="40" max="160" step="8" value="80" id="svp" oninput="this.nextElementSibling.textContent=this.value+'px'"/><span class="rv">80px</span></div></div>
+    <div class="fi"><div class="fl">Max content width <span class="fh">1100px current</span></div><div class="rw"><input type="range" min="800" max="1400" step="50" value="1100" id="smw" oninput="this.nextElementSibling.textContent=this.value+'px'"/><span class="rv">1100px</span></div></div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--el)"></span>Cards & Borders</div>
+    <div class="fi"><div class="fl">Border opacity <span class="fh">0.07 current</span></div><div class="rw"><input type="range" min="0" max="0.2" step="0.01" value="0.07" id="sbo" oninput="this.nextElementSibling.textContent=this.value"/><span class="rv">0.07</span></div></div>
+    <div class="fi"><div class="fl">Button radius <span class="fh">2px = sharp</span></div><div class="rw"><input type="range" min="0" max="24" step="2" value="2" id="srad" oninput="this.nextElementSibling.textContent=this.value+'px'"/><span class="rv">2px</span></div></div>
+  </div>
+  <div class="br"><button class="btn bp" onclick="gSpacing()">Generate spacing snippet</button></div>
+  <div id="spOut" style="display:none;margin-top:16px;">
+    <div class="cw"><div class="cb" id="spCode"></div><button class="cc" onclick="cp('spCode',this)">Copy</button></div>
+  </div>
+</div>
+
+<!-- COPY -->
+<div class="panel" id="p-copy">
+  <h1>Copy & Text <span class="tag tk">Content</span></h1>
+  <p class="desc">Edit key text. Hit Generate to get find-and-replace pairs. Use Cmd+H (Mac) or Ctrl+H (Windows) in your text editor.</p>
+  <div class="card">
+    <div class="ct"><span class="dot"></span>Hero</div>
+    <div class="fi"><div class="fl">Tagline</div><textarea id="ctag" rows="2">Media and Communications specialist. I tell stories through photography and cinematography — across live events, executive communications, and social content that reaches millions.</textarea></div>
+    <div class="fi"><div class="fl">Location badge</div><input type="text" id="cloc" value="Sydney, NSW · Available for new projects"/></div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--el)"></span>Story Section</div>
+    <div class="fi"><div class="fl">Opening paragraph</div><textarea id="cstory" rows="3">I have been creating content through photography since I was eight years old. The childhood dream of creating a Lego film evolved into more than a decade's worth of professional experience covering events, sports, brands, and corporate communications.</textarea></div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--am)"></span>Contact & Footer</div>
+    <div class="fi"><div class="fl">Contact heading</div><input type="text" id="cch" value="Let's work together."/></div>
+    <div class="fi"><div class="fl">Contact sub-text</div><textarea id="ccs" rows="2">Whether it's a shoot, a campaign, or something that doesn't fit neatly into a category — get in touch.</textarea></div>
+    <div class="fi"><div class="fl">Email</div><input type="email" id="cemail" value="owen14ejw@gmail.com"/></div>
+    <div class="fi"><div class="fl">Footer line</div><input type="text" id="cfoot" value="© 2026 Owen Williams. All rights reserved. Sydney, NSW"/></div>
+  </div>
+  <div class="br"><button class="btn bp" onclick="gCopy()">Generate find &amp; replace pairs</button></div>
+  <div id="copyOut" style="display:none;margin-top:16px;">
+    <div class="cw"><div class="cb" id="copyCode"></div><button class="cc" onclick="cp('copyCode',this)">Copy all</button></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="panel" id="p-stats">
+  <h1>Stats & Numbers <span class="tag tk">Content</span></h1>
+  <p class="desc">Update numbers as your career stats grow. Each generates the exact attribute value to find and replace.</p>
+  <div class="card">
+    <div class="ct"><span class="dot"></span>Slider Game Answers</div>
+    <div class="fi"><div class="fl">Years shooting professionally</div><input type="number" id="syr" value="14" min="1" max="50"/></div>
+    <div class="fi"><div class="fl">Instagram views (millions) <span class="fh">Enter just the number</span></div><input type="number" id="svi" value="13"/></div>
+    <div class="fi"><div class="fl">Events shot in career</div><input type="number" id="sev" value="3000"/></div>
+    <div class="fi"><div class="fl">Schools (AK Photography)</div><input type="number" id="ssc" value="33"/></div>
+    <div class="fi"><div class="fl">Sports disciplines</div><input type="number" id="ssp" value="12"/></div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--el)"></span>MQU Stats</div>
+    <div class="fi"><div class="fl">Combined views</div><input type="text" id="smv" value="13M+"/></div>
+    <div class="fi"><div class="fl">Open Day impressions</div><input type="text" id="smi" value="2.4M"/></div>
+    <div class="fi"><div class="fl">Open Day reach</div><input type="text" id="smr" value="240K"/></div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--am)"></span>Woolworths Stats</div>
+    <div class="fi"><div class="fl">Team members reached</div><input type="text" id="swr" value="200K+"/></div>
+    <div class="fi"><div class="fl">Event attendees</div><input type="text" id="swe" value="3,000+"/></div>
+    <div class="fi"><div class="fl">Weekly invoicing</div><input type="text" id="swi" value="~$10K"/></div>
+    <div class="fi"><div class="fl">Event budget</div><input type="text" id="swb" value="$140K"/></div>
+  </div>
+  <div class="br"><button class="btn bp" onclick="gStats()">Generate find &amp; replace pairs</button></div>
+  <div id="statsOut" style="display:none;margin-top:16px;">
+    <div class="cw"><div class="cb" id="statsCode"></div><button class="cc" onclick="cp('statsCode',this)">Copy</button></div>
+  </div>
+</div>
+
+<!-- LINKS -->
+<div class="panel" id="p-links">
+  <h1>Links & Social <span class="tag tk">Content</span></h1>
+  <p class="desc">Update social URLs, contact details, and the Formspree ID (used for both forms on the site).</p>
+  <div class="card">
+    <div class="ct"><span class="dot"></span>Social</div>
+    <div class="fi"><div class="fl">Instagram</div><input type="url" id="lig" value="https://instagram.com/owenejw"/></div>
+    <div class="fi"><div class="fl">LinkedIn</div><input type="url" id="lli" value="https://linkedin.com/in/owenejw"/></div>
+    <div class="fi"><div class="fl">TikTok</div><input type="url" id="ltt" value=""/></div>
+    <div class="fi"><div class="fl">YouTube</div><input type="url" id="lyt" value=""/></div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--el)"></span>Contact</div>
+    <div class="fi"><div class="fl">Email</div><input type="email" id="lem" value="owen14ejw@gmail.com"/></div>
+    <div class="fi"><div class="fl">Formspree ID <span class="fh">After formspree.io/f/</span></div><input type="text" id="lfs" value="xjglkdbp"/></div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--am)"></span>Meta</div>
+    <div class="fi"><div class="fl">Live domain</div><input type="url" id="ldom" value="https://owenejw.com"/></div>
+    <div class="fi"><div class="fl">Site title</div><input type="text" id="ltit" value="Owen Williams · Media & Communications"/></div>
+  </div>
+  <div class="br"><button class="btn bp" onclick="gLinks()">Generate find &amp; replace pairs</button></div>
+  <div id="linksOut" style="display:none;margin-top:16px;">
+    <div class="cw"><div class="cb" id="linksCode"></div><button class="cc" onclick="cp('linksCode',this)">Copy</button></div>
+  </div>
+</div>
+
+<!-- EXPORT -->
+<div class="panel" id="p-export">
+  <h1>Export & Save</h1>
+  <p class="desc">Generate everything at once, or save settings to this browser for next time.</p>
+  <div class="card">
+    <div class="ct"><span class="dot"></span>Full CSS Variables Block</div>
+    <p style="font-size:13px;color:var(--tx2);margin-bottom:16px;line-height:1.6;">Replaces the <code>:root{}</code> block at the top of index.html. All colour changes in one paste.</p>
+    <button class="btn bp" onclick="gFull()">Generate full export</button>
+    <div id="fullOut" style="display:none;margin-top:16px;">
+      <div class="cw"><div class="cb" id="fullCode"></div><button class="cc" onclick="cp('fullCode',this)">Copy</button></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--el)"></span>Save to Browser</div>
+    <p style="font-size:13px;color:var(--tx2);margin-bottom:16px;">Saves all your current values. They load automatically next time you open admin.html.</p>
+    <div class="br">
+      <button class="btn bs" onclick="doSave()">💾 Save</button>
+      <button class="btn bs" onclick="doLoad()">📂 Load saved</button>
+      <button class="btn bs" onclick="doClear()">🗑 Clear</button>
+    </div>
+    <div id="saveSt" class="st"></div>
+  </div>
+</div>
+
+<!-- HOW TO -->
+<div class="panel" id="p-howto">
+  <h1>How to use this tool</h1>
+  <p class="desc">Making changes without touching code.</p>
+  <div class="card">
+    <div class="ct"><span class="dot"></span>The workflow</div>
+    <ol>
+      <li>Make changes in any panel</li>
+      <li>Hit the <strong style="color:var(--tx)">Generate</strong> button</li>
+      <li>Click <strong style="color:var(--tx)">Copy</strong> on the output</li>
+      <li>Open the HTML file in a text editor (VS Code, TextEdit, Notepad)</li>
+      <li><strong style="color:var(--el)">CSS snippets</strong> — find the matching CSS block and replace it</li>
+      <li><strong style="color:var(--am)">Find & Replace pairs</strong> — use Cmd+H (Mac) / Ctrl+H (Windows)</li>
+      <li>Save → push to GitHub → Vercel deploys in ~30 seconds</li>
+    </ol>
+  </div>
+  <div class="card">
+    <div class="ct"><span class="dot" style="background:var(--el)"></span>Tips</div>
+    <ul>
+      <li>Use <strong style="color:var(--tx)">Save to browser</strong> so values persist between sessions</li>
+      <li>Keep admin.html in your portfolio folder locally — it never needs to go online</li>
+      <li>Colour preview updates in real time as you pick</li>
+      <li>Font previews load from Google Fonts — needs internet to preview</li>
+      <li>If something breaks, GitHub has your full history — you can revert any time</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// NAV
+function sp(id,el){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('nav ul li a').forEach(function(a){a.classList.remove('on');});
+  document.getElementById('p-'+id).classList.add('on');
+  if(el)el.classList.add('on');
+}
+
+// COLOURS
+var C={hot:'#ff2d6b',electric:'#00f5c4',violet:'#7b2fff',amber:'#ffb800',cream:'#f0ece3',ink:'#0a0a0a'};
+function sc(n,v){
+  C[n]=v;
+  var sw=document.getElementById('sw-'+n);if(sw)sw.style.background=v;
+  var hx=document.getElementById('hx-'+n);if(hx)hx.textContent=v;
+  uprev();
+}
+function uprev(){
+  var ch=document.getElementById('cpchips');
+  if(!ch)return;
+  ch.innerHTML=['hot','electric','violet','amber'].map(function(c){
+    return '<div style="padding:6px 14px;border-radius:3px;font-size:12px;border:1px solid '+C[c]+';color:'+C[c]+'">'+c+'</div>';
+  }).join('');
+  var bg=document.getElementById('cpbg');if(bg)bg.style.background=C.ink;
+  var tx=document.getElementById('cptx');if(tx)tx.style.color=C.cream;
+}
+function gCol(){
+  document.getElementById('colCode').textContent=':root{\n  --ink:'+C.ink+';\n  --cream:'+C.cream+';\n  --hot:'+C.hot+';\n  --electric:'+C.electric+';\n  --violet:'+C.violet+';\n  --amber:'+C.amber+';\n}';
+  document.getElementById('colOut').style.display='block';
+}
+function resetC(){var d={hot:'#ff2d6b',electric:'#00f5c4',violet:'#7b2fff',amber:'#ffb800',cream:'#f0ece3',ink:'#0a0a0a'};Object.keys(d).forEach(function(k){sc(k,d[k]);});}
+
+// FONTS
+var LF={};
+function lgf(n){if(!n||LF[n])return;var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(n)+':wght@300;400;600;700;900&display=swap';document.head.appendChild(l);LF[n]=true;}
+function pf(t){
+  var p=document.getElementById('p'+t);if(!p)return;
+  if(t==='d'){
+    var f=document.getElementById('fd').value,w=document.getElementById('fdw').value,ls=parseFloat(document.getElementById('fdls').value).toFixed(3)+'em';
+    p.style.cssText='font-family:"'+f+'",sans-serif;font-weight:'+w+';letter-spacing:'+ls+';font-size:18px;background:var(--bg);border:1px solid var(--bd2);border-radius:6px;padding:12px 16px;margin-top:8px;color:var(--tx);';
+    lgf(f);
+  } else if(t==='m'){
+    var f2=document.getElementById('fm').value,ls2=parseFloat(document.getElementById('fmls').value).toFixed(2)+'em';
+    p.style.cssText='font-family:"'+f2+'",monospace;font-size:11px;letter-spacing:'+ls2+';text-transform:uppercase;background:var(--bg);border:1px solid var(--bd2);border-radius:6px;padding:12px 16px;margin-top:8px;color:var(--tx);';
+    lgf(f2);
+  } else {
+    var f3=document.getElementById('fb').value,sz=document.getElementById('fbsz').value+'px',lh=document.getElementById('fblh').value;
+    p.style.cssText='font-family:"'+f3+'",sans-serif;font-size:'+sz+';line-height:'+lh+';background:var(--bg);border:1px solid var(--bd2);border-radius:6px;padding:12px 16px;margin-top:8px;color:var(--tx);';
+    lgf(f3);
+  }
+}
+function gFont(){
+  var d=document.getElementById('fd').value,m=document.getElementById('fm').value,b=document.getElementById('fb').value;
+  var dw=document.getElementById('fdw').value,dls=parseFloat(document.getElementById('fdls').value).toFixed(3)+'em';
+  var mls=parseFloat(document.getElementById('fmls').value).toFixed(2)+'em';
+  var bsz=document.getElementById('fbsz').value+'px',blh=document.getElementById('fblh').value;
+  var gu='https://fonts.googleapis.com/css2?family='+encodeURIComponent(d)+':wght@300;400;700;900&family='+encodeURIComponent(m)+':wght@400;700&family='+encodeURIComponent(b)+':wght@300;400&display=swap';
+  document.getElementById('fontCode').textContent='/* Step 1: Replace Google Fonts <link> in <head> */\n<link href="'+gu+'" rel="stylesheet">\n\n/* Step 2: Update CSS */\n.hero-name,.section-title,h1,h2 {\n  font-family: "'+d+'",sans-serif;\n  font-weight: '+dw+';\n  letter-spacing: '+dls+';\n}\n.section-label,.chip,nav a {\n  font-family: "'+m+'",monospace;\n  letter-spacing: '+mls+';\n}\nbody,p,.tl-desc {\n  font-family: "'+b+'",sans-serif;\n  font-size: '+bsz+';\n  line-height: '+blh+';\n}';
+  document.getElementById('fontOut').style.display='block';
+}
+
+// SPACING
+function gSpacing(){
+  var hp=document.getElementById('shp').value,vp=document.getElementById('svp').value;
+  var mw=document.getElementById('smw').value,bo=document.getElementById('sbo').value,rad=document.getElementById('srad').value;
+  document.getElementById('spCode').textContent='/* Replace in CSS */\n.section-inner { padding: 0 '+hp+'px; max-width: '+mw+'px; }\n.section-wrap { padding: '+vp+'px 0; }\n\n/* Find: rgba(240,236,227,0.07) → Replace: rgba(240,236,227,'+bo+') */\n/* Find: border-radius:2px → Replace: border-radius:'+rad+'px */';
+  document.getElementById('spOut').style.display='block';
+}
+
+// COPY
+function gCopy(){
+  var p=[
+    ['Media and Communications specialist. I tell stories',document.getElementById('ctag').value.substring(0,80)],
+    ['I have been creating content through photography since I was eight',document.getElementById('cstory').value.substring(0,80)],
+    ["Let's work together.",document.getElementById('cch').value],
+    ['owen14ejw@gmail.com',document.getElementById('cemail').value],
+  ];
+  document.getElementById('copyCode').textContent=p.map(function(x){return'/* FIND */\n'+x[0]+'\n/* REPLACE WITH */\n'+x[1]+'\n';}).join('\n');
+  document.getElementById('copyOut').style.display='block';
+}
+
+// STATS
+function gStats(){
+  var out='/* SLIDER GAME — find data-answer= in index.html */\n'+
+    'Years:   data-answer="14"  →  data-answer="'+document.getElementById('syr').value+'"\n'+
+    'Views:   data-answer="13000000"  →  data-answer="'+(parseInt(document.getElementById('svi').value)*1000000)+'"\n'+
+    'Events:  data-answer="3000"  →  data-answer="'+document.getElementById('sev').value+'"\n'+
+    'Schools: data-answer="33"  →  data-answer="'+document.getElementById('ssc').value+'"\n'+
+    'Sports:  data-answer="12"  →  data-answer="'+document.getElementById('ssp').value+'"\n\n'+
+    '/* MQU — find in mqu.html */\n'+
+    '"13M+"  →  "'+document.getElementById('smv').value+'"\n'+
+    '"2.4M"  →  "'+document.getElementById('smi').value+'"\n'+
+    '"240K"  →  "'+document.getElementById('smr').value+'"\n\n'+
+    '/* WOOLWORTHS — find in woolworths.html */\n'+
+    '"200K+"  →  "'+document.getElementById('swr').value+'"\n'+
+    '"3,000+"  →  "'+document.getElementById('swe').value+'"\n'+
+    '"~$10K"  →  "'+document.getElementById('swi').value+'"\n'+
+    '"$140K"  →  "'+document.getElementById('swb').value+'"';
+  document.getElementById('statsCode').textContent=out;
+  document.getElementById('statsOut').style.display='block';
+}
+
+// LINKS
+function gLinks(){
+  var out='/* SOCIAL — find in index.html contact section */\n'+
+    '"https://instagram.com/owenejw"  →  "'+document.getElementById('lig').value+'"\n'+
+    '"https://linkedin.com/in/owenejw"  →  "'+document.getElementById('lli').value+'"\n'+
+    '"owen14ejw@gmail.com"  →  "'+document.getElementById('lem').value+'"\n'+
+    '"xjglkdbp"  →  "'+document.getElementById('lfs').value+'"\n\n'+
+    '/* TITLE — find <title> in each HTML file */\n'+
+    '"Owen Williams · Media & Communications"  →  "'+document.getElementById('ltit').value+'"';
+  document.getElementById('linksCode').textContent=out;
+  document.getElementById('linksOut').style.display='block';
+}
+
+// FULL EXPORT
+function gFull(){
+  document.getElementById('fullCode').textContent='/* ═══════════════════════════════\n   OW PORTFOLIO — SITE CONFIG\n   Generated by admin.html\n   ═══════════════════════════════ */\n\n:root {\n  --ink: '+C.ink+';\n  --cream: '+C.cream+';\n  --hot: '+C.hot+';\n  --electric: '+C.electric+';\n  --violet: '+C.violet+';\n  --amber: '+C.amber+';\n}';
+  document.getElementById('fullOut').style.display='block';
+}
+
+// SAVE/LOAD
+function doSave(){localStorage.setItem('ow_adm',JSON.stringify({C:C}));showS('ok','✓ Saved.');}
+function doLoad(){var r=localStorage.getItem('ow_adm');if(!r){showS('warn','Nothing saved.');return;}var d=JSON.parse(r);if(d.C)Object.keys(d.C).forEach(function(k){sc(k,d.C[k]);});showS('ok','✓ Loaded.');}
+function doClear(){localStorage.removeItem('ow_adm');showS('warn','Cleared.');}
+function showS(t,m){var e=document.getElementById('saveSt');e.className='st '+t+' on';e.textContent=m;setTimeout(function(){e.className='st';},3000);}
+
+// COPY TO CLIPBOARD
+function cp(id,btn){
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(function(){
+    var o=btn.textContent;btn.textContent='Copied ✓';setTimeout(function(){btn.textContent=o;},1500);
+  });
+}
+
+uprev();
+</script>
+</body>
+</html>

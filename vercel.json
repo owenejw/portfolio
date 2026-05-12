@@ -51,6 +51,10 @@
     {
       "source": "/ak-photography",
       "destination": "/ak-photography.html"
+    },
+    {
+      "source": "/tiktok-hq",
+      "destination": "/tiktok-hq.html"
     }
   ]
 }
